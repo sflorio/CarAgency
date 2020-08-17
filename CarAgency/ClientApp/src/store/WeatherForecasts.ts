@@ -1,8 +1,10 @@
 import { Action, Reducer } from 'redux';
 import { AppThunkAction } from './';
-
+import { RECEIVE_WEATHER_FORECASTS,REQUEST_WEATHER_FORECASTS} from "./actionTypes"
 // -----------------
 // STATE - This defines the type of data maintained in the Redux store.
+
+
 
 export interface WeatherForecastsState {
     isLoading: boolean;
@@ -22,12 +24,12 @@ export interface WeatherForecast {
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 
 interface RequestWeatherForecastsAction {
-    type: 'REQUEST_WEATHER_FORECASTS';
+    type: typeof REQUEST_WEATHER_FORECASTS;
     startDateIndex: number;
 }
 
 interface ReceiveWeatherForecastsAction {
-    type: 'RECEIVE_WEATHER_FORECASTS';
+    type: typeof RECEIVE_WEATHER_FORECASTS;
     startDateIndex: number;
     forecasts: WeatherForecast[];
 }
@@ -48,10 +50,10 @@ export const actionCreators = {
             fetch(`weatherforecast`)
                 .then(response => response.json() as Promise<WeatherForecast[]>)
                 .then(data => {
-                    dispatch({ type: 'RECEIVE_WEATHER_FORECASTS', startDateIndex: startDateIndex, forecasts: data });
+                    dispatch({ type: RECEIVE_WEATHER_FORECASTS, startDateIndex: startDateIndex, forecasts: data });
                 });
 
-            dispatch({ type: 'REQUEST_WEATHER_FORECASTS', startDateIndex: startDateIndex });
+            dispatch({ type: REQUEST_WEATHER_FORECASTS, startDateIndex: startDateIndex });
         }
     }
 };
@@ -68,13 +70,13 @@ export const reducer: Reducer<WeatherForecastsState> = (state: WeatherForecastsS
 
     const action = incomingAction as KnownAction;
     switch (action.type) {
-        case 'REQUEST_WEATHER_FORECASTS':
+        case REQUEST_WEATHER_FORECASTS:
             return {
                 startDateIndex: action.startDateIndex,
                 forecasts: state.forecasts,
                 isLoading: true
             };
-        case 'RECEIVE_WEATHER_FORECASTS':
+        case RECEIVE_WEATHER_FORECASTS:
             // Only accept the incoming data if it matches the most recent request. This ensures we correctly
             // handle out-of-order responses.
             if (action.startDateIndex === state.startDateIndex) {

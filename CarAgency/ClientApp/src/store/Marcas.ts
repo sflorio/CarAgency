@@ -1,29 +1,79 @@
 import { Action, Reducer  } from "redux";
 import { AppThunkAction } from "./";
+import * as actionTypes from "./actionTypes/marcas"
+import axios from 'axios';
+
 
 export interface MarcaState{
     isLoading: boolean;
     startDateIndex?: number;
+    page?: number;
+    rowsPerPage?: number;
+    classes?: object;
     marcas: Marca[];
 }
 
 export interface Marca{
-    marcaId: number,    
+    marcaId?: number,    
     descripcion: string
 }
 
 interface RequestMarcasAction{
-    type: "REQUEST_MARCA";
+    type: typeof actionTypes.REQUEST_MARCA;
     startDateIndex: number;
 };
 
 interface ReceiveMarcasAction{
-    type: "RECEIVE_MARCA";
+    type: typeof actionTypes.RECEIVE_MARCA;
     startDateIndex: number;
     marcas: Marca[];
 };
 
-type KnownAction = RequestMarcasAction | ReceiveMarcasAction;
+
+interface GetMarcasSucessAction {
+    type: typeof actionTypes.GET_MARCA_SUCESS;
+    marcaId: number;
+};
+
+interface GetMarcasFailureAction {
+    type: typeof actionTypes.GET_MARCA_FAILURE;
+    error: "";
+};
+
+interface AddMarcasSucessAction {
+    type: typeof actionTypes.ADD_MARCA_SUCESS;
+    marcas: Marca;
+};
+
+interface AddMarcasFailureAction {
+    type: typeof actionTypes.ADD_MARCA_FAILURE;
+    error: "";
+};
+
+
+interface UpdateMarcasSucessAction {
+    type: typeof actionTypes.UPDATE_MARCA_SUCESS;
+    marcas: Marca;
+};
+
+interface UpdateMarcasFailureAction {
+    type: typeof actionTypes.UPDATE_MARCA_FAILURE;
+    error: "";
+};
+
+
+interface DeleteMarcasSucessAction {
+    type: typeof actionTypes.DELETE_MARCA_SUCESS;
+    marcaId: number;
+};
+
+interface DeleteMarcasFailureAction {
+    type: typeof actionTypes.DELETE_MARCA_FAILURE;
+    error: "";
+};
+
+
+type KnownAction = RequestMarcasAction | ReceiveMarcasAction | GetMarcasSucessAction | GetMarcasFailureAction | AddMarcasSucessAction | AddMarcasFailureAction | UpdateMarcasSucessAction    | UpdateMarcasFailureAction | DeleteMarcasSucessAction | DeleteMarcasFailureAction;
 
 
 
@@ -35,11 +85,52 @@ export const actionCreators = {
             fetch(`marcas`)
                 .then(response => response.json() as Promise<Marca[]>)
                 .then(data => {
-                    dispatch({ type: 'RECEIVE_MARCA', startDateIndex: startDateIndex, marcas: data });
+                    dispatch({ type: actionTypes.RECEIVE_MARCA, startDateIndex: startDateIndex, marcas: data });
                 });
 
-            dispatch({ type: 'REQUEST_MARCA', startDateIndex: startDateIndex });
+            dispatch({ type: actionTypes.REQUEST_MARCA, startDateIndex: startDateIndex });
         }
+    },
+    getMarca: (marcaId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+
+        axios
+        .get(`Marcas/` + marcaId)
+        .then( Response => Response )
+        .then(res => {
+          dispatch({ type: actionTypes.GET_MARCA_SUCESS, marcaId });
+        }).catch((error)=>{
+            console.log(error);
+        });
+
+    },
+    addMarca: (marca: Marca): AppThunkAction<KnownAction> => (dispatch, getState) => {
+
+        console.log("addMarca");
+        
+        axios
+      .post(`Marcas`, marca)
+      .then(res => {
+        dispatch({ type: actionTypes.ADD_MARCA_SUCESS, marcas: marca });
+      });
+
+    },
+    updateMarca: (marcaId: number, marca: Marca): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+        console.log("updateMarca");
+        axios
+        .put(`Marcas/` +  marcaId , marca)
+        .then(res => {
+          dispatch({ type: actionTypes.UPDATE_MARCA_SUCESS, marcas: marca });
+        });
+
+    },
+    deleteMarca: (marcaId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+        console.log("deleteMarca");
+        axios
+        .delete(`Marcas/` + marcaId)
+        .then(res => {
+          dispatch({ type: actionTypes.DELETE_MARCA_SUCESS, marcaId });
+        });
+
     }
 };
 
@@ -53,13 +144,13 @@ export const reducer: Reducer<MarcaState> = (state: MarcaState | undefined, inco
 
     const action = incomingAction as KnownAction;
     switch (action.type) {
-        case 'REQUEST_MARCA':
+        case actionTypes.REQUEST_MARCA:
             return {
                 startDateIndex: action.startDateIndex,
                 marcas: state.marcas,
                 isLoading: true
             };
-        case 'RECEIVE_MARCA':
+        case actionTypes.RECEIVE_MARCA:
             // Only accept the incoming data if it matches the most recent request. This ensures we correctly
             // handle out-of-order responses.
             if (action.startDateIndex === state.startDateIndex) {
@@ -68,8 +159,14 @@ export const reducer: Reducer<MarcaState> = (state: MarcaState | undefined, inco
                     marcas: action.marcas,
                     isLoading: false
                 };
-            }
-            break;
+            };
+        case actionTypes.ADD_MARCA_SUCESS:
+            return {
+                marcas: state.marcas.concat(action.marcas),
+                isLoading: false
+            };
+            
+        break;
     }
 
     return state;
