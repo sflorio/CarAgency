@@ -6,55 +6,54 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarAgency.Data;
-using CarAgency.Models;
 using CarAgency.Models.Vehiculos;
 
 namespace CarAgency.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ModelosController : ControllerBase
+    public class VehiculosController : ControllerBase
     {
         private readonly CarAgencyDBContext _context;
 
-        public ModelosController(CarAgencyDBContext context)
+        public VehiculosController(CarAgencyDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Modelos
+        // GET: api/Vehiculos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Modelo>>> GetModelos()
+        public async Task<ActionResult<IEnumerable<Vehiculo>>> GetVehiculos()
         {
-            return await _context.Modelos.ToListAsync();
+            return await _context.Vehiculos.ToListAsync();
         }
 
-        // GET: api/Modelos/5
+        // GET: api/Vehiculos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Modelo>> GetModelo(int id)
+        public async Task<ActionResult<Vehiculo>> GetVehiculo(int id)
         {
-            var modelo = await _context.Modelos.FindAsync(id);
+            var vehiculo = await _context.Vehiculos.FindAsync(id);
 
-            if (modelo == null)
+            if (vehiculo == null)
             {
                 return NotFound();
             }
 
-            return modelo;
+            return vehiculo;
         }
 
-        // PUT: api/Modelos/5
+        // PUT: api/Vehiculos/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModelo(int id, Modelo modelo)
+        public async Task<IActionResult> PutVehiculo(int id, Vehiculo vehiculo)
         {
-            if (id != modelo.ModeloId)
+            if (id != vehiculo.VehiculoId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(modelo).State = EntityState.Modified;
+            _context.Entry(vehiculo).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace CarAgency.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ModeloExists(id))
+                if (!VehiculoExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace CarAgency.Controllers
             return NoContent();
         }
 
-        // POST: api/Modelos
+        // POST: api/Vehiculos
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Modelo>> PostModelo(Modelo modelo)
+        public async Task<ActionResult<Vehiculo>> PostVehiculo(Vehiculo vehiculo)
         {
-            _context.Modelos.Add(modelo);
+            _context.Vehiculos.Add(vehiculo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetModelo", new { id = modelo.ModeloId }, modelo);
+            return CreatedAtAction("GetVehiculo", new { id = vehiculo.VehiculoId }, vehiculo);
         }
 
-        // DELETE: api/Modelos/5
+        // DELETE: api/Vehiculos/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Modelo>> DeleteModelo(int id)
+        public async Task<ActionResult<Vehiculo>> DeleteVehiculo(int id)
         {
-            var modelo = await _context.Modelos.FindAsync(id);
-            if (modelo == null)
+            var vehiculo = await _context.Vehiculos.FindAsync(id);
+            if (vehiculo == null)
             {
                 return NotFound();
             }
 
-            _context.Modelos.Remove(modelo);
+            _context.Vehiculos.Remove(vehiculo);
             await _context.SaveChangesAsync();
 
-            return modelo;
+            return vehiculo;
         }
 
-        private bool ModeloExists(int id)
+        private bool VehiculoExists(int id)
         {
-            return _context.Modelos.Any(e => e.ModeloId == id);
+            return _context.Vehiculos.Any(e => e.VehiculoId == id);
         }
     }
 }

@@ -111,7 +111,9 @@ export const actionCreators = {
       .post(`Marcas`, marca)
       .then(res => {
         dispatch({ type: actionTypes.ADD_MARCA_SUCESS, marcas: marca });
-      });
+      }).catch((error)=>{
+        console.log(error);
+    });
 
     },
     updateMarca: (marcaId: number, marca: Marca): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
@@ -120,6 +122,8 @@ export const actionCreators = {
         .put(`Marcas/` +  marcaId , marca)
         .then(res => {
           dispatch({ type: actionTypes.UPDATE_MARCA_SUCESS, marcas: marca });
+        }).catch((error)=>{
+            console.log(error);
         });
 
     },
@@ -129,6 +133,8 @@ export const actionCreators = {
         .delete(`Marcas/` + marcaId)
         .then(res => {
           dispatch({ type: actionTypes.DELETE_MARCA_SUCESS, marcaId });
+        }).catch((error)=>{
+            console.log(error);
         });
 
     }
@@ -163,6 +169,17 @@ export const reducer: Reducer<MarcaState> = (state: MarcaState | undefined, inco
         case actionTypes.ADD_MARCA_SUCESS:
             return {
                 marcas: state.marcas.concat(action.marcas),
+                isLoading: false
+            };
+
+        case actionTypes.UPDATE_MARCA_SUCESS:
+            return {
+                marcas: state.marcas.map(i => ( i.marcaId === action.marcas.marcaId ?{...i, descripcion : action.marcas.descripcion} : i )),
+                isLoading: false
+            };
+        case actionTypes.DELETE_MARCA_SUCESS:
+            return {
+                marcas: state.marcas.filter(i => i.marcaId !== action.marcaId),
                 isLoading: false
             };
             
