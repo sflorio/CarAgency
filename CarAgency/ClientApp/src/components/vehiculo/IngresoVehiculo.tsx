@@ -14,10 +14,11 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import VehiculoForm from './vehiculoForm';
+import TitularForm from 'components/titular/TitularForm';
 import { Container, Button } from '@material-ui/core';
 
-
 import TabPanel from "components/common/forms/TabPanel";
+
 
 
 
@@ -99,8 +100,8 @@ public componentDidMount() {
                         <TabPanel value={this.state.value} index={0}>
                             <VehiculoForm onChange={this.handleOnInputChange}></VehiculoForm>
                         </TabPanel>
-                        <TabPanel value={this.state.value} index={1}>
-                            Titular
+                        <TabPanel value={this.state.value} index={1}>                            
+                            <TitularForm onChange={this.handleOnInputChange}></TitularForm>               
                         </TabPanel>
                         <TabPanel value={this.state.value} index={2}>
                             Ficha Tecnica
