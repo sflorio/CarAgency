@@ -29,8 +29,7 @@ function a11yProps(index: any) {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
-
-
+  
 type VehiculosProps =
   VehiculosStore.VehiculoState // ... state we've requested from the Redux store
   & typeof VehiculosStore.actionCreators // ... plus action creators we've requested
@@ -40,10 +39,12 @@ type VehiculosProps =
 //       value: number
 //   }
 
-  class IngresoVehiculo extends React.Component<VehiculosProps,any> {
+class IngresoVehiculo extends React.Component<VehiculosProps, any> {
     constructor(props: VehiculosProps) {
         super(props);
-        this.setState({value: 0 });
+        this.state = { 
+            value: null        
+        };    
 
     }
 
@@ -88,23 +89,23 @@ public componentDidMount() {
                 <Container>
                     <Container>
                         <AppBar position="static">
-                            <Tabs value={0} onChange={this.handleChange} aria-label="simple tabs example">
-                            <Tab label="Vehiculo" {...a11yProps(0)} />
-                            <Tab label="Titular" {...a11yProps(1)} />
-                            <Tab label="Ficha Tecnica" {...a11yProps(2)} />
-                            <Tab label="Gastos" {...a11yProps(3)} />
+                            <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
+                              <Tab label="Vehiculo" {...a11yProps(0)} />
+                              <Tab label="Titular" {...a11yProps(1)} />
+                              <Tab label="Ficha Tecnica" {...a11yProps(2)} />
+                              <Tab label="Gastos" {...a11yProps(3)} />
                             </Tabs>
                         </AppBar>
-                        <TabPanel value={0} index={0}>
+                        <TabPanel value={this.state.value} index={0}>
                             <VehiculoForm onChange={this.handleOnInputChange}></VehiculoForm>
                         </TabPanel>
-                        <TabPanel value={1} index={1}>
+                        <TabPanel value={this.state.value} index={1}>
                             Titular
                         </TabPanel>
-                        <TabPanel value={2} index={2}>
+                        <TabPanel value={this.state.value} index={2}>
                             Ficha Tecnica
                         </TabPanel>
-                        <TabPanel value={3} index={2}>
+                        <TabPanel value={this.state.value} index={3}>
                             Gastos
                         </TabPanel>
                     </Container>

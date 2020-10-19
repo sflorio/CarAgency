@@ -9,13 +9,7 @@ interface TabPanelProps {
     value: any;
   }
 
-  function a11yProps(index: any) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
-  
+    
   export default function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
   
