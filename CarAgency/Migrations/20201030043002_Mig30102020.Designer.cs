@@ -4,14 +4,16 @@ using CarAgency.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarAgency.Migrations
 {
     [DbContext(typeof(CarAgencyDBContext))]
-    partial class CarAgencyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201030043002_Mig30102020")]
+    partial class Mig30102020
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,13 +83,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -96,7 +98,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -117,13 +119,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -135,7 +137,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -156,13 +158,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -171,7 +173,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -195,13 +197,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -219,7 +221,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -304,13 +306,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -337,7 +339,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -381,19 +383,19 @@ namespace CarAgency.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -437,19 +439,19 @@ namespace CarAgency.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -470,13 +472,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -488,7 +490,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -511,13 +513,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -526,7 +528,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -617,13 +619,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -662,7 +664,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
