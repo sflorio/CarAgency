@@ -15,11 +15,12 @@ import Box from '@material-ui/core/Box';
 
 import VehiculoForm from './vehiculoForm';
 import TitularForm from 'components/titular/TitularForm';
+import Gastos from 'components/movimientos/Movimientos';
 import { Container, Button } from '@material-ui/core';
 
 import TabPanel from "components/common/forms/TabPanel";
 
-
+ 
 
 
 
@@ -108,6 +109,7 @@ public componentDidMount() {
                         </TabPanel>
                         <TabPanel value={this.state.value} index={3}>
                             Gastos
+                            <Gastos onChange={this.handleOnInputChange}></Gastos>
                         </TabPanel>
                     </Container>
                     <Container>
