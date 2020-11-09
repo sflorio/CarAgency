@@ -2,6 +2,7 @@ import * as WeatherForecasts from './WeatherForecasts';
 import * as Counter from './Counter';
 import * as Marcas from './Marcas';
 import * as Vehiculos from 'store/actions/vehiculos';
+import * as Transacciones from 'store/actions/transacciones';
 
 // The top-level state object
 export interface ApplicationState {
@@ -9,6 +10,7 @@ export interface ApplicationState {
     weatherForecasts: WeatherForecasts.WeatherForecastsState | undefined;
     marcas: Marcas.MarcaState | undefined;
     vehiculos: Vehiculos.VehiculoState | undefined;
+    transacciones: Transacciones.TransaccionState | undefined;
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property using
@@ -18,7 +20,8 @@ export const reducers = {
     counter: Counter.reducer,
     weatherForecasts: WeatherForecasts.reducer,
     marcas : Marcas.reducer,
-    vehiculos : Vehiculos.reducer
+    vehiculos : Vehiculos.reducer,
+    transacciones : Transacciones.reducer
 };
 
 // This type can be used as a hint on action creators so that its 'dispatch' and 'getState' params are

@@ -9,7 +9,7 @@ import MaterialTable, { Column } from 'material-table';
 
 
 //other custom components
-import GastoForm from './GastoForm';
+import GastoForm from './MovimientoForm';
 
 // At runtime, Redux will merge together...
 type GastosProps =

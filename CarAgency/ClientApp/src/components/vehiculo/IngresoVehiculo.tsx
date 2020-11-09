@@ -15,7 +15,7 @@ import Box from '@material-ui/core/Box';
 
 import VehiculoForm from './vehiculoForm';
 import TitularForm from 'components/titular/TitularForm';
-import Gastos from 'components/gastos/Gastos';
+import Gastos from 'components/movimientos/Movimientos';
 import { Container, Button } from '@material-ui/core';
 
 import TabPanel from "components/common/forms/TabPanel";
