@@ -21,18 +21,15 @@ interface ReceiveTransaccionsAction{
     transacciones: Transaccion[];
 };
 
-
 interface GetTransaccionsSucessAction {
     type: typeof actionTypes.GET_TRANSACCION_SUCESS;
     transaccionId: number;
 };
 
-
 interface AddTransaccionsSucessAction {
     type: typeof actionTypes.ADD_TRANSACCION_SUCESS;
     transaccion: Transaccion;
 };
-
 
 interface UpdateTransaccionsSucessAction {
     type: typeof actionTypes.UPDATE_TRANSACCION_SUCESS;
@@ -45,8 +42,6 @@ interface DeleteTransaccionsSucessAction {
 };
 
 type KnownAction = RequestTransaccionsAction | ReceiveTransaccionsAction | GetTransaccionsSucessAction | AddTransaccionsSucessAction  | UpdateTransaccionsSucessAction    | DeleteTransaccionsSucessAction ;
-
-
 
 export const actionCreators = {
     requestTransaccions: (startDateIndex: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
@@ -107,12 +102,10 @@ export const actionCreators = {
         }).catch((error)=>{
             console.log(error);
         });
-
     }
 };
 
 const unloadedState : TransaccionState = { transacciones: [], isLoading: false };
-
 
 export const reducer: Reducer<TransaccionState> = (state: TransaccionState | undefined, incomingAction: Action):TransaccionState => {
     if (state === undefined) {
@@ -142,12 +135,12 @@ export const reducer: Reducer<TransaccionState> = (state: TransaccionState | und
             };
         case actionTypes.UPDATE_TRANSACCION_SUCESS:
             return {
-               transacciones: state.transacciones.map(i => ( i.TransaccionId === action.transaccion.TransaccionId ?{...i, descripcion : action.transaccion.Dominio} : i )),
+               transacciones: state.transacciones.map(i => ( i.TransaccionId === action.transaccion.TransaccionId ?{...i, Monto : action.transaccion.Monto} : i )),
                 isLoading: false
             };
         case actionTypes.DELETE_TRANSACCION_SUCESS:
             return {
-               transacciones: state.transacciones.filter(i => i.TransaccionId !== action.TransaccionId),
+                transacciones: state.transacciones.filter(i => i.TransaccionId !== action.transaccionId),
                 isLoading: false
             };
             
