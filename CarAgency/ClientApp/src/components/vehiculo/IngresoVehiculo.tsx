@@ -109,7 +109,7 @@ public componentDidMount() {
                         </TabPanel>
                         <TabPanel value={this.state.value} index={3}>
                             Gastos
-                            <Gastos onChange={this.handleOnInputChange}></Gastos>
+                            
                         </TabPanel>
                     </Container>
                     <Container>

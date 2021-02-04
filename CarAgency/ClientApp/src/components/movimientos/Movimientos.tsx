@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
-import * as VehiculosStore from '../../store/actions/vehiculos';
+import * as TransaccionesStore from '../../store/actions/transacciones';
 import MaterialTable, { Column } from 'material-table';
 
 
@@ -12,12 +12,21 @@ import MaterialTable, { Column } from 'material-table';
 import GastoForm from './MovimientoForm';
 
 // At runtime, Redux will merge together...
-type GastosProps =
-  GastosStore.GastoState // ... state we've requested from the Redux store
-  & typeof GastosStore.actionCreators // ... plus action creators we've requested
+type MovimientosProps =
+  TransaccionesStore.TransaccionState // ... state we've requested from the Redux store
+  & typeof TransaccionesStore.actionCreators // ... plus action creators we've requested
   & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
 
-class ListaGastos extends React.Component<GastosProps> {
+class ListaMovimientos extends React.Component<MovimientosProps> {
+  constructor(props: any) {
+    super(props);
+}
+
+  ChangeHandler = (event: any) => {
+      //this.props.onChange(event);
+  }
+
+
   // This method is called when the component is first added to the document
   public componentDidMount() {
     this.ensureDataFetched();
@@ -49,7 +58,7 @@ class ListaGastos extends React.Component<GastosProps> {
 
   private ensureDataFetched() {
     const startDateIndex = 0;
-    this.props.requestVehiculos(startDateIndex);
+    this.props.requestTransaccions(startDateIndex);
   }
 
  
@@ -62,12 +71,12 @@ class ListaGastos extends React.Component<GastosProps> {
         { title: 'Concepto', field: 'Concepto' },
         { title: 'Importe', field: 'Importe' }
       ]}
-      data={this.props.vehiculos}  
+      data={this.props.transacciones}  
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
             setTimeout(() => {
-              this.props.addVehiculo(newData);
+              this.props.addTransaccion(newData);
               resolve();
             }, 600);
           }),
@@ -75,8 +84,8 @@ class ListaGastos extends React.Component<GastosProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               if (oldData) {
-                this.props.updateVehiculo(( oldData.VehiculoId == null ? 0: oldData.VehiculoId), newData);
-                this.props.requestVehiculos(0);
+                  this.props.updateTransaccion((oldData.TransaccionId == null ? 0 : oldData.TransaccionId), newData);
+                this.props.requestTransaccions(0);
                 resolve();
               }
               resolve();
@@ -86,8 +95,8 @@ class ListaGastos extends React.Component<GastosProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               
-              this.props.deleteVehiculo(( oldData.VehiculoId == null ? 0: oldData.VehiculoId));
-              this.props.requestVehiculos(0);
+                this.props.deleteTransaccion((oldData.TransaccionId == null ? 0 : oldData.TransaccionId));
+              this.props.requestTransaccions(0);
               resolve();
             }, 600);
           }),
@@ -99,5 +108,5 @@ class ListaGastos extends React.Component<GastosProps> {
 
 export default connect(
   (state: ApplicationState) => state.vehiculos, // Selects which state properties are merged into the component's props
-  VehiculosStore.actionCreators // Selects which action creators are merged into the component's props
-)(ListaVehiculos as any);
+  TransaccionesStore.actionCreators // Selects which action creators are merged into the component's props
+)(ListaMovimientos as any);

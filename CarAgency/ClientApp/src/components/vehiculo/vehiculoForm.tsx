@@ -8,7 +8,8 @@ import MomentUtils from '@date-io/moment';
 import AutocompleteMarcas from 'components/marca/AutocompleteMarcas';
 import AutocompleteModelos from 'components/modelo/AutocompleteModelo';
 import AutocompleteTipoVehiculos from 'components/vehiculo/tipoVehiculo/AutocompleteTipoVehiculo';
-import {Vehiculo} from 'models/Transaccion';
+import {Transaccion} from 'models/Transaccion';
+import { Vehiculo } from '../../models/Vehiculo';
 
 
 interface state extends Vehiculo {
