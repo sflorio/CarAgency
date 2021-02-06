@@ -1,13 +1,9 @@
-import * as WeatherForecasts from './WeatherForecasts';
-import * as Counter from './Counter';
 import * as Marcas from './Marcas';
 import * as Vehiculos from 'store/actions/vehiculos';
 import * as Transacciones from 'store/actions/transacciones';
 
 // The top-level state object
 export interface ApplicationState {
-    counter: Counter.CounterState | undefined;
-    weatherForecasts: WeatherForecasts.WeatherForecastsState | undefined;
     marcas: Marcas.MarcaState | undefined;
     vehiculos: Vehiculos.VehiculoState | undefined;
     transacciones: Transacciones.TransaccionState | undefined;
@@ -17,8 +13,6 @@ export interface ApplicationState {
 // the reducer with the matching name. It's important that the names match exactly, and that the reducer
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
-    counter: Counter.reducer,
-    weatherForecasts: WeatherForecasts.reducer,
     marcas : Marcas.reducer,
     vehiculos : Vehiculos.reducer,
     transacciones : Transacciones.reducer

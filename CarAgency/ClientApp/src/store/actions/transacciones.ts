@@ -72,7 +72,7 @@ export const actionCreators = {
     addTransaccion: (transaccion: Transaccion): AppThunkAction<KnownAction> => (dispatch, getState) => {
 
         console.log("addTransaccion");
-        
+
         axios
       .post(`Transacciones`, transaccion)
       .then(res => {

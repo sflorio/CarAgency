@@ -1,14 +1,9 @@
-﻿using CarAgency.Models;
-using CarAgency.Models.Direcciones;
-using CarAgency.Models.Finanzas;
-using CarAgency.Models.Personas;
-using CarAgency.Models.Vehiculos;
+﻿using Domain.Models.Direcciones;
+using Domain.Models.Finanzas;
+using Domain.Models.Personas;
+using Domain.Models.Vehiculos;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarAgency.Data
 {
@@ -61,12 +56,5 @@ namespace CarAgency.Data
         public DbSet<Provincia> Provincias { get; set; }
 
         #endregion
-
-
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-BT6LJ40\SQLEXPRESS;Initial Catalog=CarAgency;Integrated Security=True");
-        //}
     }
 }

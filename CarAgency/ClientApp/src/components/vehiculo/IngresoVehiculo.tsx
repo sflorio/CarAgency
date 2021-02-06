@@ -108,8 +108,7 @@ public componentDidMount() {
                             Ficha Tecnica
                         </TabPanel>
                         <TabPanel value={this.state.value} index={3}>
-                            Gastos
-                            
+                            <Gastos ></Gastos>
                         </TabPanel>
                     </Container>
                     <Container>

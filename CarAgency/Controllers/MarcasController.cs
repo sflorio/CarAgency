@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarAgency.Data;
-using CarAgency.Models;
-using CarAgency.Models.Vehiculos;
+using Domain.Models;
+using Domain.Models.Vehiculos;
 
 namespace CarAgency.Controllers
 {

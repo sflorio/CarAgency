@@ -6,55 +6,54 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarAgency.Data;
-using Domain.Models;
-using Domain.Models.Vehiculos;
+using Domain.Models.Finanzas;
 
 namespace CarAgency.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ModelosController : ControllerBase
+    public class TransaccionesController : ControllerBase
     {
         private readonly CarAgencyDBContext _context;
 
-        public ModelosController(CarAgencyDBContext context)
+        public TransaccionesController(CarAgencyDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Modelos
+        // GET: api/Transacciones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Modelo>>> GetModelos()
+        public async Task<ActionResult<IEnumerable<Transaccion>>> GetTransacciones()
         {
-            return await _context.Modelos.ToListAsync();
+            return await _context.Transacciones.ToListAsync();
         }
 
-        // GET: api/Modelos/5
+        // GET: api/Transacciones/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Modelo>> GetModelo(int id)
+        public async Task<ActionResult<Transaccion>> GetTransaccion(int id)
         {
-            var modelo = await _context.Modelos.FindAsync(id);
+            var transaccion = await _context.Transacciones.FindAsync(id);
 
-            if (modelo == null)
+            if (transaccion == null)
             {
                 return NotFound();
             }
 
-            return modelo;
+            return transaccion;
         }
 
-        // PUT: api/Modelos/5
+        // PUT: api/Transacciones/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModelo(int id, Modelo modelo)
+        public async Task<IActionResult> PutTransaccion(int id, Transaccion transaccion)
         {
-            if (id != modelo.ModeloId)
+            if (id != transaccion.TransaccionId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(modelo).State = EntityState.Modified;
+            _context.Entry(transaccion).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace CarAgency.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ModeloExists(id))
+                if (!TransaccionExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace CarAgency.Controllers
             return NoContent();
         }
 
-        // POST: api/Modelos
+        // POST: api/Transacciones
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Modelo>> PostModelo(Modelo modelo)
+        public async Task<ActionResult<Transaccion>> PostTransaccion(Transaccion transaccion)
         {
-            _context.Modelos.Add(modelo);
+            _context.Transacciones.Add(transaccion);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetModelo", new { id = modelo.ModeloId }, modelo);
+            return CreatedAtAction("GetTransaccion", new { id = transaccion.TransaccionId }, transaccion);
         }
 
-        // DELETE: api/Modelos/5
+        // DELETE: api/Transacciones/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Modelo>> DeleteModelo(int id)
+        public async Task<ActionResult<Transaccion>> DeleteTransaccion(int id)
         {
-            var modelo = await _context.Modelos.FindAsync(id);
-            if (modelo == null)
+            var transaccion = await _context.Transacciones.FindAsync(id);
+            if (transaccion == null)
             {
                 return NotFound();
             }
 
-            _context.Modelos.Remove(modelo);
+            _context.Transacciones.Remove(transaccion);
             await _context.SaveChangesAsync();
 
-            return modelo;
+            return transaccion;
         }
 
-        private bool ModeloExists(int id)
+        private bool TransaccionExists(int id)
         {
-            return _context.Modelos.Any(e => e.ModeloId == id);
+            return _context.Transacciones.Any(e => e.TransaccionId == id);
         }
     }
 }

@@ -1,0 +1,9 @@
+C:\Proyectos\CarAgency\Domain\bin\Debug\netstandard2.0\Domain.deps.json
+C:\Proyectos\CarAgency\Domain\bin\Debug\netstandard2.0\Domain.dll
+C:\Proyectos\CarAgency\Domain\bin\Debug\netstandard2.0\Domain.pdb
+C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.0\Domain.csprojAssemblyReference.cache
+C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.0\Domain.AssemblyInfoInputs.cache
+C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.0\Domain.AssemblyInfo.cs
+C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.0\Domain.csproj.CoreCompileInputs.cache
+C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.0\Domain.dll
+C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.0\Domain.pdb

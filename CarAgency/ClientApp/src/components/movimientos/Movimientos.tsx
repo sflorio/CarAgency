@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import * as TransaccionesStore from '../../store/actions/transacciones';
 import MaterialTable, { Column } from 'material-table';
-
+import  * as ITransaccion from '../../models/Transaccion';
 
 //other custom components
 import GastoForm from './MovimientoForm';
@@ -17,10 +17,17 @@ type MovimientosProps =
   & typeof TransaccionesStore.actionCreators // ... plus action creators we've requested
   & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
 
+class Transaccion implements Transaccion{
+
+}
+
 class ListaMovimientos extends React.Component<MovimientosProps> {
   constructor(props: any) {
     super(props);
 }
+
+
+
 
   ChangeHandler = (event: any) => {
       //this.props.onChange(event);
@@ -45,13 +52,12 @@ class ListaMovimientos extends React.Component<MovimientosProps> {
   public render() {
     return (
       <React.Fragment>
-        <Route path='ingreso-vehiculo'>
+        <Route path='ingreso-movimiento'>
           algo
           </Route>
-        <h1 id="tabelLabel">Vehiculos</h1>
-        <p>Esta pantalla se utiliza para adminsitrar los vehiculos cargadas en el sistema.</p>
-        {this.renderTableMaterial()}
-        <Link to="ingreso-vehiculo">Abrir form vehiculo</Link>
+        <h1 id="tabelLabel">Movimientos</h1>
+        <p>En esta pantalla se pueden ver los movimientos</p>
+        {this.renderTableMaterial()}        
       </React.Fragment>
     );
   }
@@ -76,7 +82,25 @@ class ListaMovimientos extends React.Component<MovimientosProps> {
         onRowAdd: (newData) =>
           new Promise((resolve) => {
             setTimeout(() => {
-              this.props.addTransaccion(newData);
+              const otransac  = {
+                TransaccionId: 0,	
+                ConceptoFinancieroId: 0,
+                TipoOperacionId: 0,
+                OrigenCuentaId: 0,
+                DestinoCuentaId: 0,
+                Monto: newData.Monto,
+                CreateDateTime: new Date(),
+                CreateUser: "",
+                UpdateDateTime: new Date(),
+                UpdateUser: "",
+                DeleteDateTime: new Date(),
+                DeleteUser: "",
+                Active: true
+
+              };
+
+
+              this.props.addTransaccion(otransac);
               resolve();
             }, 600);
           }),
