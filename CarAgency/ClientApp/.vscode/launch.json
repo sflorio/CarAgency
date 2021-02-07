@@ -4,17 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\start",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+            {
+            "name": "attach Chrome",
+            "request": "attach",
+            "type": "chrome",
+            "port": 5001,
+            "url": "https://localhost",
+            "webRoot": "${workspaceFolder}\\src\\index.tsx",
+            "trace": "verbose"            
         }
     ]
 }

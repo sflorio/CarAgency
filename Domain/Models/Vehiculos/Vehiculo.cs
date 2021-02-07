@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models.Finanzas;
 
 namespace Domain.Models.Vehiculos
 {
@@ -36,6 +37,8 @@ namespace Domain.Models.Vehiculos
         public string MarcaChasis { get; set; }
 
         public DateTime FechaAdquisicion { get; set; }
+
+        public List<Transaccion> Transacciones { get; set; }
 
 
 

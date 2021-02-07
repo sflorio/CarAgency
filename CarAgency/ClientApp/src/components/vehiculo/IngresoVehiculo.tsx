@@ -20,8 +20,7 @@ import { Container, Button } from '@material-ui/core';
 
 import TabPanel from "components/common/forms/TabPanel";
 
- 
-
+import {Vehiculo} from 'models/Vehiculo';
 
 
 
@@ -37,18 +36,23 @@ type VehiculosProps =
   & typeof VehiculosStore.actionCreators // ... plus action creators we've requested
   & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
 
-//   interface state extends VehiculosProps{
-//       value: number
-//   }
+interface IngresoVehiculoState {
+    vehiculo : Vehiculo,
+    value: any
 
-class IngresoVehiculo extends React.Component<VehiculosProps, any> {
-    constructor(props: VehiculosProps) {
-        super(props);
-        this.state = { 
-            value: null        
-        };    
+}
 
-    }
+class IngresoVehiculo extends React.Component<VehiculosProps, IngresoVehiculoState> {
+  constructor(props: VehiculosProps) {
+    super(props);
+
+     this.state = {
+        vehiculo: new Vehiculo(),
+         value: 0
+     };
+
+    // this.handleOnInputChange = this.handleOnInputChange.bind(this);
+}
 
 // This method is called when the component is first added to the document
 public componentDidMount() {
@@ -69,16 +73,15 @@ public componentDidMount() {
     this.setState({value: newValue});
   };
 
-  handleOnInputChange = (name: string, value: any) =>{
+  handleOnInputChange = (value: any) =>{
     this.setState({
-        [name]: value 
+        vehiculo: value 
     });
 
   };
 
-
   onSave = ()=> {
-    this.props.addVehiculo(this.state.Vehiculo);
+    this.props.addVehiculo(this.state.vehiculo);
   }
 
   onExit = () => {
@@ -108,7 +111,7 @@ public componentDidMount() {
                             Ficha Tecnica
                         </TabPanel>
                         <TabPanel value={this.state.value} index={3}>
-                            <Gastos ></Gastos>
+                            <Gastos  onChange={this.handleOnInputChange} Transacciones={this.state.vehiculo.Transacciones}></Gastos>
                         </TabPanel>
                     </Container>
                     <Container>

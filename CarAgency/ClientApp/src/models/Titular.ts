@@ -1,5 +1,8 @@
-export interface Titular {
-    Nombre: string,
-    Apellido: string,
-    Dni: number
+export class Titular {
+    constructor() {
+        
+    }
+
+
+    
 }

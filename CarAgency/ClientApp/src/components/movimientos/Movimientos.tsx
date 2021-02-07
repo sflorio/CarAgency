@@ -6,47 +6,25 @@ import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import * as TransaccionesStore from '../../store/actions/transacciones';
 import MaterialTable, { Column } from 'material-table';
-import  * as ITransaccion from '../../models/Transaccion';
+import  {ITransaccion} from '../../models/Interfaces/ITransaccion';
+import Vehiculo from 'components/vehiculo/Vehiculo';
 
-//other custom components
-import GastoForm from './MovimientoForm';
 
-// At runtime, Redux will merge together...
-type MovimientosProps =
-  TransaccionesStore.TransaccionState // ... state we've requested from the Redux store
-  & typeof TransaccionesStore.actionCreators // ... plus action creators we've requested
-  & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
-
-class Transaccion implements Transaccion{
-
+interface ListaMovimientosProps{
+    Transacciones: ITransaccion[];
+    onChange: (name: string, value: any) => void;
 }
 
-class ListaMovimientos extends React.Component<MovimientosProps> {
-  constructor(props: any) {
+export default class ListaMovimientos extends React.Component<ListaMovimientosProps>{
+  constructor(props : ListaMovimientosProps) {
     super(props);
+
 }
 
 
 
-
-  ChangeHandler = (event: any) => {
-      //this.props.onChange(event);
-  }
-
-
-  // This method is called when the component is first added to the document
-  public componentDidMount() {
-    this.ensureDataFetched();
-  }
-
-  // This method is called when the route parameters change
-  public componentDidUpdate() {
-    this.ensureDataFetched();
-  }
-
-  public handleOnAddButtonClick(){
-
-
+UpdateParentRepo = (transacciones: ITransaccion[]) => {
+    this.props.onChange("Transacciones",  transacciones);
   }
 
   public render() {
@@ -62,28 +40,26 @@ class ListaMovimientos extends React.Component<MovimientosProps> {
     );
   }
 
-  private ensureDataFetched() {
-    const startDateIndex = 0;
-    this.props.requestTransaccions(startDateIndex);
-  }
-
- 
 
   private renderTableMaterial(){
     return (
       <MaterialTable
       title="Lista de Gastos"
-      columns={[        
+      columns={[
+        
+        { title: 'TransaccionId', field: 'TransaccionId' },
         { title: 'Concepto', field: 'Concepto' },
-        { title: 'Importe', field: 'Importe' }
+        { title: 'Monto', field: 'Monto' }
       ]}
-      data={this.props.transacciones}  
+      data={this.props.Transacciones}  
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
             setTimeout(() => {
+
+
               const otransac  = {
-                TransaccionId: 0,	
+                TransaccionId: newData.TransaccionId,	
                 ConceptoFinancieroId: 0,
                 TipoOperacionId: 0,
                 OrigenCuentaId: 0,
@@ -98,30 +74,30 @@ class ListaMovimientos extends React.Component<MovimientosProps> {
                 Active: true
 
               };
+              
+              this.props.Transacciones.concat(otransac);
 
+              this.UpdateParentRepo(this.props.Transacciones);
 
-              this.props.addTransaccion(otransac);
-              resolve();
             }, 600);
           }),
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
-              if (oldData) {
-                  this.props.updateTransaccion((oldData.TransaccionId == null ? 0 : oldData.TransaccionId), newData);
-                this.props.requestTransaccions(0);
-                resolve();
+              if (oldData != newData) {
+                 
+                this.props.Transacciones.map(i => ( i.TransaccionId === newData.TransaccionId ? newData : i ));
+                this.UpdateParentRepo(this.props.Transacciones);
               }
-              resolve();
+
+
             }, 600);
           }),
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
-              
-                this.props.deleteTransaccion((oldData.TransaccionId == null ? 0 : oldData.TransaccionId));
-              this.props.requestTransaccions(0);
-              resolve();
+              this.props.Transacciones.map(i => ( i.TransaccionId === oldData.TransaccionId ? null : i ));
+              this.UpdateParentRepo(this.props.Transacciones);
             }, 600);
           }),
       }}
@@ -129,8 +105,3 @@ class ListaMovimientos extends React.Component<MovimientosProps> {
     );
   }
 }
-
-export default connect(
-  (state: ApplicationState) => state.vehiculos, // Selects which state properties are merged into the component's props
-  TransaccionesStore.actionCreators // Selects which action creators are merged into the component's props
-)(ListaMovimientos as any);

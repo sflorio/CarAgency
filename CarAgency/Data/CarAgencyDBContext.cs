@@ -45,6 +45,8 @@ namespace CarAgency.Data
         public DbSet<Cuenta> Cuentas { get; set; }
         public DbSet<TipoOperacion> TiposOperaciones { get; set; }
         public DbSet<Transaccion> Transacciones { get; set; }
+        public DbSet<TransaccionVehiculo> TransaccionesVehiculos { get; set; }
+
 
         #endregion
 

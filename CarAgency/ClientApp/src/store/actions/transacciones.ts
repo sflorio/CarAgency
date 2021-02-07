@@ -2,12 +2,13 @@ import { Action, Reducer  } from "redux";
 import { AppThunkAction } from "..";
 import * as actionTypes from "../actionTypes/transacciones";
 import axios from 'axios';
-import { Transaccion } from "models/Transaccion"
+import { ITransaccion } from "models/Interfaces/ITransaccion"
 
 export interface TransaccionState{
     isLoading: boolean;
     startDateIndex?: number;
-    transacciones: Transaccion[];
+    VehiculoId?: number;
+    transacciones: ITransaccion[];
 }
 
 interface RequestTransaccionsAction{
@@ -15,11 +16,24 @@ interface RequestTransaccionsAction{
     startDateIndex: number;
 };
 
+interface RequestTransaccionsByVehiculoAction{
+    type: typeof actionTypes.REQUEST_TRANSACCION_BY_VEHICULO;
+    VehiculoId?: number;
+};
+
 interface ReceiveTransaccionsAction{
     type: typeof actionTypes.RECEIVE_TRANSACCION;
     startDateIndex: number;
-    transacciones: Transaccion[];
+    transacciones: ITransaccion[];
 };
+
+
+interface ReceiveTransaccionsByVehiculoAction{
+    type: typeof actionTypes.RECEIVE_TRANSACCION_BY_VEHICULO;
+    VehiculoId?: number;
+    transacciones: ITransaccion[];
+};
+
 
 interface GetTransaccionsSucessAction {
     type: typeof actionTypes.GET_TRANSACCION_SUCESS;
@@ -28,12 +42,12 @@ interface GetTransaccionsSucessAction {
 
 interface AddTransaccionsSucessAction {
     type: typeof actionTypes.ADD_TRANSACCION_SUCESS;
-    transaccion: Transaccion;
+    transaccion: ITransaccion;
 };
 
 interface UpdateTransaccionsSucessAction {
     type: typeof actionTypes.UPDATE_TRANSACCION_SUCESS;
-    transaccion: Transaccion;
+    transaccion: ITransaccion;
 };
 
 interface DeleteTransaccionsSucessAction {
@@ -41,7 +55,7 @@ interface DeleteTransaccionsSucessAction {
    transaccionId: number;
 };
 
-type KnownAction = RequestTransaccionsAction | ReceiveTransaccionsAction | GetTransaccionsSucessAction | AddTransaccionsSucessAction  | UpdateTransaccionsSucessAction    | DeleteTransaccionsSucessAction ;
+type KnownAction = RequestTransaccionsAction | RequestTransaccionsByVehiculoAction | ReceiveTransaccionsAction | ReceiveTransaccionsByVehiculoAction | GetTransaccionsSucessAction | AddTransaccionsSucessAction  | UpdateTransaccionsSucessAction    | DeleteTransaccionsSucessAction ;
 
 export const actionCreators = {
     requestTransaccions: (startDateIndex: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
@@ -49,12 +63,25 @@ export const actionCreators = {
         const appState = getState();
         if (appState && appState.transacciones && startDateIndex !== appState.transacciones.startDateIndex) {
             fetch(`transacciones`)
-                .then(response => response.json() as Promise<Transaccion[]>)
+                .then(response => response.json() as Promise<ITransaccion[]>)
                 .then(data => {
                     dispatch({ type: actionTypes.RECEIVE_TRANSACCION, startDateIndex: startDateIndex, transacciones: data });
                 });
 
             dispatch({ type: actionTypes.REQUEST_TRANSACCION, startDateIndex: startDateIndex });
+        }
+    },
+    requestTransaccionsByVehiculo: (VehiculoId?: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        // Only load data if it's something we don't already have (and are not already loading)
+        const appState = getState();
+        if (appState && appState.transacciones) {
+            fetch(`transacciones/ByVehiculo/` + VehiculoId)
+                .then(response => response.json() as Promise<ITransaccion[]>)
+                .then(data => {
+                    dispatch({ type: actionTypes.RECEIVE_TRANSACCION_BY_VEHICULO, VehiculoId: VehiculoId, transacciones: data });
+                });
+
+            dispatch({ type: actionTypes.REQUEST_TRANSACCION_BY_VEHICULO, VehiculoId: VehiculoId });
         }
     },
     getTransaccion: (transaccionId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
@@ -69,7 +96,7 @@ export const actionCreators = {
         });
 
     },
-    addTransaccion: (transaccion: Transaccion): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    addTransaccion: (transaccion: ITransaccion): AppThunkAction<KnownAction> => (dispatch, getState) => {
 
         console.log("addTransaccion");
 
@@ -82,7 +109,7 @@ export const actionCreators = {
     });
 
     },
-    updateTransaccion: (transaccionId: number,Transaccion:Transaccion): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    updateTransaccion: (transaccionId: number,Transaccion:ITransaccion): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
         console.log("updateTransaccion");
         axios
         .put(`Transacciones/` + transaccionId ,Transaccion)

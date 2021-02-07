@@ -4,14 +4,16 @@ using CarAgency.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarAgency.Migrations
 {
     [DbContext(typeof(CarAgencyDBContext))]
-    partial class CarAgencyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210207035556_20200207")]
+    partial class _20200207
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

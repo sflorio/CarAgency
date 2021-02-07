@@ -42,6 +42,24 @@ namespace CarAgency.Controllers
             return transaccion;
         }
 
+
+
+        // GET: api/Transacciones/5
+        [HttpGet("{VehiculoId}")]
+        [Route("ByVehiculo")]
+        public async Task<ActionResult<IEnumerable<Transaccion>>> GetTransaccionByVehiculo(int VehiculoId)
+        {
+            var transacciones = await _context.Transacciones.Where((e)=> e.VehiculoId == VehiculoId).ToListAsync();
+
+            if (transacciones == null)
+            {
+                return NotFound();
+            }
+
+            return transacciones;
+        }
+
+
         // PUT: api/Transacciones/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

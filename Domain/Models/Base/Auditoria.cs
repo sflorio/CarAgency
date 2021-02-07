@@ -16,12 +16,12 @@ namespace Domain.Models
         [Column(TypeName = "nvarchar(20)")]
         public string CreateUser { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime UpdateDateTime { get; set; }
+        public DateTime? UpdateDateTime { get; set; }
 
         [Column(TypeName = "nvarchar(20)")]
         public string UpdateUser { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime DeleteDateTime { get; set; }
+        public DateTime? DeleteDateTime { get; set; }
 
         [Column(TypeName = "nvarchar(20)")]
         public string DeleteUser { get; set; }
