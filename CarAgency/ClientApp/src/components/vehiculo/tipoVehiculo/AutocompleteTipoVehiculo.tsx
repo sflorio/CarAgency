@@ -1,23 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import { actionCreatorsTipoVehiculo } from 'store/actions/actionsTipoVehiculo';
+import { TipoVehiculo } from 'models/TipoVehiculo';
 
-export default function AutocompleteTipoVehiculo() {
-    const data = [
-        { TipoVehiculoId: 1 , Descripcion: "Sedan" },
-        { TipoVehiculoId: 2 , Descripcion: "Hatback" },
-        { TipoVehiculoId: 3 , Descripcion: "Monovolumen" },
-        { TipoVehiculoId: 4 , Descripcion: "Camión" }
-
-    ];
+export default function AutocompleteTipoVehiculo({tipoVehiculo ,onChange }: {tipoVehiculo: TipoVehiculo, onChange: ( value: TipoVehiculo | null) => void }) {
+    const [options, setOptions] = React.useState<TipoVehiculo[]>([]);
     const labelName ="Tipo Vehículo";
+    
+     useEffect(() => {
+         actionCreatorsTipoVehiculo.getAllTipoVehiculos()
+         .then((response: TipoVehiculo[]) =>{
+            setOptions(response);
+         });
+        
+     },[]);
+     
+    
     
     return (
         <div>
         <Autocomplete
            id="AutocompleteTipoVehiculo"
-           options={data}
+           options={options}
+           onChange={(event, value) => { onChange(value);}}
+           // value={marca}
            getOptionLabel={(option) => option.Descripcion}
+           getOptionSelected={(option, value) => {/*console.log({value,option});*/ return option.TipoVehiculoId === value.TipoVehiculoId;}}
            style={{ width: 300 }}
            renderInput={(params) => <TextField {...params} label={labelName} variant="outlined" />}
            />
