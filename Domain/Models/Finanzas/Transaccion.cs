@@ -23,7 +23,7 @@ namespace Domain.Models.Finanzas
         [Column(TypeName = "Decimal(18,2)")]
         public decimal Monto { get; set; }
 
-        public int VehiculoId { get; set; }
+        public int? VehiculoId { get; set; }
 
     }
 }

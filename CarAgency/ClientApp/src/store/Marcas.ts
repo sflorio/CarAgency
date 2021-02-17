@@ -1,8 +1,9 @@
 import { Action, Reducer  } from "redux";
 import { AppThunkAction } from "./";
 import * as actionTypes from "./actionTypes/marcas"
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
+import { IMarca} from "models/interfaces/IMarca";
 
 export interface MarcaState{
     isLoading: boolean;
@@ -10,12 +11,7 @@ export interface MarcaState{
     page?: number;
     rowsPerPage?: number;
     classes?: object;
-    marcas: Marca[];
-}
-
-export interface Marca{
-    marcaId?: number,    
-    descripcion: string
+    marcas: IMarca[];
 }
 
 interface RequestMarcasAction{
@@ -26,7 +22,7 @@ interface RequestMarcasAction{
 interface ReceiveMarcasAction{
     type: typeof actionTypes.RECEIVE_MARCA;
     startDateIndex: number;
-    marcas: Marca[];
+    marcas: IMarca[];
 };
 
 
@@ -42,7 +38,7 @@ interface GetMarcasFailureAction {
 
 interface AddMarcasSucessAction {
     type: typeof actionTypes.ADD_MARCA_SUCESS;
-    marcas: Marca;
+    marcas: IMarca;
 };
 
 interface AddMarcasFailureAction {
@@ -53,7 +49,7 @@ interface AddMarcasFailureAction {
 
 interface UpdateMarcasSucessAction {
     type: typeof actionTypes.UPDATE_MARCA_SUCESS;
-    marcas: Marca;
+    marcas: IMarca;
 };
 
 interface UpdateMarcasFailureAction {
@@ -83,14 +79,14 @@ export const actionCreators = {
         const appState = getState();
         if (appState && appState.marcas && startDateIndex !== appState.marcas.startDateIndex) {
             fetch(`marcas`)
-                .then(response => response.json() as Promise<Marca[]>)
+                .then(response => response.json() as Promise<IMarca[]>)
                 .then(data => {
                     dispatch({ type: actionTypes.RECEIVE_MARCA, startDateIndex: startDateIndex, marcas: data });
                 });
 
             dispatch({ type: actionTypes.REQUEST_MARCA, startDateIndex: startDateIndex });
         }
-    },
+    },    
     getMarca: (marcaId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
 
         axios
@@ -103,7 +99,29 @@ export const actionCreators = {
         });
 
     },
-    addMarca: (marca: Marca): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    getAllMarcas: async () : Promise<AxiosResponse<any>>  =>  {
+        return axios.get('Marcas');
+
+    //     let data: IMarca[] = [];
+    //     axios.get('Marcas')
+    //     .then(function (response) {
+    //         // handle success
+    //         data = ( response.data as IMarca[] );
+    //         console.log(data);
+    //         return data;
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
+    //     .then(function () {
+    //         // always executed
+    //     });
+
+    //     return data;
+
+    },
+    addMarca: (marca: IMarca): AppThunkAction<KnownAction> => (dispatch, getState) => {
 
         console.log("addMarca");
         
@@ -116,7 +134,7 @@ export const actionCreators = {
     });
 
     },
-    updateMarca: (marcaId: number, marca: Marca): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    updateMarca: (marcaId: number, marca: IMarca): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
         console.log("updateMarca");
         axios
         .put(`Marcas/` +  marcaId , marca)
@@ -174,12 +192,12 @@ export const reducer: Reducer<MarcaState> = (state: MarcaState | undefined, inco
 
         case actionTypes.UPDATE_MARCA_SUCESS:
             return {
-                marcas: state.marcas.map(i => ( i.marcaId === action.marcas.marcaId ?{...i, descripcion : action.marcas.descripcion} : i )),
+                marcas: state.marcas.map(i => ( i.MarcaId === action.marcas.MarcaId ?{...i, descripcion : action.marcas.Descripcion} : i )),
                 isLoading: false
             };
         case actionTypes.DELETE_MARCA_SUCESS:
             return {
-                marcas: state.marcas.filter(i => i.marcaId !== action.marcaId),
+                marcas: state.marcas.filter(i => i.MarcaId !== action.marcaId),
                 isLoading: false
             };
             

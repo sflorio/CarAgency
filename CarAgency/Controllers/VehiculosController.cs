@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarAgency.Data;
-using Domain.Models.Vehiculos;
-
+using Domain.DTO.Vehiculos;
+using AutoMapper;
 namespace CarAgency.Controllers
 {
     [Route("[controller]")]
@@ -15,17 +15,20 @@ namespace CarAgency.Controllers
     public class VehiculosController : ControllerBase
     {
         private readonly CarAgencyDBContext _context;
-
-        public VehiculosController(CarAgencyDBContext context)
+        private readonly IMapper _mapper;
+        public VehiculosController(CarAgencyDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Vehiculos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehiculo>>> GetVehiculos()
         {
-            return await _context.Vehiculos.ToListAsync();
+            var vehiculos = await _context.Vehiculos.ToListAsync<Domain.Models.Vehiculos.Vehiculo>();
+
+            return _mapper.Map<List<Domain.Models.Vehiculos.Vehiculo>,List<Domain.DTO.Vehiculos.Vehiculo>>(vehiculos);
         }
 
         // GET: api/Vehiculos/5
@@ -39,7 +42,7 @@ namespace CarAgency.Controllers
                 return NotFound();
             }
 
-            return vehiculo;
+            return _mapper.Map<Domain.Models.Vehiculos.Vehiculo, Domain.DTO.Vehiculos.Vehiculo>(vehiculo);
         }
 
         // PUT: api/Vehiculos/5
@@ -80,9 +83,11 @@ namespace CarAgency.Controllers
         [HttpPost]
         public async Task<ActionResult<Vehiculo>> PostVehiculo(Vehiculo vehiculo)
         {
-            _context.Vehiculos.Add(vehiculo);
-            await _context.SaveChangesAsync();
+            Domain.Models.Vehiculos.Vehiculo objeVehiculo = _mapper.Map<Domain.Models.Vehiculos.Vehiculo>(vehiculo);
 
+            _context.Vehiculos.Add(objeVehiculo);
+             await _context.SaveChangesAsync();
+            
             return CreatedAtAction("GetVehiculo", new { id = vehiculo.VehiculoId }, vehiculo);
         }
 
@@ -99,7 +104,7 @@ namespace CarAgency.Controllers
             _context.Vehiculos.Remove(vehiculo);
             await _context.SaveChangesAsync();
 
-            return vehiculo;
+            return _mapper.Map<Domain.DTO.Vehiculos.Vehiculo>(vehiculo);
         }
 
         private bool VehiculoExists(int id)

@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import * as VehiculosStore from '../../store/actions/vehiculos';
-import MaterialTable, { Column } from 'material-table';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
 import VehiculoForm from './vehiculoForm';
 import TitularForm from 'components/titular/TitularForm';
@@ -21,6 +17,9 @@ import { Container, Button } from '@material-ui/core';
 import TabPanel from "components/common/forms/TabPanel";
 
 import {Vehiculo} from 'models/Vehiculo';
+import {Titular} from 'models/Titular';
+import {Transaccion} from 'models/finanzas/Transaccion';
+import RevisionTecnica from 'models/RevisionTecnica';
 
 
 
@@ -50,8 +49,6 @@ class IngresoVehiculo extends React.Component<VehiculosProps, IngresoVehiculoSta
         vehiculo: new Vehiculo(),
          value: 0
      };
-
-    // this.handleOnInputChange = this.handleOnInputChange.bind(this);
 }
 
 // This method is called when the component is first added to the document
@@ -73,15 +70,48 @@ public componentDidMount() {
     this.setState({value: newValue});
   };
 
-  handleOnInputChange = (value: any) =>{
+  handleOnFormChange = (vehiculo: Vehiculo) =>{
     this.setState({
-        vehiculo: value 
+        vehiculo: vehiculo 
     });
-
   };
 
+  handleOnFormTitularChange = (Titular: Titular) =>{
+    let estadoVehiculo = this.state.vehiculo;
+    estadoVehiculo.Titular = Titular;
+    this.handleOnFormChange(estadoVehiculo);
+  };
+
+  handleOnFormGastosChange = (Transacciones: Transaccion[]) =>{
+    let estadoVehiculo = this.state.vehiculo;
+    estadoVehiculo.Transacciones = Transacciones;
+    this.handleOnFormChange(estadoVehiculo);
+  };
+
+  handleOnFormFichaTecnincaChange = (revisionTecnica: RevisionTecnica) =>{
+    let estadoVehiculo = this.state.vehiculo;
+    estadoVehiculo.RevisionTecnica = revisionTecnica;
+    this.handleOnFormChange(estadoVehiculo);
+  };
+
+  validate = () => {
+
+    return true;
+  }
+
   onSave = ()=> {
-    this.props.addVehiculo(this.state.vehiculo);
+    // alert("Dominio es: " + this.state.vehiculo.Dominio + "\n" +
+    // "Procedencia es: " + this.state.vehiculo.Procedencia + "\n" +
+    // "Ano es: " + this.state.vehiculo.Ano + "\n" +    
+    // "NumeroMotor es: " + this.state.vehiculo.NumeroMotor + "\n" 
+    // );
+    if(this.validate()){
+      this.props.addVehiculo(this.state.vehiculo);
+      console.log(this.state.vehiculo);
+    } {
+      console.log("Objeto Vehiculo no paso la validacion " + this.state.vehiculo);
+    }
+    
   }
 
   onExit = () => {
@@ -96,22 +126,20 @@ public componentDidMount() {
                         <AppBar position="static">
                             <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
                               <Tab label="Vehiculo" {...a11yProps(0)} />
-                              <Tab label="Titular" {...a11yProps(1)} />
-                              <Tab label="Ficha Tecnica" {...a11yProps(2)} />
-                              <Tab label="Gastos" {...a11yProps(3)} />
+                              <Tab label="Ficha Técnica" {...a11yProps(1)} />
+                              <Tab label="Gastos" {...a11yProps(2)} />
                             </Tabs>
                         </AppBar>
                         <TabPanel value={this.state.value} index={0}>
-                            <VehiculoForm onChange={this.handleOnInputChange}></VehiculoForm>
+                            <VehiculoForm onChange={this.handleOnFormChange} vehiculo={this.state.vehiculo}></VehiculoForm>
+                            <TitularForm onChange={this.handleOnFormTitularChange} titular={this.state.vehiculo.Titular}></TitularForm>               
                         </TabPanel>
-                        <TabPanel value={this.state.value} index={1}>                            
-                            <TitularForm onChange={this.handleOnInputChange}></TitularForm>               
-                        </TabPanel>
-                        <TabPanel value={this.state.value} index={2}>
+                        
+                        <TabPanel value={this.state.value} index={1}>
                             Ficha Tecnica
                         </TabPanel>
-                        <TabPanel value={this.state.value} index={3}>
-                            <Gastos  onChange={this.handleOnInputChange} Transacciones={this.state.vehiculo.Transacciones}></Gastos>
+                        <TabPanel value={this.state.value} index={2}>
+                            <Gastos onChange={this.handleOnFormGastosChange} transacciones={this.state.vehiculo.Transacciones}></Gastos>
                         </TabPanel>
                     </Container>
                     <Container>

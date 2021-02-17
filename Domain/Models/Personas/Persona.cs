@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Domain.Models.Direcciones;
 namespace Domain.Models.Personas
 {
     public class Persona : ClaseBase

@@ -26,7 +26,9 @@ namespace CarAgency.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Marca>>> GetMarcas()
         {
-            return await _context.Marcas.ToListAsync();
+            var response = await _context.Marcas.ToListAsync();
+
+            return response;
         }
 
         // GET: api/Marcas/5

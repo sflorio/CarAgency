@@ -8,10 +8,9 @@
             "name": "attach Chrome",
             "request": "attach",
             "type": "chrome",
-            "port": 5001,
-            "url": "https://localhost",
-            "webRoot": "${workspaceFolder}\\src\\index.tsx",
-            "trace": "verbose"            
+            "port": 5000,
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}\\src\\index.tsx"
         }
     ]
 }

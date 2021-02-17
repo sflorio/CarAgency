@@ -1,25 +1,34 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect} from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import * as MarcasStore from '../../store/Marcas';
 import TextField from '@material-ui/core/TextField';
+import {Marca} from "models/Marca";
 
-export default function AutocompleteMarcas() {
-    const data = [
-        { MarcaId: 1 , Descripcion: "Audi" },
-        { MarcaId: 2 , Descripcion: "BMW" },
-        { MarcaId: 3 , Descripcion: "Mercedez Benz" },
-        { MarcaId: 4 , Descripcion: "VW" }
-
-    ];
-    
+ function AutocompleteMarcas({marca ,onChange }: {marca: Marca, onChange: ( value: Marca | null) => void }) {
+    const [options, setOptions] = React.useState<Marca[]>([]);
     const labelName = "Marca";
+
+     useEffect(() => {
+         MarcasStore.actionCreators.getAllMarcas()
+         .then(response => response.data as unknown as Marca[] )
+         .then((response) => { 
+             setOptions(response);
+         }) ;
+        
+     },[]);
+
+
+    
 
     return (
         <div>
              <Autocomplete
                 id="AutocompleteMarcas"
-                options={data}
+                options={options}
+                onChange={(event, value) => { onChange(value);}}
+                // value={marca}
                 getOptionLabel={(option) => option.Descripcion}
+                getOptionSelected={(option, value) => {/*console.log({value,option});*/ return option.MarcaId === value.MarcaId;}}
                 style={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label={labelName} variant="outlined" />}
                 />
@@ -27,3 +36,5 @@ export default function AutocompleteMarcas() {
     )
 }
 
+
+export default AutocompleteMarcas;

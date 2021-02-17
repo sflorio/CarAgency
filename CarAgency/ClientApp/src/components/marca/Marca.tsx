@@ -49,7 +49,7 @@ class ListaMarcas extends React.Component<MarcasProps> {
       <MaterialTable
       title="Lista de Marcas"
       columns={[
-        { title: 'Descripción', field: 'descripcion' }
+        { title: 'Descripción', field: 'Descripcion' }
       ]}
       data={this.props.marcas}  
       editable={{
@@ -64,7 +64,7 @@ class ListaMarcas extends React.Component<MarcasProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               if (oldData) {
-                this.props.updateMarca(( oldData.marcaId == null ? 0:oldData.marcaId), newData);
+                this.props.updateMarca(( oldData.MarcaId == null ? 0:oldData.MarcaId), newData);
                 this.props.requestMarcas(0);
                 resolve();
               }
@@ -75,7 +75,7 @@ class ListaMarcas extends React.Component<MarcasProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               
-              this.props.deleteMarca(( oldData.marcaId == null ? 0:oldData.marcaId));
+              this.props.deleteMarca(( oldData.MarcaId == null ? 0:oldData.MarcaId));
               this.props.requestMarcas(0);
               resolve();
             }, 600);

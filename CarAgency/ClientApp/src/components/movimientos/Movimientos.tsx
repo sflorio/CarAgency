@@ -1,103 +1,88 @@
 
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps, Route } from 'react-router';
-import { Link } from 'react-router-dom';
-import { ApplicationState } from '../../store';
-import * as TransaccionesStore from '../../store/actions/transacciones';
+import React from 'react';
 import MaterialTable, { Column } from 'material-table';
-import  {ITransaccion} from '../../models/Interfaces/ITransaccion';
-import Vehiculo from 'components/vehiculo/Vehiculo';
+import  {Transaccion} from '../../models/finanzas/Transaccion';
+import { Vehiculo } from 'models/Vehiculo';
 
 
 interface ListaMovimientosProps{
-    Transacciones: ITransaccion[];
-    onChange: (name: string, value: any) => void;
+  transacciones?: Transaccion[];
+    onChange: (e: any) => void;
+    
 }
 
-export default class ListaMovimientos extends React.Component<ListaMovimientosProps>{
+export default class ListaMovimientos extends React.Component<ListaMovimientosProps, { transacciones: Transaccion[]}>{
+  dataTipoOperacion = {};
+  dataCuenta = {};
+
   constructor(props : ListaMovimientosProps) {
     super(props);
-
-}
-
-
-
-UpdateParentRepo = (transacciones: ITransaccion[]) => {
-    this.props.onChange("Transacciones",  transacciones);
-  }
-
-  public render() {
-    return (
-      <React.Fragment>
-        <Route path='ingreso-movimiento'>
-          algo
-          </Route>
-        <h1 id="tabelLabel">Movimientos</h1>
-        <p>En esta pantalla se pueden ver los movimientos</p>
-        {this.renderTableMaterial()}        
-      </React.Fragment>
-    );
+    this.state = {
+      transacciones : JSON.parse(JSON.stringify(( this.props.transacciones != undefined ?this.props.transacciones : [] )))
+    }
+    this.dataTipoOperacion = { 1: 'Débito', 2: 'Crédito' };
+    this.dataCuenta = { 1: 'Cuenta 1', 2: 'Cuenta 2' };
+    this.handleOnAddRow = this.handleOnAddRow.bind(this);
   }
 
 
-  private renderTableMaterial(){
+  
+
+UpdateParentRepo = (transacciones: Transaccion[]) => {
+    this.props.onChange(transacciones);
+  }
+
+  handleOnAddRow = (newData: Transaccion) => {
+    return new Promise((resolve) => {
+      
+        setTimeout(() => {
+          resolve();
+            let data = [...this.state.transacciones, newData];
+            this.setState({ transacciones: data } )
+            this.UpdateParentRepo(data);
+            
+        }, 600);
+    })
+
+  }
+
+  public render(){
     return (
       <MaterialTable
       title="Lista de Gastos"
       columns={[
-        
         { title: 'TransaccionId', field: 'TransaccionId' },
         { title: 'Concepto', field: 'Concepto' },
+        { title: 'TipoOperacion', field: 'TipoOperacion', lookup: this.dataTipoOperacion, },
+        { title: 'Origen', field: 'Origen', lookup: this.dataCuenta, },
+        { title: 'Destino', field: 'Destino', lookup: this.dataCuenta, },
         { title: 'Monto', field: 'Monto' }
       ]}
-      data={this.props.Transacciones}  
+      data={this.state.transacciones}  
       editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-
-
-              const otransac  = {
-                TransaccionId: newData.TransaccionId,	
-                ConceptoFinancieroId: 0,
-                TipoOperacionId: 0,
-                OrigenCuentaId: 0,
-                DestinoCuentaId: 0,
-                Monto: newData.Monto,
-                CreateDateTime: new Date(),
-                CreateUser: "",
-                UpdateDateTime: new Date(),
-                UpdateUser: "",
-                DeleteDateTime: new Date(),
-                DeleteUser: "",
-                Active: true
-
-              };
-              
-              this.props.Transacciones.concat(otransac);
-
-              this.UpdateParentRepo(this.props.Transacciones);
-
-            }, 600);
-          }),
+        onRowAdd: this.handleOnAddRow,
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
+              resolve();
+              
               if (oldData != newData) {
-                 
-                this.props.Transacciones.map(i => ( i.TransaccionId === newData.TransaccionId ? newData : i ));
-                this.UpdateParentRepo(this.props.Transacciones);
+                let data = this.state.transacciones.map(i => ( i.TransaccionId === newData.TransaccionId ? newData : i ));
+                this.setState({ transacciones: data});
+                this.UpdateParentRepo(data);
               }
-
+              
 
             }, 600);
           }),
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
-              this.props.Transacciones.map(i => ( i.TransaccionId === oldData.TransaccionId ? null : i ));
-              this.UpdateParentRepo(this.props.Transacciones);
+              resolve();
+              let data = this.state.transacciones.filter(i => ( i.TransaccionId != oldData.TransaccionId ));
+              this.setState({ transacciones: data});
+              this.UpdateParentRepo(data);
+                
             }, 600);
           }),
       }}

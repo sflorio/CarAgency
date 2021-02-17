@@ -362,6 +362,10 @@ namespace CarAgency.Migrations
                     b.Property<int?>("DireccionId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("EstadoCivilId")
                         .HasColumnType("int");
 
@@ -397,6 +401,8 @@ namespace CarAgency.Migrations
                     b.HasIndex("TipoDocumentoId");
 
                     b.ToTable("Personas");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Persona");
                 });
 
             modelBuilder.Entity("Domain.Models.Personas.TipoDocumento", b =>
@@ -702,7 +708,13 @@ namespace CarAgency.Migrations
                     b.Property<int?>("ProcedenciaId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RevisionTecnicaId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TipoVehiculoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TitularPersonaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDateTime")
@@ -719,9 +731,20 @@ namespace CarAgency.Migrations
 
                     b.HasIndex("ProcedenciaId");
 
+                    b.HasIndex("RevisionTecnicaId");
+
                     b.HasIndex("TipoVehiculoId");
 
+                    b.HasIndex("TitularPersonaId");
+
                     b.ToTable("Vehiculos");
+                });
+
+            modelBuilder.Entity("Domain.Models.Personas.Titular", b =>
+                {
+                    b.HasBaseType("Domain.Models.Personas.Persona");
+
+                    b.HasDiscriminator().HasValue("Titular");
                 });
 
             modelBuilder.Entity("Domain.Models.Direccion", b =>
@@ -852,9 +875,17 @@ namespace CarAgency.Migrations
                         .WithMany()
                         .HasForeignKey("ProcedenciaId");
 
+                    b.HasOne("Domain.Models.RevisionTecnica", "RevisionTecnica")
+                        .WithMany()
+                        .HasForeignKey("RevisionTecnicaId");
+
                     b.HasOne("Domain.Models.Vehiculos.TipoVehiculo", "TipoVehiculo")
                         .WithMany()
                         .HasForeignKey("TipoVehiculoId");
+
+                    b.HasOne("Domain.Models.Personas.Titular", "Titular")
+                        .WithMany()
+                        .HasForeignKey("TitularPersonaId");
 
                     b.Navigation("Marca");
 
@@ -862,7 +893,11 @@ namespace CarAgency.Migrations
 
                     b.Navigation("Procedencia");
 
+                    b.Navigation("RevisionTecnica");
+
                     b.Navigation("TipoVehiculo");
+
+                    b.Navigation("Titular");
                 });
 
             modelBuilder.Entity("Domain.Models.Pais", b =>

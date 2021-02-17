@@ -2,30 +2,14 @@ import { Action, Reducer  } from "redux";
 import { AppThunkAction } from "../";
 import * as actionTypes from "../actionTypes/vehiculos";
 import axios from 'axios';
+import {IVehiculo} from "models/interfaces/IVehiculo";
 
 
 export interface VehiculoState{
     isLoading: boolean;
     startDateIndex?: number;
-    vehiculos: Vehiculo[];
+    vehiculos: IVehiculo[];
 }
-
-export interface Vehiculo {
-    VehiculoId: number,    
-    Dominio: string,
-    Procedencia: string,//lase precedencia
-    FechaInscripcionInical: Date,
-    Marca: string, // lase marca
-    Modelo: string, // lase modelo
-    TipoVehiculo: number, //lase TipoVEhiculo
-    Ano : number,
-    NumeroMotor: string,
-    NumeroChasis: string,
-    MarcaMotor: string,
-    MarcaChasis: string,
-    FechaAdquisicion: Date
-}
-
 
 interface RequestVehiculosAction{
     type: typeof actionTypes.REQUEST_VEHICULO;
@@ -35,7 +19,7 @@ interface RequestVehiculosAction{
 interface ReceiveVehiculosAction{
     type: typeof actionTypes.RECEIVE_VEHICULO;
     startDateIndex: number;
-    vehiculos: Vehiculo[];
+    vehiculos: IVehiculo[];
 };
 
 
@@ -47,13 +31,13 @@ interface GetVehiculosSucessAction {
 
 interface AddVehiculosSucessAction {
     type: typeof actionTypes.ADD_VEHICULO_SUCESS;
-    vehiculo: Vehiculo;
+    vehiculo: IVehiculo;
 };
 
 
 interface UpdateVehiculosSucessAction {
     type: typeof actionTypes.UPDATE_VEHICULO_SUCESS;
-    vehiculo: Vehiculo;
+    vehiculo: IVehiculo;
 };
 
 interface DeleteVehiculosSucessAction {
@@ -71,7 +55,7 @@ export const actionCreators = {
         const appState = getState();
         if (appState && appState.vehiculos && startDateIndex !== appState.vehiculos.startDateIndex) {
             fetch(`vehiculos`)
-                .then(response => response.json() as Promise<Vehiculo[]>)
+                .then(response => response.json() as Promise<IVehiculo[]>)
                 .then(data => {
                     dispatch({ type: actionTypes.RECEIVE_VEHICULO, startDateIndex: startDateIndex, vehiculos: data });
                 });
@@ -91,7 +75,7 @@ export const actionCreators = {
         });
 
     },
-    addVehiculo: (vehiculo: Vehiculo): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    addVehiculo: (vehiculo: IVehiculo): AppThunkAction<KnownAction> => (dispatch, getState) => {
 
         console.log("addVehiculo");
         
@@ -104,7 +88,7 @@ export const actionCreators = {
     });
 
     },
-    updateVehiculo: (vehiculoId: number,Vehiculo:Vehiculo): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    updateVehiculo: (vehiculoId: number,Vehiculo:IVehiculo): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
         console.log("updateVehiculo");
         axios
         .put(`Vehiculos/` + vehiculoId ,Vehiculo)

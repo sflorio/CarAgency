@@ -23,7 +23,8 @@ namespace CarAgency
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null); ;
             
             services.AddDbContext<CarAgencyDBContext>(options => options.UseSqlServer(this.Configuration.GetValue<string>("ConnString")));
 

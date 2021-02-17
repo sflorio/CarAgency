@@ -2,7 +2,7 @@ import { Action, Reducer  } from "redux";
 import { AppThunkAction } from "..";
 import * as actionTypes from "../actionTypes/transacciones";
 import axios from 'axios';
-import { ITransaccion } from "models/Interfaces/ITransaccion"
+import { ITransaccion } from "models/interfaces/finanzas/ITransaccion"
 
 export interface TransaccionState{
     isLoading: boolean;
@@ -162,7 +162,7 @@ export const reducer: Reducer<TransaccionState> = (state: TransaccionState | und
             };
         case actionTypes.UPDATE_TRANSACCION_SUCESS:
             return {
-               transacciones: state.transacciones.map(i => ( i.TransaccionId === action.transaccion.TransaccionId ?{...i, Monto : action.transaccion.Monto} : i )),
+               transacciones: state.transacciones.map(i => ( i.TransaccionId === action.transaccion.TransaccionId ?{...i, TransaccionId : action.transaccion.TransaccionId} : i )),
                 isLoading: false
             };
         case actionTypes.DELETE_TRANSACCION_SUCESS:

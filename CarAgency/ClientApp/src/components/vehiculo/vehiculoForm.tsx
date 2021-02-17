@@ -1,38 +1,73 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import TextFiedl from '@material-ui/core/TextField';
-/*
-import {DatePicker} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-*/
 import AutocompleteMarcas from 'components/marca/AutocompleteMarcas';
 import AutocompleteModelos from 'components/modelo/AutocompleteModelo';
 import AutocompleteTipoVehiculos from 'components/vehiculo/tipoVehiculo/AutocompleteTipoVehiculo';
 
+import { Vehiculo} from 'models/Vehiculo';
+import  {Marca}   from 'models/Marca';
+import { Modelo } from 'models/Modelo';
 
-export default class vehiculoForm extends Component<any> {
-    constructor(props: any) {
+interface vehiculoFormProps {
+    vehiculo: Vehiculo;
+    onChange: (vehiculo: Vehiculo) => void;
+}
+
+export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> {
+    constructor(props: vehiculoFormProps) {
         super(props);
+        this.state = this.props.vehiculo;
     }
 
-    ChangeHandler = (event: any) => {
-        this.props.onChange(event);
+
+    inputChange = (e : any) => {
+        new Promise((resolve) => {
+
+            this.setState({...this.state, [e.target.name]: e.target.value});
+
+            resolve();
+            
+        }).then(() => {
+            this.props.onChange(this.state);
+        });
+    };
+
+    onInputChangeMarca = (value?: Marca | null) =>{
+        var e = {
+            target : {
+                name : "Marca",
+                value: value
+            }
+        };
+        this.inputChange(e);
     }
+
+    onInputChangeModelo = (value?: Modelo | null) =>{
+        var e = {
+            target : {
+                name : "Modelo",
+                value: value
+            }
+        };
+        this.inputChange(e);
+    }
+
 
     render() {
         return (
             <Grid container>
+                <Grid item xs={12} sm={12} lg={12} >
+                    Datos del vehículo:
+                </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6} >
-                    <TextFiedl name="dominio" label="Dominio" value={this.props.Dominio} onChange={this.ChangeHandler}></TextFiedl> 
+                    <TextFiedl name="Dominio" label="Dominio" onChange={this.inputChange} value={this.state.Dominio} ></TextFiedl> 
                 </Grid>
                 <Grid item xs={12} sm={6}  md={6} lg={6}>
-                    <TextFiedl name="procedencia" label="Procedencia" value={this.props.Procedencia} onChange={this.ChangeHandler} ></TextFiedl>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6}> 
-                  
+                    <TextFiedl name="Procedencia" label="Procedencia" onChange={this.inputChange} value={this.state.Procedencia} ></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <AutocompleteMarcas ></AutocompleteMarcas>
+                    <AutocompleteMarcas  marca={this.state.Marca} onChange={this.onInputChangeMarca} ></AutocompleteMarcas>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <AutocompleteModelos></AutocompleteModelos>
@@ -41,21 +76,22 @@ export default class vehiculoForm extends Component<any> {
                     <AutocompleteTipoVehiculos></AutocompleteTipoVehiculos>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="ano" label="Año" value={this.props.Ano} onChange={this.ChangeHandler}></TextFiedl>
+                    <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.state.Ano}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="numeroMotor" label="Numero Motor" value={this.props.NumeroMotor} onChange={this.ChangeHandler}></TextFiedl>
+                    <TextFiedl name="NumeroMotor" label="Numero Motor" onChange={this.inputChange} value={this.state.NumeroMotor}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="numeroChasis" label="Numero Chasis" value={this.props.NumeroChasis} onChange={this.ChangeHandler}></TextFiedl>
+                    <TextFiedl name="NumeroChasis" label="Numero Chasis" onChange={this.inputChange} value={this.state.NumeroChasis}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="marcaMotor" label="Marca Motor" value={this.props.MarcaMotor} onChange={this.ChangeHandler}></TextFiedl>
+                    <TextFiedl name="MarcaMotor" label="Marca Motor" onChange={this.inputChange} value={this.state.MarcaMotor}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="marcaChasis" label="Marca Chasis" value={this.props.MarcaChasis} onChange={this.ChangeHandler} ></TextFiedl>
+                    <TextFiedl name="MarcaChasis" label="Marca Chasis" onChange={this.inputChange} value={this.state.MarcaChasis}></TextFiedl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12} lg={12} >
+                    <br></br>
                 </Grid>
             </Grid>
         )

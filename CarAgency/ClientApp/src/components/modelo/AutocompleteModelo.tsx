@@ -2,7 +2,21 @@ import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
+
 export default function AutocompleteModelo() {
+    const [options, setOptions] = React.useState<Marca[]>([]);
+    const labelName = "Marca";
+
+     useEffect(() => {
+         MarcasStore.actionCreators.getAllMarcas()
+         .then(response => response.data as unknown as Marca[] )
+         .then((response) => { 
+             setOptions(response);
+         }) ;
+        
+     },[]);
+
+
     const data = [
         { ModeloId: 1 , MarcaId: 1,  Descripcion: "A1" },
         { ModeloId: 2 , MarcaId: 1,  Descripcion: "A3" },
