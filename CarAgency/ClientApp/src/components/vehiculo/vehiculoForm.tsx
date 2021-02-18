@@ -8,6 +8,7 @@ import AutocompleteTipoVehiculos from 'components/vehiculo/tipoVehiculo/Autocomp
 import { Vehiculo} from 'models/Vehiculo';
 import  {Marca}   from 'models/Marca';
 import { Modelo } from 'models/Modelo';
+import { TipoVehiculo } from 'models/TipoVehiculo';
 
 interface vehiculoFormProps {
     vehiculo: Vehiculo;
@@ -53,6 +54,16 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
         this.inputChange(e);
     }
 
+    onInputChangeTipoVehiculo = (value?: TipoVehiculo | null) =>{
+        var e = {
+            target : {
+                name : "TipoVehiculo",
+                value: value
+            }
+        };
+        this.inputChange(e);
+    }
+
 
     render() {
         return (
@@ -70,10 +81,10 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
                     <AutocompleteMarcas  marca={this.state.Marca} onChange={this.onInputChangeMarca} ></AutocompleteMarcas>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <AutocompleteModelos></AutocompleteModelos>
+                    <AutocompleteModelos modelo={this.state.Modelo} onChange={this.onInputChangeModelo}></AutocompleteModelos>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <AutocompleteTipoVehiculos></AutocompleteTipoVehiculos>
+                    <AutocompleteTipoVehiculos tipoVehiculo={this.state.TipoVehiculo} onChange={this.onInputChangeTipoVehiculo}></AutocompleteTipoVehiculos>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.state.Ano}></TextFiedl>

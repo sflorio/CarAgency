@@ -56,7 +56,7 @@ namespace CarAgency.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(vehiculo).State = EntityState.Modified;
+            _context.Entry(_mapper.Map<Domain.DTO.Vehiculos.Vehiculo>(vehiculo)).State = EntityState.Modified;
 
             try
             {

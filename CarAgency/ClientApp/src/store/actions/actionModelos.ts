@@ -1,6 +1,3 @@
-import { Action, Reducer  } from "redux";
-import { AppThunkAction } from "../";
-import * as actionTypes from "../actionTypes/vehiculos";
 import axios from 'axios';
 import { IModelo } from "models/interfaces/IModelo";
 import { Modelo } from "models/Modelo";
@@ -8,13 +5,25 @@ const serviceBaseModel = "Modelos";
 
 
 
-export const actionCreators = {
+export const actionCreatorsModelo = {
     requestModelos: (startDateIndex: number) => {
         // Only load data if it's something we don't already have (and are not already loading)
         return fetch(serviceBaseModel)
             .then(response => response.json() as Promise<IModelo[]>)
             .then(data => data as unknown as Modelo[])
             .catch(error => console.log(error));
+
+    },
+    getAllModelos: () : Promise<Modelo[]> =>{
+
+        return axios
+        .get(serviceBaseModel)
+        .then( Response => Response )
+        .then(Response => Response.data as unknown as Modelo[])
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
 
     },
     getModelo: (modeloId: number) =>{
@@ -31,7 +40,7 @@ export const actionCreators = {
         });
 
     },
-    addVehiculo: (modelo: IModelo) => {
+    addModelo: (modelo: IModelo) => {
 
         console.log("addVehiculo");
         
@@ -44,7 +53,7 @@ export const actionCreators = {
     });
 
     },
-    updateVehiculo: (modeloId: number,modelo:IModelo) => {
+    updateModelo: (modeloId: number,modelo:IModelo) => {
         console.log("updateModelo");
         axios
         .put(serviceBaseModel + `/` + modeloId ,modelo)
@@ -58,10 +67,10 @@ export const actionCreators = {
         });
 
     },
-    deleteVehiculo: (modeloId: number) =>{
+    deleteModelo: (modeloId: number) =>{
         console.log("deleteModelo");
         axios
-        .delete(serviceBaseModel + `/` +modeloId)
+        .delete(serviceBaseModel + `/` + modeloId)
         .then(res => {
 
           //dispatch({ type: actionTypes.DELETE_VEHICULO_SUCESS,modeloId });
