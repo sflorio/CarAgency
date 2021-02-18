@@ -7,5 +7,5 @@ export class Modelo implements IModelo {
     }
 
     ModeloId?: number;
-    Descripcion? : string;
+    Descripcion : string;
 }
