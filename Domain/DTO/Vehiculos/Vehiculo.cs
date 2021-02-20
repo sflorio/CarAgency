@@ -29,6 +29,6 @@ namespace Domain.DTO.Vehiculos
         public DateTime? FechaAdquisicion { get; set; }
         public RevisionTecnica? RevisionTecnica { get; set; } 
         public List<Transaccion>? Transacciones { get; set; }
-        public Titular? Titular { get; set; } 
+        public Persona? Titular { get; set; } 
     }
 }

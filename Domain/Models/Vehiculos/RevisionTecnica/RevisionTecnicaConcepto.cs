@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.DTO
+namespace Domain.Models.Vehiculos
 {
     public class RevisionTecnicaConcepto : ClaseBase
     {

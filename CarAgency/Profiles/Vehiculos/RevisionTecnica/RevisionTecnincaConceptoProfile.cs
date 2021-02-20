@@ -9,8 +9,8 @@ namespace CarAgency.Profiles.RevisionTecnica
     {
         public RevisionTecnincaConceptoProfile()
         {
-            CreateMap<Domain.Models.RevisionTecnicaConcepto, Domain.DTO.RevisionTecnicaConcepto>();
-            CreateMap<Domain.DTO.RevisionTecnicaConcepto, Domain.Models.RevisionTecnicaConcepto>();
+            CreateMap<Domain.Models.Vehiculos.RevisionTecnicaConcepto, Domain.DTO.Vehiculos.RevisionTecnicaConcepto>();
+            CreateMap<Domain.DTO.Vehiculos.RevisionTecnicaConcepto, Domain.Models.Vehiculos.RevisionTecnicaConcepto>();
         }
     }
 }

@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Domain.DTO.Vehiculos
 {
-    public class RevisionTecnicaConcepto : ClaseBase
+    public class RevisionTecnicaConceptoTipo : ClaseBase
     {
         [Key]
-        public int RevisionTecnicaConceptoId { get; set; }
+        public int RevisionTecnicaConceptoTipoId { get; set; }
+
         [Column(TypeName = "nvarchar(50)")]
         public string Descripcion { get; set; }
-        public RevisionTecnicaConceptoTipo Tipo { get; set; }
     }
 }

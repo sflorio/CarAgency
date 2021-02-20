@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Personas
 {
-    public class EstadoCivil
+    public class EstadoCivil : ClaseBase
     {
         [Key]
         public int EstadoCivilId { get; set; }
