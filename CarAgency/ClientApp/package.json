@@ -9,7 +9,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@types/enzyme": "^3.10.8",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "connected-react-router": "6.5.2",
     "date-fns": "^2.15.0",
