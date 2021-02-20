@@ -10,23 +10,23 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAgency.Migrations
 {
     [DbContext(typeof(CarAgencyDBContext))]
-    [Migration("20201030043002_Mig30102020")]
-    partial class Mig30102020
+    [Migration("20210220214912_Juancito1")]
+    partial class Juancito1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("CarAgency.Models.Direccion", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Direccion", b =>
                 {
                     b.Property<int>("DireccionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Calle")
                         .HasColumnType("nvarchar(100)");
@@ -52,12 +52,12 @@ namespace CarAgency.Migrations
                     b.ToTable("Direcciones");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Direcciones.Localidad", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Localidad", b =>
                 {
                     b.Property<int>("LocalidadId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(100)");
@@ -72,24 +72,79 @@ namespace CarAgency.Migrations
                     b.ToTable("Localidades");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Finanzas.ConceptoFinanciero", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Pais", b =>
+                {
+                    b.Property<int>("PaisId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("PaisId");
+
+                    b.ToTable("Paises");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Partido", b =>
+                {
+                    b.Property<int>("PartidoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("ProvinciaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PartidoId");
+
+                    b.HasIndex("ProvinciaId");
+
+                    b.ToTable("Partidos");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Provincia", b =>
+                {
+                    b.Property<int>("ProvinciaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("PaisId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProvinciaId");
+
+                    b.HasIndex("PaisId");
+
+                    b.ToTable("Provincias");
+                });
+
+            modelBuilder.Entity("Domain.Models.Finanzas.ConceptoFinanciero", b =>
                 {
                     b.Property<int>("ConceptoFinancieroId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -97,8 +152,8 @@ namespace CarAgency.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -108,24 +163,24 @@ namespace CarAgency.Migrations
                     b.ToTable("ConceptosFinancieros");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Finanzas.Cuenta", b =>
+            modelBuilder.Entity("Domain.Models.Finanzas.Cuenta", b =>
                 {
                     b.Property<int>("CuentaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -136,8 +191,8 @@ namespace CarAgency.Migrations
                     b.Property<string>("NumeroCuenta")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -147,24 +202,24 @@ namespace CarAgency.Migrations
                     b.ToTable("Cuentas");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Finanzas.TipoOperacion", b =>
+            modelBuilder.Entity("Domain.Models.Finanzas.TipoOperacion", b =>
                 {
                     b.Property<int>("TipoOperacionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -172,8 +227,8 @@ namespace CarAgency.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -183,12 +238,12 @@ namespace CarAgency.Migrations
                     b.ToTable("TiposOperaciones");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Finanzas.Transaccion", b =>
+            modelBuilder.Entity("Domain.Models.Finanzas.Transaccion", b =>
                 {
                     b.Property<int>("TransaccionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -197,13 +252,13 @@ namespace CarAgency.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -220,11 +275,14 @@ namespace CarAgency.Migrations
                     b.Property<int?>("TipoOperacionId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int?>("VehiculoId")
+                        .HasColumnType("int");
 
                     b.HasKey("TransaccionId");
 
@@ -236,50 +294,56 @@ namespace CarAgency.Migrations
 
                     b.HasIndex("TipoOperacionId");
 
+                    b.HasIndex("VehiculoId");
+
                     b.ToTable("Transacciones");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Pais", b =>
+            modelBuilder.Entity("Domain.Models.Finanzas.TransaccionVehiculo", b =>
                 {
-                    b.Property<int>("PaisId")
+                    b.Property<int>("TransaccionVehiculoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
-                    b.HasKey("PaisId");
+                    b.Property<DateTime>("CreateDateTime")
+                        .HasColumnType("datetime");
 
-                    b.ToTable("Paises");
-                });
+                    b.Property<string>("CreateUser")
+                        .HasColumnType("nvarchar(20)");
 
-            modelBuilder.Entity("CarAgency.Models.Partido", b =>
-                {
-                    b.Property<int>("PartidoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("DeleteUser")
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("ProvinciaId")
+                    b.Property<int>("TransaccionId")
                         .HasColumnType("int");
 
-                    b.HasKey("PartidoId");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
-                    b.HasIndex("ProvinciaId");
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(20)");
 
-                    b.ToTable("Partidos");
+                    b.Property<int>("VehiculoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TransaccionVehiculoId");
+
+                    b.ToTable("TransaccionesVehiculos");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Personas.EstadoCivil", b =>
+            modelBuilder.Entity("Domain.Models.Personas.EstadoCivil", b =>
                 {
                     b.Property<int>("EstadoCivilId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(20)");
@@ -289,12 +353,12 @@ namespace CarAgency.Migrations
                     b.ToTable("EstadoCiviles");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Personas.Persona", b =>
+            modelBuilder.Entity("Domain.Models.Personas.Persona", b =>
                 {
                     b.Property<int>("PersonaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -306,19 +370,23 @@ namespace CarAgency.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("DireccionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("EstadoCivilId")
                         .HasColumnType("int");
@@ -338,8 +406,8 @@ namespace CarAgency.Migrations
                     b.Property<int?>("TipoDocumentoId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -355,14 +423,16 @@ namespace CarAgency.Migrations
                     b.HasIndex("TipoDocumentoId");
 
                     b.ToTable("Personas");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Persona");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Personas.TipoDocumento", b =>
+            modelBuilder.Entity("Domain.Models.Personas.TipoDocumento", b =>
                 {
                     b.Property<int>("TipoDocumentoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(20)");
@@ -372,30 +442,30 @@ namespace CarAgency.Migrations
                     b.ToTable("TipoDocumentos");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Personas.Usuario", b =>
+            modelBuilder.Entity("Domain.Models.Personas.Usuario", b =>
                 {
                     b.Property<int>("UsuarioId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -408,50 +478,30 @@ namespace CarAgency.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Provincia", b =>
-                {
-                    b.Property<int>("ProvinciaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("PaisId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProvinciaId");
-
-                    b.HasIndex("PaisId");
-
-                    b.ToTable("Provincias");
-                });
-
-            modelBuilder.Entity("CarAgency.Models.RevisionTecnica", b =>
+            modelBuilder.Entity("Domain.Models.RevisionTecnica", b =>
                 {
                     b.Property<int>("RevisionTecnicaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -461,24 +511,24 @@ namespace CarAgency.Migrations
                     b.ToTable("RevisionesTecnicas");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.RevisionTecnicaConcepto", b =>
+            modelBuilder.Entity("Domain.Models.RevisionTecnicaConcepto", b =>
                 {
                     b.Property<int>("RevisionTecnicaConceptoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -489,8 +539,8 @@ namespace CarAgency.Migrations
                     b.Property<int?>("TipoRevisionTecnicaConceptoTipoId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -502,24 +552,24 @@ namespace CarAgency.Migrations
                     b.ToTable("RevisionTecnicaConceptos");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.RevisionTecnicaConceptoTipo", b =>
+            modelBuilder.Entity("Domain.Models.RevisionTecnicaConceptoTipo", b =>
                 {
                     b.Property<int>("RevisionTecnicaConceptoTipoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
@@ -527,8 +577,8 @@ namespace CarAgency.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -538,12 +588,12 @@ namespace CarAgency.Migrations
                     b.ToTable("RevisionTecnicaConceptoTipos");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Vehiculos.Marca", b =>
+            modelBuilder.Entity("Domain.Models.Vehiculos.Marca", b =>
                 {
                     b.Property<int>("MarcaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -554,12 +604,12 @@ namespace CarAgency.Migrations
                     b.ToTable("Marcas");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Vehiculos.Modelo", b =>
+            modelBuilder.Entity("Domain.Models.Vehiculos.Modelo", b =>
                 {
                     b.Property<int>("ModeloId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -575,12 +625,12 @@ namespace CarAgency.Migrations
                     b.ToTable("Modelos");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Vehiculos.Procedencia", b =>
+            modelBuilder.Entity("Domain.Models.Vehiculos.Procedencia", b =>
                 {
-                    b.Property<int>("ProcedenciaId")
+                    b.Property<int?>("ProcedenciaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(20)");
@@ -590,12 +640,12 @@ namespace CarAgency.Migrations
                     b.ToTable("Procedencias");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Vehiculos.TipoVehiculo", b =>
+            modelBuilder.Entity("Domain.Models.Vehiculos.TipoVehiculo", b =>
                 {
                     b.Property<int>("TipoVehiculoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(20)");
@@ -605,12 +655,12 @@ namespace CarAgency.Migrations
                     b.ToTable("TipoVehiculos");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Vehiculos.Vehiculo", b =>
+            modelBuilder.Entity("Domain.Models.Vehiculos.Vehiculo", b =>
                 {
                     b.Property<int>("VehiculoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -619,19 +669,19 @@ namespace CarAgency.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateUser")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DeleteDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("DeleteDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("DeleteUser")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Dominio")
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaAdquisicion")
                         .HasColumnType("datetime2");
@@ -660,11 +710,17 @@ namespace CarAgency.Migrations
                     b.Property<int?>("ProcedenciaId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RevisionTecnicaId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TipoVehiculoId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("TitularPersonaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDateTime")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -677,112 +733,198 @@ namespace CarAgency.Migrations
 
                     b.HasIndex("ProcedenciaId");
 
+                    b.HasIndex("RevisionTecnicaId");
+
                     b.HasIndex("TipoVehiculoId");
+
+                    b.HasIndex("TitularPersonaId");
 
                     b.ToTable("Vehiculos");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Direccion", b =>
+            modelBuilder.Entity("Domain.Models.Personas.Titular", b =>
                 {
-                    b.HasOne("CarAgency.Models.Pais", "Pais")
+                    b.HasBaseType("Domain.Models.Personas.Persona");
+
+                    b.HasDiscriminator().HasValue("Titular");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Direccion", b =>
+                {
+                    b.HasOne("Domain.Models.Direcciones.Pais", "Pais")
                         .WithMany()
                         .HasForeignKey("PaisId");
 
-                    b.HasOne("CarAgency.Models.Provincia", "Provincia")
+                    b.HasOne("Domain.Models.Direcciones.Provincia", "Provincia")
                         .WithMany()
                         .HasForeignKey("ProvinciaId");
+
+                    b.Navigation("Pais");
+
+                    b.Navigation("Provincia");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Direcciones.Localidad", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Localidad", b =>
                 {
-                    b.HasOne("CarAgency.Models.Partido", "Partido")
+                    b.HasOne("Domain.Models.Direcciones.Partido", "Partido")
                         .WithMany("Localidades")
                         .HasForeignKey("PartidoId");
+
+                    b.Navigation("Partido");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Finanzas.Transaccion", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Partido", b =>
                 {
-                    b.HasOne("CarAgency.Models.Finanzas.ConceptoFinanciero", "Concepto")
-                        .WithMany()
-                        .HasForeignKey("ConceptoFinancieroId");
-
-                    b.HasOne("CarAgency.Models.Finanzas.Cuenta", "Destino")
-                        .WithMany()
-                        .HasForeignKey("DestinoCuentaId");
-
-                    b.HasOne("CarAgency.Models.Finanzas.Cuenta", "Origen")
-                        .WithMany()
-                        .HasForeignKey("OrigenCuentaId");
-
-                    b.HasOne("CarAgency.Models.Finanzas.TipoOperacion", "TipoOperacion")
-                        .WithMany()
-                        .HasForeignKey("TipoOperacionId");
-                });
-
-            modelBuilder.Entity("CarAgency.Models.Partido", b =>
-                {
-                    b.HasOne("CarAgency.Models.Provincia", null)
+                    b.HasOne("Domain.Models.Direcciones.Provincia", null)
                         .WithMany("Partidos")
                         .HasForeignKey("ProvinciaId");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Personas.Persona", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Provincia", b =>
                 {
-                    b.HasOne("CarAgency.Models.Direccion", "Direccion")
+                    b.HasOne("Domain.Models.Direcciones.Pais", "Pais")
+                        .WithMany("Provincias")
+                        .HasForeignKey("PaisId");
+
+                    b.Navigation("Pais");
+                });
+
+            modelBuilder.Entity("Domain.Models.Finanzas.Transaccion", b =>
+                {
+                    b.HasOne("Domain.Models.Finanzas.ConceptoFinanciero", "Concepto")
+                        .WithMany()
+                        .HasForeignKey("ConceptoFinancieroId");
+
+                    b.HasOne("Domain.Models.Finanzas.Cuenta", "Destino")
+                        .WithMany()
+                        .HasForeignKey("DestinoCuentaId");
+
+                    b.HasOne("Domain.Models.Finanzas.Cuenta", "Origen")
+                        .WithMany()
+                        .HasForeignKey("OrigenCuentaId");
+
+                    b.HasOne("Domain.Models.Finanzas.TipoOperacion", "TipoOperacion")
+                        .WithMany()
+                        .HasForeignKey("TipoOperacionId");
+
+                    b.HasOne("Domain.Models.Vehiculos.Vehiculo", null)
+                        .WithMany("Transacciones")
+                        .HasForeignKey("VehiculoId");
+
+                    b.Navigation("Concepto");
+
+                    b.Navigation("Destino");
+
+                    b.Navigation("Origen");
+
+                    b.Navigation("TipoOperacion");
+                });
+
+            modelBuilder.Entity("Domain.Models.Personas.Persona", b =>
+                {
+                    b.HasOne("Domain.Models.Direcciones.Direccion", "Direccion")
                         .WithMany()
                         .HasForeignKey("DireccionId");
 
-                    b.HasOne("CarAgency.Models.Personas.EstadoCivil", "EstadoCivil")
+                    b.HasOne("Domain.Models.Personas.EstadoCivil", "EstadoCivil")
                         .WithMany()
                         .HasForeignKey("EstadoCivilId");
 
-                    b.HasOne("CarAgency.Models.Pais", "Nacionalidad")
+                    b.HasOne("Domain.Models.Direcciones.Pais", "Nacionalidad")
                         .WithMany()
                         .HasForeignKey("NacionalidadPaisId");
 
-                    b.HasOne("CarAgency.Models.Personas.TipoDocumento", "TipoDocumento")
+                    b.HasOne("Domain.Models.Personas.TipoDocumento", "TipoDocumento")
                         .WithMany()
                         .HasForeignKey("TipoDocumentoId");
+
+                    b.Navigation("Direccion");
+
+                    b.Navigation("EstadoCivil");
+
+                    b.Navigation("Nacionalidad");
+
+                    b.Navigation("TipoDocumento");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Provincia", b =>
+            modelBuilder.Entity("Domain.Models.RevisionTecnicaConcepto", b =>
                 {
-                    b.HasOne("CarAgency.Models.Pais", "Pais")
-                        .WithMany("Provincias")
-                        .HasForeignKey("PaisId");
-                });
-
-            modelBuilder.Entity("CarAgency.Models.RevisionTecnicaConcepto", b =>
-                {
-                    b.HasOne("CarAgency.Models.RevisionTecnicaConceptoTipo", "Tipo")
+                    b.HasOne("Domain.Models.RevisionTecnicaConceptoTipo", "Tipo")
                         .WithMany()
                         .HasForeignKey("TipoRevisionTecnicaConceptoTipoId");
+
+                    b.Navigation("Tipo");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Vehiculos.Modelo", b =>
+            modelBuilder.Entity("Domain.Models.Vehiculos.Modelo", b =>
                 {
-                    b.HasOne("CarAgency.Models.Vehiculos.Marca", null)
+                    b.HasOne("Domain.Models.Vehiculos.Marca", null)
                         .WithMany("Modelos")
                         .HasForeignKey("MarcaId");
                 });
 
-            modelBuilder.Entity("CarAgency.Models.Vehiculos.Vehiculo", b =>
+            modelBuilder.Entity("Domain.Models.Vehiculos.Vehiculo", b =>
                 {
-                    b.HasOne("CarAgency.Models.Vehiculos.Marca", "Marca")
+                    b.HasOne("Domain.Models.Vehiculos.Marca", "Marca")
                         .WithMany()
                         .HasForeignKey("MarcaId");
 
-                    b.HasOne("CarAgency.Models.Vehiculos.Modelo", "Modelo")
+                    b.HasOne("Domain.Models.Vehiculos.Modelo", "Modelo")
                         .WithMany()
                         .HasForeignKey("ModeloId");
 
-                    b.HasOne("CarAgency.Models.Vehiculos.Procedencia", "Procedencia")
+                    b.HasOne("Domain.Models.Vehiculos.Procedencia", "Procedencia")
                         .WithMany()
                         .HasForeignKey("ProcedenciaId");
 
-                    b.HasOne("CarAgency.Models.Vehiculos.TipoVehiculo", "TipoVehiculo")
+                    b.HasOne("Domain.Models.RevisionTecnica", "RevisionTecnica")
+                        .WithMany()
+                        .HasForeignKey("RevisionTecnicaId");
+
+                    b.HasOne("Domain.Models.Vehiculos.TipoVehiculo", "TipoVehiculo")
                         .WithMany()
                         .HasForeignKey("TipoVehiculoId");
+
+                    b.HasOne("Domain.Models.Personas.Titular", "Titular")
+                        .WithMany()
+                        .HasForeignKey("TitularPersonaId");
+
+                    b.Navigation("Marca");
+
+                    b.Navigation("Modelo");
+
+                    b.Navigation("Procedencia");
+
+                    b.Navigation("RevisionTecnica");
+
+                    b.Navigation("TipoVehiculo");
+
+                    b.Navigation("Titular");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Pais", b =>
+                {
+                    b.Navigation("Provincias");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Partido", b =>
+                {
+                    b.Navigation("Localidades");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Provincia", b =>
+                {
+                    b.Navigation("Partidos");
+                });
+
+            modelBuilder.Entity("Domain.Models.Vehiculos.Marca", b =>
+                {
+                    b.Navigation("Modelos");
+                });
+
+            modelBuilder.Entity("Domain.Models.Vehiculos.Vehiculo", b =>
+                {
+                    b.Navigation("Transacciones");
                 });
 #pragma warning restore 612, 618
         }

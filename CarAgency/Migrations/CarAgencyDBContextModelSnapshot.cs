@@ -19,7 +19,7 @@ namespace CarAgency.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("Domain.Models.Direccion", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Direccion", b =>
                 {
                     b.Property<int>("DireccionId")
                         .ValueGeneratedOnAdd()
@@ -68,6 +68,61 @@ namespace CarAgency.Migrations
                     b.HasIndex("PartidoId");
 
                     b.ToTable("Localidades");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Pais", b =>
+                {
+                    b.Property<int>("PaisId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("PaisId");
+
+                    b.ToTable("Paises");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Partido", b =>
+                {
+                    b.Property<int>("PartidoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("ProvinciaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PartidoId");
+
+                    b.HasIndex("ProvinciaId");
+
+                    b.ToTable("Partidos");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Provincia", b =>
+                {
+                    b.Property<int>("ProvinciaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("PaisId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProvinciaId");
+
+                    b.HasIndex("PaisId");
+
+                    b.ToTable("Provincias");
                 });
 
             modelBuilder.Entity("Domain.Models.Finanzas.ConceptoFinanciero", b =>
@@ -281,41 +336,6 @@ namespace CarAgency.Migrations
                     b.ToTable("TransaccionesVehiculos");
                 });
 
-            modelBuilder.Entity("Domain.Models.Pais", b =>
-                {
-                    b.Property<int>("PaisId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("PaisId");
-
-                    b.ToTable("Paises");
-                });
-
-            modelBuilder.Entity("Domain.Models.Partido", b =>
-                {
-                    b.Property<int>("PartidoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("ProvinciaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PartidoId");
-
-                    b.HasIndex("ProvinciaId");
-
-                    b.ToTable("Partidos");
-                });
-
             modelBuilder.Entity("Domain.Models.Personas.EstadoCivil", b =>
                 {
                     b.Property<int>("EstadoCivilId")
@@ -454,26 +474,6 @@ namespace CarAgency.Migrations
                     b.HasKey("UsuarioId");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("Domain.Models.Provincia", b =>
-                {
-                    b.Property<int>("ProvinciaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("PaisId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProvinciaId");
-
-                    b.HasIndex("PaisId");
-
-                    b.ToTable("Provincias");
                 });
 
             modelBuilder.Entity("Domain.Models.RevisionTecnica", b =>
@@ -625,7 +625,7 @@ namespace CarAgency.Migrations
 
             modelBuilder.Entity("Domain.Models.Vehiculos.Procedencia", b =>
                 {
-                    b.Property<int>("ProcedenciaId")
+                    b.Property<int?>("ProcedenciaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -679,7 +679,7 @@ namespace CarAgency.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Dominio")
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaAdquisicion")
                         .HasColumnType("datetime2");
@@ -747,13 +747,13 @@ namespace CarAgency.Migrations
                     b.HasDiscriminator().HasValue("Titular");
                 });
 
-            modelBuilder.Entity("Domain.Models.Direccion", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Direccion", b =>
                 {
-                    b.HasOne("Domain.Models.Pais", "Pais")
+                    b.HasOne("Domain.Models.Direcciones.Pais", "Pais")
                         .WithMany()
                         .HasForeignKey("PaisId");
 
-                    b.HasOne("Domain.Models.Provincia", "Provincia")
+                    b.HasOne("Domain.Models.Direcciones.Provincia", "Provincia")
                         .WithMany()
                         .HasForeignKey("ProvinciaId");
 
@@ -764,11 +764,27 @@ namespace CarAgency.Migrations
 
             modelBuilder.Entity("Domain.Models.Direcciones.Localidad", b =>
                 {
-                    b.HasOne("Domain.Models.Partido", "Partido")
+                    b.HasOne("Domain.Models.Direcciones.Partido", "Partido")
                         .WithMany("Localidades")
                         .HasForeignKey("PartidoId");
 
                     b.Navigation("Partido");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Partido", b =>
+                {
+                    b.HasOne("Domain.Models.Direcciones.Provincia", null)
+                        .WithMany("Partidos")
+                        .HasForeignKey("ProvinciaId");
+                });
+
+            modelBuilder.Entity("Domain.Models.Direcciones.Provincia", b =>
+                {
+                    b.HasOne("Domain.Models.Direcciones.Pais", "Pais")
+                        .WithMany("Provincias")
+                        .HasForeignKey("PaisId");
+
+                    b.Navigation("Pais");
                 });
 
             modelBuilder.Entity("Domain.Models.Finanzas.Transaccion", b =>
@@ -802,16 +818,9 @@ namespace CarAgency.Migrations
                     b.Navigation("TipoOperacion");
                 });
 
-            modelBuilder.Entity("Domain.Models.Partido", b =>
-                {
-                    b.HasOne("Domain.Models.Provincia", null)
-                        .WithMany("Partidos")
-                        .HasForeignKey("ProvinciaId");
-                });
-
             modelBuilder.Entity("Domain.Models.Personas.Persona", b =>
                 {
-                    b.HasOne("Domain.Models.Direccion", "Direccion")
+                    b.HasOne("Domain.Models.Direcciones.Direccion", "Direccion")
                         .WithMany()
                         .HasForeignKey("DireccionId");
 
@@ -819,7 +828,7 @@ namespace CarAgency.Migrations
                         .WithMany()
                         .HasForeignKey("EstadoCivilId");
 
-                    b.HasOne("Domain.Models.Pais", "Nacionalidad")
+                    b.HasOne("Domain.Models.Direcciones.Pais", "Nacionalidad")
                         .WithMany()
                         .HasForeignKey("NacionalidadPaisId");
 
@@ -834,15 +843,6 @@ namespace CarAgency.Migrations
                     b.Navigation("Nacionalidad");
 
                     b.Navigation("TipoDocumento");
-                });
-
-            modelBuilder.Entity("Domain.Models.Provincia", b =>
-                {
-                    b.HasOne("Domain.Models.Pais", "Pais")
-                        .WithMany("Provincias")
-                        .HasForeignKey("PaisId");
-
-                    b.Navigation("Pais");
                 });
 
             modelBuilder.Entity("Domain.Models.RevisionTecnicaConcepto", b =>
@@ -900,17 +900,17 @@ namespace CarAgency.Migrations
                     b.Navigation("Titular");
                 });
 
-            modelBuilder.Entity("Domain.Models.Pais", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Pais", b =>
                 {
                     b.Navigation("Provincias");
                 });
 
-            modelBuilder.Entity("Domain.Models.Partido", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Partido", b =>
                 {
                     b.Navigation("Localidades");
                 });
 
-            modelBuilder.Entity("Domain.Models.Provincia", b =>
+            modelBuilder.Entity("Domain.Models.Direcciones.Provincia", b =>
                 {
                     b.Navigation("Partidos");
                 });
