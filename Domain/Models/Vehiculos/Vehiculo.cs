@@ -14,7 +14,6 @@ namespace Domain.Models.Vehiculos
         [Key]
         public int VehiculoId { get; set; }
         
-        [Column(TypeName = "nvarchar(20)")]
         public string Dominio { get; set; }
         public Procedencia? Procedencia { get; set; }
         public DateTime FechaInscripcionInical { get; set; }

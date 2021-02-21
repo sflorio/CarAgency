@@ -7,3 +7,12 @@ C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.csproj.CoreCompile
 C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.dll
 C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.pdb
 C:\Proyectos\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.csprojAssemblyReference.cache
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\bin\Debug\netstandard2.1\Domain.deps.json
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\bin\Debug\netstandard2.1\Domain.dll
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\bin\Debug\netstandard2.1\Domain.pdb
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.csprojAssemblyReference.cache
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.AssemblyInfoInputs.cache
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.AssemblyInfo.cs
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.csproj.CoreCompileInputs.cache
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.dll
+C:\Users\juan\Desktop\Juan\Sebastian\CarAgency\Domain\obj\Debug\netstandard2.1\Domain.pdb

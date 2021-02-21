@@ -5,6 +5,7 @@ import Home from './components/Home';
 import ListaMarcas from "./components/marca/Marca"
 import ListaVehiculos from "components/vehiculo/Vehiculo";
 import IngresoVehiculo from 'components/vehiculo/IngresoVehiculo';
+import ListaEstadosCiviles from "components/personas/EstadoCivil";
 import './custom.css'
 
 export default () => (
@@ -13,5 +14,7 @@ export default () => (
         <Route path='/marca/lista-marcas/:startDateIndex?' component={ListaMarcas} />
         <Route path='/vehiculo/lista-vehiculos/:startDateIndex?' component={ListaVehiculos} />
         <Route path='/vehiculo/ingreso-vehiculo' component={IngresoVehiculo} />
+        <Route path='/personas/lista-estadoCivil' component={ListaEstadosCiviles} />
+
     </Layout>
 );

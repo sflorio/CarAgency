@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 const Home = () => (
   <div>
     <h1>Liv Motors</h1>    
-    <p>Bienvendio al sistema de administación de Liv Motors</p>
+    <p>Bienvenido al sistema de administracion de Liv Motors</p>
    </div>
 );
 

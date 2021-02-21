@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
-import * as MarcasStore from '../../store/Marcas';
+import * as EstadosCivilesStore from '../../store/actions/actionEstadosCiviles';
 import MaterialTable, { Column } from 'material-table';
 
 
 //other custom components
 
 // At runtime, Redux will merge together...
-type MarcasProps =
-  MarcasStore.MarcaState // ... state we've requested from the Redux store
-  & typeof MarcasStore.actionCreators // ... plus action creators we've requested
+type EstadosCivilesProps =
+  EstadosCivilesStore.EstadosCivilesState // ... state we've requested from the Redux store
+  & typeof EstadosCivilesStore.actionCreators // ... plus action creators we've requested
   & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
 
-class ListaMarcas extends React.Component<MarcasProps> {
+class ListaEstadosCiviles extends React.Component<EstadosCivilesProps> {
 
 
   // This method is called when the component is first added to the document
@@ -32,8 +32,8 @@ class ListaMarcas extends React.Component<MarcasProps> {
   public render() {
     return (
       <React.Fragment>
-        <h1 id="tabelLabel">Marcas</h1>
-        <p>Esta pantalla se utiliza para administrar las Marcas cargadas en el sistema.</p>
+        <h1 id="tabelLabel">EstadosCiviles</h1>
+        <p>Esta pantalla se utiliza para adminsitrar las EstadosCiviles cargadas en el sistema.</p>
         {this.renderTableMaterial()}
       </React.Fragment>
     );
@@ -41,22 +41,22 @@ class ListaMarcas extends React.Component<MarcasProps> {
 
   private ensureDataFetched() {
     const startDateIndex = 0;
-    this.props.requestMarcas(startDateIndex);
+    this.props.requestEstadosCiviles(startDateIndex);
   }
 
   private renderTableMaterial(){
     return (
       <MaterialTable
-      title="Lista de Marcas"
+      title="Lista de EstadosCiviles"
       columns={[
         { title: 'Descripción', field: 'Descripcion' }
       ]}
-      data={this.props.marcas}  
+      data={this.props.EstadosCiviles}  
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
             setTimeout(() => {
-              this.props.addMarca(newData);
+              this.props.addEstadosCiviles(newData);
               resolve();
             }, 600);
           }),
@@ -64,8 +64,8 @@ class ListaMarcas extends React.Component<MarcasProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               if (oldData) {
-                this.props.updateMarca(( oldData.MarcaId == null ? 0:oldData.MarcaId), newData);
-                this.props.requestMarcas(0);
+                this.props.updateEstadosCiviles(( oldData.EstadoCivilId == null ? 0:oldData.EstadoCivilId), newData);
+                this.props.requestEstadosCiviles(0);
                 resolve();
               }
               resolve();
@@ -75,8 +75,8 @@ class ListaMarcas extends React.Component<MarcasProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               
-              this.props.deleteMarca(( oldData.MarcaId == null ? 0:oldData.MarcaId));
-              this.props.requestMarcas(0);
+              this.props.deleteEstadosCiviles(( oldData.EstadoCivilId == null ? 0:oldData.EstadoCivilId));
+              this.props.requestEstadosCiviles(0);
               resolve();
             }, 600);
           }),
@@ -88,5 +88,5 @@ class ListaMarcas extends React.Component<MarcasProps> {
 
 export default connect(
   (state: ApplicationState) => state.marcas, // Selects which state properties are merged into the component's props
-  MarcasStore.actionCreators // Selects which action creators are merged into the component's props
-)(ListaMarcas as any);
+  EstadosCivilesStore.actionCreators // Selects which action creators are merged into the component's props
+)(ListaEstadosCiviles as any);

@@ -1,12 +1,17 @@
 import * as Marcas from './Marcas';
 import * as Vehiculos from 'store/actions/vehiculos';
 import * as Transacciones from 'store/actions/transacciones';
+import * as EstadosCiviles from 'store/actions/actionEstadosCiviles';
+
 
 // The top-level state object
 export interface ApplicationState {
     marcas: Marcas.MarcaState | undefined;
     vehiculos: Vehiculos.VehiculoState | undefined;
     transacciones: Transacciones.TransaccionState | undefined;
+    estadosCiviles: EstadosCiviles.EstadosCivilesState | undefined;
+
+
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property using
@@ -15,7 +20,9 @@ export interface ApplicationState {
 export const reducers = {
     marcas : Marcas.reducer,
     vehiculos : Vehiculos.reducer,
-    transacciones : Transacciones.reducer
+    transacciones : Transacciones.reducer,
+    estadosCiviles : EstadosCiviles.reducer
+
 };
 
 // This type can be used as a hint on action creators so that its 'dispatch' and 'getState' params are

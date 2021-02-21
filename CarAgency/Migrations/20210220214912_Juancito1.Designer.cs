@@ -4,14 +4,21 @@ using CarAgency.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarAgency.Migrations
 {
     [DbContext(typeof(CarAgencyDBContext))]
-    partial class CarAgencyDBContextModelSnapshot : ModelSnapshot
+<<<<<<< HEAD:CarAgency/Migrations/20210220230422_DB_CarAngency_Migration_202102202002.Designer.cs
+    [Migration("20210220230422_DB_CarAngency_Migration_202102202002")]
+    partial class DB_CarAngency_Migration_202102202002
+=======
+    [Migration("20210220214912_Juancito1")]
+    partial class Juancito1
+>>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1:CarAgency/Migrations/20210220214912_Juancito1.Designer.cs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -342,7 +349,7 @@ namespace CarAgency.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-<<<<<<< HEAD
+<<<<<<< HEAD:CarAgency/Migrations/20210220230422_DB_CarAngency_Migration_202102202002.Designer.cs
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -365,7 +372,7 @@ namespace CarAgency.Migrations
                     b.Property<DateTime?>("UpdateDateTime")
                         .HasColumnType("datetime");
 =======
->>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1
+>>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1:CarAgency/Migrations/20210220214912_Juancito1.Designer.cs
 
                     b.Property<string>("UpdateUser")
                         .HasColumnType("nvarchar(20)");
@@ -500,7 +507,7 @@ namespace CarAgency.Migrations
                     b.ToTable("Usuarios");
                 });
 
-<<<<<<< HEAD
+<<<<<<< HEAD:CarAgency/Migrations/20210220230422_DB_CarAngency_Migration_202102202002.Designer.cs
             modelBuilder.Entity("Domain.Models.Vehiculos.Marca", b =>
                 {
                     b.Property<int>("MarcaId")
@@ -556,7 +563,7 @@ namespace CarAgency.Migrations
             modelBuilder.Entity("Domain.Models.Vehiculos.RevisionTecnica", b =>
 =======
             modelBuilder.Entity("Domain.Models.RevisionTecnica", b =>
->>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1
+>>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1:CarAgency/Migrations/20210220214912_Juancito1.Designer.cs
                 {
                     b.Property<int>("RevisionTecnicaId")
                         .ValueGeneratedOnAdd()
@@ -666,7 +673,7 @@ namespace CarAgency.Migrations
                     b.ToTable("RevisionTecnicaConceptoTipos");
                 });
 
-<<<<<<< HEAD
+<<<<<<< HEAD:CarAgency/Migrations/20210220230422_DB_CarAngency_Migration_202102202002.Designer.cs
 =======
             modelBuilder.Entity("Domain.Models.Vehiculos.Marca", b =>
                 {
@@ -720,7 +727,7 @@ namespace CarAgency.Migrations
                     b.ToTable("Procedencias");
                 });
 
->>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1
+>>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1:CarAgency/Migrations/20210220214912_Juancito1.Designer.cs
             modelBuilder.Entity("Domain.Models.Vehiculos.TipoVehiculo", b =>
                 {
                     b.Property<int>("TipoVehiculoId")
@@ -928,7 +935,7 @@ namespace CarAgency.Migrations
                     b.Navigation("TipoDocumento");
                 });
 
-<<<<<<< HEAD
+<<<<<<< HEAD:CarAgency/Migrations/20210220230422_DB_CarAngency_Migration_202102202002.Designer.cs
             modelBuilder.Entity("Domain.Models.Vehiculos.Modelo", b =>
                 {
                     b.HasOne("Domain.Models.Vehiculos.Marca", null)
@@ -939,7 +946,7 @@ namespace CarAgency.Migrations
             modelBuilder.Entity("Domain.Models.Vehiculos.RevisionTecnicaConcepto", b =>
 =======
             modelBuilder.Entity("Domain.Models.RevisionTecnicaConcepto", b =>
->>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1
+>>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1:CarAgency/Migrations/20210220214912_Juancito1.Designer.cs
                 {
                     b.HasOne("Domain.Models.Vehiculos.RevisionTecnicaConceptoTipo", "Tipo")
                         .WithMany()

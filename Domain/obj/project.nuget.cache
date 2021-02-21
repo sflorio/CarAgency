@@ -1,10 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "J7xp9bdl2z4AGL46JAndne1zkxfVjNt//UwMEVuglA2JdZ/GcHGFW3peqNZePRN+fXwEgVsVUkY3I7ut/W9HnA==",
+=======
+  "dgSpecHash": "g4xOINBxvHP+zvqIM8Ryj+FS8iErLdxxb+ac97snkonpOcvNT0Q/a1yiYwfz8nRKpx/Ytqxp9ghEwU5g5dj3Dw==",
+>>>>>>> 5cbdb23cc800469a14e9ab2f882bf0b2b7f1e8a1
   "success": true,
-  "projectFilePath": "C:\\Proyectos\\CarAgency\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Users\\juan\\Desktop\\Juan\\Sebastian\\CarAgency\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\seba\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+    "C:\\Users\\juan\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
