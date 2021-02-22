@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarAgency.Data;
 using Domain.Models.Vehiculos;
-
+using AutoMapper;
 namespace CarAgency.Controllers
 {
     [Route("[controller]")]
@@ -14,10 +14,11 @@ namespace CarAgency.Controllers
     public class MarcasController : ControllerBase
     {
         private readonly CarAgencyDBContext _context;
-
-        public MarcasController(CarAgencyDBContext context)
+        private readonly IMapper _mapper;
+        public MarcasController(CarAgencyDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Marcas
@@ -28,6 +29,23 @@ namespace CarAgency.Controllers
 
             return response;
         }
+
+
+        // GET: api/Marcas/Modelos
+        [HttpGet("Modelos/{id}")]
+        public async Task<ActionResult<IEnumerable<Domain.DTO.Vehiculos.Modelo>>> GetModelos(int id)
+        {
+            var marca = await _context.Marcas.Where( e => e.MarcaId == id).Include(e => e.Modelos ).FirstOrDefaultAsync();
+            
+            if (marca != null) {
+                return _mapper.Map<List<Domain.DTO.Vehiculos.Modelo>>(marca.Modelos);
+            }
+
+            var emptyList = new List<Domain.DTO.Vehiculos.Modelo> { };
+
+            return emptyList;
+        }
+
 
         // GET: api/Marcas/5
         [HttpGet("{id}")]

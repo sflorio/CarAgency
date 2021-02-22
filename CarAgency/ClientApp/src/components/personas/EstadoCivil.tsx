@@ -49,8 +49,6 @@ class ListaEstadosCiviles extends React.Component<EstadosCivilesProps> {
       <MaterialTable
       title="Lista de Estados Civiles"
       columns={[
-        
-        { title: 'EstadoCivilId', field: 'EstadoCivilId' },
         { title: 'Descripción', field: 'Descripcion' }
       ]}
       data={this.props.EstadosCiviles}  

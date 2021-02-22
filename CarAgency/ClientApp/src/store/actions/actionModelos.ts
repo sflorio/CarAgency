@@ -14,10 +14,10 @@ export const actionCreatorsModelo = {
             .catch(error => console.log(error));
 
     },
-    getAllModelos: () : Promise<Modelo[]> =>{
+    getAllModelos: (MarcaId : number) : Promise<Modelo[]> =>{
 
         return axios
-        .get(serviceBaseModel)
+        .get("Marcas/Modelos/" + MarcaId)
         .then( Response => Response )
         .then(Response => Response.data as unknown as Modelo[])
         .catch(error => {

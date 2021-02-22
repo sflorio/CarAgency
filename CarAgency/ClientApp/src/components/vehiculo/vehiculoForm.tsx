@@ -81,7 +81,7 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
                     <AutocompleteMarcas  marca={this.state.Marca} onChange={this.onInputChangeMarca} ></AutocompleteMarcas>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <AutocompleteModelos modelo={this.state.Modelo} onChange={this.onInputChangeModelo}></AutocompleteModelos>
+                    <AutocompleteModelos modelo={this.state.Modelo} marca={this.state.Marca} onChange={this.onInputChangeModelo} ></AutocompleteModelos>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <AutocompleteTipoVehiculos tipoVehiculo={this.state.TipoVehiculo} onChange={this.onInputChangeTipoVehiculo}></AutocompleteTipoVehiculos>
