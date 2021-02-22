@@ -2,20 +2,30 @@ import React, { useEffect } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import {actionCreatorsModelo} from 'store/actions/actionModelos';
+import { Marca } from 'models/Marca';
 import { Modelo } from 'models/Modelo';
+import {  isNullOrUndefined } from 'util';
 
 
-export default function AutocompleteModelo({modelo ,onChange }: {modelo: Modelo, onChange: ( value: Modelo | null) => void }) {
+export default function AutocompleteModelo({modelo, marca ,onChange }: {modelo: Modelo, marca: Marca, onChange: ( value: Modelo | null) => void }) {
     const [options, setOptions] = React.useState<Modelo[]>([]);
+    const [parentObj, setMarca] = React.useState<Marca>();
+    
     const labelName = "Modelo";
 
      useEffect(() => {
-        actionCreatorsModelo.getAllModelos()
+        var id = 0;
+        
+        if( !( typeof marca === 'undefined')  ){
+            id = ( marca.MarcaId == null ? 0 : marca.MarcaId );
+        }
+
+        actionCreatorsModelo.getAllModelos(id)
          .then((response) => { 
              setOptions(response);
          }) ;
         
-     },[]);
+     },[marca]);
 
 
     return (

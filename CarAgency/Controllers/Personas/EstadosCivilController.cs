@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarAgency.Data;
 using Domain.DTO.Personas;
 using AutoMapper;
+using Domain.Models;
 namespace CarAgency.Controllers
 {
     [Route("[controller]")]
@@ -84,11 +85,13 @@ namespace CarAgency.Controllers
         public async Task<ActionResult<EstadoCivil>> PostEstadoCivil(EstadoCivil estadoCivil)
         {
             Domain.Models.Personas.EstadoCivil objeEstadoCivil = _mapper.Map<Domain.Models.Personas.EstadoCivil>(estadoCivil);
+            var usuario = "Seba";
+            objeEstadoCivil.InitializeAddProperties(usuario);
 
             _context.EstadosCiviles.Add(objeEstadoCivil);
              await _context.SaveChangesAsync();
             
-            return CreatedAtAction("GetEstadoCivil", new { id = estadoCivil.EstadoCivilId }, estadoCivil);
+            return CreatedAtAction("GetEstadoCivil", new { id = objeEstadoCivil.EstadoCivilId }, objeEstadoCivil);
         }
 
         // DELETE: api/EstadosCiviles/5

@@ -47,7 +47,7 @@ class ListaEstadosCiviles extends React.Component<EstadosCivilesProps> {
   private renderTableMaterial(){
     return (
       <MaterialTable
-      title="Lista de EstadosCiviles"
+      title="Lista de Estados Civiles"
       columns={[
         { title: 'Descripción', field: 'Descripcion' }
       ]}
@@ -87,6 +87,6 @@ class ListaEstadosCiviles extends React.Component<EstadosCivilesProps> {
 }
 
 export default connect(
-  (state: ApplicationState) => state.marcas, // Selects which state properties are merged into the component's props
+  (state: ApplicationState) => state.estadosCiviles, // Selects which state properties are merged into the component's props
   EstadosCivilesStore.actionCreators // Selects which action creators are merged into the component's props
 )(ListaEstadosCiviles as any);

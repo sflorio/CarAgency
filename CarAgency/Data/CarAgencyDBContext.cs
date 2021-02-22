@@ -3,7 +3,8 @@ using Domain.Models.Finanzas;
 using Domain.Models.Personas;
 using Domain.Models.Vehiculos;
 using Microsoft.EntityFrameworkCore;
-
+using System;
+using Domain.Models;
 namespace CarAgency.Data
 {
     public class CarAgencyDBContext : DbContext
@@ -74,6 +75,7 @@ namespace CarAgency.Data
             //    new ConceptoFinanciero { ConceptoFinancieroId = 2, Descripcion = "Credito" }
             //);
 
-        }
+        }            
+
     }
 }

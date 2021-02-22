@@ -3,7 +3,7 @@ import { AppThunkAction } from "..";
 import * as actionTypes from "../actionTypes/estadosCiviles";
 import axios, { AxiosResponse } from 'axios';
 
-import IEstadoCivil from "models/Interfaces/IEstadoCivil";
+import IEstadoCivil from "models/interfaces/IEstadoCivil";
 
 export interface EstadosCivilesState{
     isLoading: boolean;
@@ -28,7 +28,7 @@ interface ReceiveEstadosCivilesAction{
 
 interface GetEstadosCivilesSucessAction {
     type: typeof actionTypes.GET_ESTADOCIVIL_SUCESS;
-    EstadosCivilesId: number;
+    EstadoCivilId: number;
 };
 
 interface GetEstadosCivilesFailureAction {
@@ -60,7 +60,7 @@ interface UpdateEstadosCivilesFailureAction {
 
 interface DeleteEstadosCivilesSucessAction {
     type: typeof actionTypes.DELETE_ESTADOCIVIL_SUCESS;
-    EstadosCivilesId: number;
+    EstadoCivilId: number;
 };
 
 interface DeleteEstadosCivilesFailureAction {
@@ -87,13 +87,13 @@ export const actionCreators = {
             dispatch({ type: actionTypes.REQUEST_ESTADOCIVIL, startDateIndex: startDateIndex });
         }
     },    
-    getEstadosCiviles: (EstadosCivilesId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    getEstadosCiviles: (EstadoCivilId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
 
         axios
-        .get(`EstadosCiviles/` + EstadosCivilesId)
+        .get(`EstadosCiviles/` + EstadoCivilId)
         .then( Response => Response )
         .then(res => {
-          dispatch({ type: actionTypes.GET_ESTADOCIVIL_SUCESS, EstadosCivilesId });
+          dispatch({ type: actionTypes.GET_ESTADOCIVIL_SUCESS, EstadoCivilId });
         }).catch((error)=>{
             console.log(error);
         });
@@ -134,10 +134,10 @@ export const actionCreators = {
     });
 
     },
-    updateEstadosCiviles: (EstadosCivilesId: number, EstadosCiviles: IEstadoCivil): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    updateEstadosCiviles: (EstadoCivilId: number, EstadosCiviles: IEstadoCivil): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
         console.log("updateEstadosCiviles");
         axios
-        .put(`EstadosCiviles/` +  EstadosCivilesId , EstadosCiviles)
+        .put(`EstadosCiviles/` +  EstadoCivilId , EstadosCiviles)
         .then(res => {
           dispatch({ type: actionTypes.UPDATE_ESTADOCIVIL_SUCESS, EstadosCiviles: EstadosCiviles });
         }).catch((error)=>{
@@ -145,12 +145,12 @@ export const actionCreators = {
         });
 
     },
-    deleteEstadosCiviles: (EstadosCivilesId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    deleteEstadosCiviles: (EstadoCivilId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
         console.log("deleteEstadosCiviles");
         axios
-        .delete(`EstadosCiviles/` + EstadosCivilesId)
+        .delete(`EstadosCiviles/` + EstadoCivilId)
         .then(res => {
-          dispatch({ type: actionTypes.DELETE_ESTADOCIVIL_SUCESS, EstadosCivilesId });
+          dispatch({ type: actionTypes.DELETE_ESTADOCIVIL_SUCESS, EstadoCivilId });
         }).catch((error)=>{
             console.log(error);
         });
@@ -192,12 +192,12 @@ export const reducer: Reducer<EstadosCivilesState> = (state: EstadosCivilesState
 
         case actionTypes.UPDATE_ESTADOCIVIL_SUCESS:
             return {
-                EstadosCiviles: state.EstadosCiviles.map(i => ( i.EstadoCivilId === action.EstadosCiviles.EstadosCivilesId ?{...i, descripcion : action.EstadosCiviles.Descripcion} : i )),
+                EstadosCiviles: state.EstadosCiviles.map(i => ( i.EstadoCivilId === action.EstadosCiviles.EstadoCivilId ?{...i, descripcion : action.EstadosCiviles.Descripcion} : i )),
                 isLoading: false
             };
         case actionTypes.DELETE_ESTADOCIVIL_SUCESS:
             return {
-                EstadosCiviles: state.EstadosCiviles.filter(i => i.EstadoCivilId !== action.EstadosCivilesId),
+                EstadosCiviles: state.EstadosCiviles.filter(i => i.EstadoCivilId !== action.EstadoCivilId),
                 isLoading: false
             };
             
