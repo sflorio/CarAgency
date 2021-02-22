@@ -27,4 +27,28 @@ namespace Domain.Models
         public string DeleteUser { get; set; }
         public bool Active { get; set; }
     }
+
+    public static class AuditoriaExtensions {
+        public static void InitializeAddProperties(this Auditoria oAuditoria, string usuario)
+        {
+            oAuditoria.CreateDateTime = DateTime.Now;
+            oAuditoria.CreateUser = usuario;
+            oAuditoria.Active = true;
+        }
+
+        public static void InitializeUpdateProperties(this Auditoria oAuditoria, string usuario)
+        {
+            oAuditoria.UpdateDateTime = DateTime.Now;
+            oAuditoria.UpdateUser = usuario;
+        }
+        public static void InitializeDeleteProperties(this Auditoria oAuditoria, string usuario)
+        {
+            oAuditoria.DeleteDateTime = DateTime.Now;
+            oAuditoria.DeleteUser = usuario;
+            oAuditoria.Active = false;
+        }
+
+    }
+
+
 }
