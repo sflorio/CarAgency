@@ -1,12 +1,38 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import Dropdown from './dropdown/Dropdown';
 
-export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }> {
+
+
+
+
+export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean ,dropdown : boolean}> {
     public state = {
-        isOpen: false
+        isOpen: false,
+        dropdown: false
     };
+
+
+
+onMouseEnter = () => {
+    if (window.innerWidth < 960) {
+        this.setState({...this.state,dropdown:false});
+    } else {
+        this.setState({...this.state,dropdown:true});
+    }
+};
+
+onMouseLeave = () => {
+    if (window.innerWidth < 960) {
+        this.setState({...this.state,dropdown:false});
+    } else {
+        this.setState({...this.state,dropdown:false});
+    }
+};
+
 
     public render() {
         return (
@@ -20,6 +46,10 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                                 </NavItem>
+                                <NavItem >
+                                    <NavLink tag = {Link} className="text-dark" to="/vehiculo/lista-vehiculos" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>Vehiculos <i className='fas fa-caret-down' /></NavLink>
+                                {(this.state.dropdown ? <Dropdown /> : "")}
+                                </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/marca/lista-marcas">Lista Marcas</NavLink>
                                 </NavItem>
@@ -30,7 +60,7 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                                     <NavLink tag={Link} className="text-dark" to="/vehiculo/ingreso-vehiculo">Ingreso Vehiculos</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/personas/lista-estadoCivil"> Estado Civil</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/personas/lista-estadoCivil">Estado Civil</NavLink>
                                 </NavItem>
                             </ul>
                         </Collapse>
