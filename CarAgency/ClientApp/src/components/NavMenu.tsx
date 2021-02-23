@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink , UncontrolledDropdown, DropdownToggle,DropdownMenu,DropdownItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
@@ -20,18 +20,35 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/marca/lista-marcas">Lista Marcas</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/vehiculo/lista-vehiculos">Lista Vehiculos</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/vehiculo/ingreso-vehiculo">Ingreso Vehiculos</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/configuracion/lista-estadoCivil"> Estado Civil</NavLink>
-                                </NavItem>
+                                <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    Vehiculos
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem tag={Link} className="text-dark" to="/vehiculo/lista-vehiculos">
+                                    Lista Vehiculos 
+                                    </DropdownItem>
+                                    <DropdownItem tag={Link} className="text-dark" to="/vehiculo/ingreso-vehiculo">
+                                    Ingreso Vehiculos
+                                    </DropdownItem>
+                                </DropdownMenu>
+                                </UncontrolledDropdown>
+                                <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    Configuracion
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem tag={Link} className="text-dark" to="/marca/lista-marcas">
+                                    Marcas
+                                    </DropdownItem>
+                                    <DropdownItem tag={Link} className="text-dark" to="/modelo/lista-modelo">
+                                    Modelos
+                                    </DropdownItem>
+                                    <DropdownItem tag={Link} className="text-dark" to="/personas/lista-estadoCivil">
+                                    Estado Civil
+                                    </DropdownItem>
+                                </DropdownMenu>
+                                </UncontrolledDropdown>
                             </ul>
                         </Collapse>
                     </Container>
