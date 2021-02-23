@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import TextFiedl from '@material-ui/core/TextField';
 import {ITitular} from "domain/interfaces/personas/ITitular";
+import DireccionForm from "components/personas/direcciones/Direccion";
 
 export default function TitularForm({titular, onChange  } : { titular: ITitular, onChange: (e:any) => void} ) {
 
@@ -34,6 +35,9 @@ export default function TitularForm({titular, onChange  } : { titular: ITitular,
             </Grid>                
             <Grid item xs={12} sm={6} lg={6} >
                 <TextFiedl name="Dni" label="Dni" value={state.Dni} onChange={ChangeHandler}></TextFiedl>
+            </Grid>
+            <Grid item xs={12} sm={12} lg={12} >
+                <DireccionForm direccion={state.Direccion} onChange={ChangeHandler}></DireccionForm>
             </Grid>
             <Grid item xs={12} sm={12} lg={12} >
                 <br></br>

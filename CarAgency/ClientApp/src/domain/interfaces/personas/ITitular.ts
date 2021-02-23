@@ -1,5 +1,8 @@
+import IDireccion from "domain/interfaces/direcciones/IDireccion";
+
 export interface ITitular {
     Nombre: string,
     Apellido: string,
-    Dni: number
+    Dni: number,
+    Direccion: IDireccion
 }
