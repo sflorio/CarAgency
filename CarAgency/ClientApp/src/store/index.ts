@@ -1,4 +1,4 @@
-import * as Marcas from './Marcas';
+import * as Marcas from 'store/actions/Marcas';
 import * as Vehiculos from 'store/actions/vehiculos';
 import * as Transacciones from 'store/actions/transacciones';
 import * as EstadosCiviles from 'store/actions/actionEstadosCiviles';
@@ -10,8 +10,6 @@ export interface ApplicationState {
     vehiculos: Vehiculos.VehiculoState | undefined;
     transacciones: Transacciones.TransaccionState | undefined;
     estadosCiviles: EstadosCiviles.EstadosCivilesState | undefined;
-
-
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property using

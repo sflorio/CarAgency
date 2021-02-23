@@ -1,8 +1,8 @@
 import { Action, Reducer  } from "redux";
-import { AppThunkAction } from "../";
-import * as actionTypes from "../actionTypes/vehiculos";
+import { AppThunkAction } from "store";
+import * as actionTypes from "store/actionTypes/vehiculos";
 import axios from 'axios';
-import {IVehiculo} from "models/interfaces/IVehiculo";
+import {IVehiculo} from "domain/interfaces/vehiculos/IVehiculo";
 
 
 export interface VehiculoState{

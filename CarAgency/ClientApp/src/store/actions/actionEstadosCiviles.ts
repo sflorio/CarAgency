@@ -1,9 +1,9 @@
 import { Action, Reducer  } from "redux";
 import { AppThunkAction } from "..";
-import * as actionTypes from "../actionTypes/estadosCiviles";
+import * as actionTypes from "store/actionTypes/estadosCiviles";
 import axios, { AxiosResponse } from 'axios';
 
-import IEstadoCivil from "models/interfaces/IEstadoCivil";
+import IEstadoCivil from "domain/interfaces/personas/IEstadoCivil";
 
 export interface EstadosCivilesState{
     isLoading: boolean;

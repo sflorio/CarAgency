@@ -1,8 +1,8 @@
 import { Action, Reducer  } from "redux";
 import { AppThunkAction } from "..";
-import * as actionTypes from "../actionTypes/transacciones";
+import * as actionTypes from "store/actionTypes/transacciones";
 import axios from 'axios';
-import { ITransaccion } from "models/interfaces/finanzas/ITransaccion"
+import { ITransaccion } from "domain/interfaces/finanzas/ITransaccion"
 
 export interface TransaccionState{
     isLoading: boolean;
