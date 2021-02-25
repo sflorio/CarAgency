@@ -5,11 +5,15 @@ using Domain.Models.Vehiculos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Domain.Models;
+using Microsoft.Extensions.Configuration;
+using CarAgency.Data.Seeds;
+
 namespace CarAgency.Data
 {
     public class CarAgencyDBContext : DbContext
     {
-        public CarAgencyDBContext(DbContextOptions<CarAgencyDBContext> options) : base(options) { }
+        public CarAgencyDBContext(DbContextOptions<CarAgencyDBContext> options) : base(options) {
+        }
 
         #region Vehiculos
 
@@ -19,13 +23,13 @@ namespace CarAgency.Data
         public DbSet<TipoVehiculo> TipoVehiculos { get; set; }
         public DbSet<Vehiculo> Vehiculos { get; set; }
 
-        #endregion
-
         #region RevisionTecnica
 
         public DbSet<RevisionTecnica> RevisionesTecnicas { get; set; }
         public DbSet<RevisionTecnicaConcepto> RevisionTecnicaConceptos { get; set; }
         public DbSet<RevisionTecnicaConceptoTipo> RevisionTecnicaConceptoTipos { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -62,7 +66,14 @@ namespace CarAgency.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+            //var oSeedDirecciones = new SeedDirecciones();
+
+            //var oSeedsProvincia = oSeedDirecciones.GetProvinciasSeeds();
+            //modelBuilder.Entity<Provincia>().HasData(oSeedsProvincia);
+            modelBuilder.Entity<Pais>().HasData(
+                    new Pais { Descripcion = "Argentina", PaisId = 1 } 
+                );
+
             //modelBuilder.Entity<EstadoCivil>().HasData(
             //    new EstadoCivil { EstadoCivilId = 1, Descripcion ="Soltero"},
             //    new EstadoCivil { EstadoCivilId = 2, Descripcion = "Casado" },
@@ -70,10 +81,10 @@ namespace CarAgency.Data
             //    new EstadoCivil { EstadoCivilId = 4, Descripcion = "Divorciado" }
             //);
 
-            //modelBuilder.Entity<ConceptoFinanciero>().HasData(
-            //    new ConceptoFinanciero {ConceptoFinancieroId = 1, Descripcion="Debito"  },
-            //    new ConceptoFinanciero { ConceptoFinancieroId = 2, Descripcion = "Credito" }
-            //);
+            modelBuilder.Entity<ConceptoFinanciero>().HasData(
+                new ConceptoFinanciero { ConceptoFinancieroId = 1, Descripcion = "Debito", CreateDateTime = DateTime.Now, CreateUser = "migration" },
+                new ConceptoFinanciero { ConceptoFinancieroId = 2, Descripcion = "Credito", CreateDateTime = DateTime.Now, CreateUser = "migration" }
+            );
 
         }            
 

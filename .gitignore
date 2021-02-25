@@ -1,4 +1,11 @@
 Domain/bin/
+<<<<<<< HEAD
 Domain/obj/
 .vs/
 .vscode/
+=======
+Domain/Bin/
+Domain/obj/
+Domain/Obj/
+.vs/
+>>>>>>> Issue3

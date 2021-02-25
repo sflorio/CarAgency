@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
-import { ApplicationState } from '../../store';
-import * as EstadosCivilesStore from '../../store/actions/actionEstadosCiviles';
+import { ApplicationState } from 'store';
+import * as EstadosCivilesStore from 'store/actions/actionEstadosCiviles';
 import MaterialTable, { Column } from 'material-table';
 
 

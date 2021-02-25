@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { ITipoVehiculo } from "models/interfaces/ITipoVehiculo";
-import { TipoVehiculo } from "models/TipoVehiculo";
+import { TipoVehiculo } from "domain/models/vehiculos/TipoVehiculo";
 const serviceBaseModel = "TiposVehiculo";
 
 
