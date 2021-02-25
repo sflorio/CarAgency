@@ -16,7 +16,7 @@ export default () => (
         <Route path='/vehiculo/lista-vehiculos/:startDateIndex?' component={ListaVehiculos} />
         <Route path='/vehiculo/ingreso-vehiculo' component={IngresoVehiculo} />
         <Route path='/personas/lista-estadoCivil/:startDateIndex?' component={ListaEstadosCiviles} />
-        <Route path='/modelo/lista-modelo' component={ListaModelo} />
+        <Route path='/modelo/lista-modelo/:startDateIndex?' component={ListaModelo} />
 
     </Layout>
 );

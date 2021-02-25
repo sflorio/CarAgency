@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
-import { ApplicationState } from '../../store';
-import * as ModeloStore from '../../store/Modelo';
+import * as ModeloStore from 'store/actions/actionModelos';
 import MaterialTable, { Column } from 'material-table';
-
+import {Modelo} from "domain/models/vehiculos/Modelo";
+import {actionCreatorsModelo} from 'store/actions/actionModelos';
 
 //other custom components
 
 // At runtime, Redux will merge together...
-type ModeloProps =
-  ModeloStore.ModeloState // ... state we've requested from the Redux store
-  & typeof ModeloStore.actionCreators // ... plus action creators we've requested
-  & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
 
-class ListaModelo extends React.Component<ModeloProps> {
 
+class ListaModelo extends React.Component<{props: any},{modelos: Modelo[]}> {
+  constructor(props: any){
+    super(props);
+    this.state = {
+      modelos: [ new Modelo]
+    };
+  } 
 
   // This method is called when the component is first added to the document
   public componentDidMount() {
@@ -27,7 +27,6 @@ class ListaModelo extends React.Component<ModeloProps> {
   public componentDidUpdate() {
     this.ensureDataFetched();
   }
-
 
   public render() {
     return (
@@ -41,7 +40,7 @@ class ListaModelo extends React.Component<ModeloProps> {
 
   private ensureDataFetched() {
     const startDateIndex = 0;
-    this.props.requestModelos(startDateIndex);
+    actionCreatorsModelo.requestModelos(startDateIndex);
   }
 
   private renderTableMaterial(){
@@ -51,12 +50,13 @@ class ListaModelo extends React.Component<ModeloProps> {
       columns={[
         { title: 'Descripción', field: 'Descripcion' }
       ]}
-      data={this.props.modelo}  
+      data={this.state.modelos}  
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
             setTimeout(() => {
-              this.props.addModelo(newData);
+              actionCreatorsModelo.addModelo(newData);
+              this.setState({ modelos : [...this.state.modelos, newData] } )
               resolve();
             }, 600);
           }),
@@ -64,8 +64,11 @@ class ListaModelo extends React.Component<ModeloProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               if (oldData) {
-                this.props.updateModelo(( oldData.ModeloId == null ? 0:oldData.ModeloId), newData);
-                this.props.requestModelo(0);
+                actionCreatorsModelo.updateModelo(( oldData.ModeloId == null ? 0: oldData.ModeloId), newData);
+                var modelosUpdated = this.state.modelos;
+                modelosUpdated = modelosUpdated.map((e) => ( e.ModeloId == oldData.ModeloId ? newData : oldData ));
+                this.setState({ modelos : modelosUpdated});
+
                 resolve();
               }
               resolve();
@@ -75,8 +78,12 @@ class ListaModelo extends React.Component<ModeloProps> {
           new Promise((resolve) => {
             setTimeout(() => {
               
-              this.props.deleteModelo(( oldData.ModeloId == null ? 0:oldData.ModeloId));
-              this.props.requestModelo(0);
+              actionCreatorsModelo.deleteModelo(( oldData.ModeloId == null ? 0:oldData.ModeloId));
+
+              var modelosUpdated = this.state.modelos;
+                modelosUpdated = modelosUpdated.filter((e) => ( e.ModeloId != oldData.ModeloId ));
+                this.setState({ modelos : modelosUpdated});
+              
               resolve();
             }, 600);
           }),
@@ -86,7 +93,4 @@ class ListaModelo extends React.Component<ModeloProps> {
   }
 }
 
-export default connect(
-  (state: ApplicationState) => state.modelo, // Selects which state properties are merged into the component's props
-  ModeloStore.actionCreators // Selects which action creators are merged into the component's props
-)(ListaModelo as any);
+export default ListaModelo;

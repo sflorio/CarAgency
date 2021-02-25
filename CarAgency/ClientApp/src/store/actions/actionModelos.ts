@@ -18,7 +18,6 @@ export const actionCreatorsModelo = {
 
         return axios
         .get("Marcas/Modelos/" + MarcaId)
-        .then( Response => Response )
         .then(Response => Response.data as unknown as Modelo[])
         .catch(error => {
             console.log(error);
@@ -31,11 +30,7 @@ export const actionCreatorsModelo = {
         axios
         .get(serviceBaseModel + `/` + modeloId)
         .then( Response => Response )
-        .then(res => {
-          
-            //dispatch({ type: actionTypes.GET_VEHICULO_SUCESS, modeloId });
-
-        }).catch((error)=>{
+        .catch((error)=>{
             console.log(error);
         });
 
@@ -46,9 +41,7 @@ export const actionCreatorsModelo = {
         
         axios
       .post(serviceBaseModel, modelo)
-      .then(res => {
-        //dispatch({ type: actionTypes.ADD_VEHICULO_SUCESS,vehiculo: modelo });
-      }).catch((error)=>{
+      .catch((error)=>{
         console.log(error);
     });
 
@@ -57,12 +50,7 @@ export const actionCreatorsModelo = {
         console.log("updateModelo");
         axios
         .put(serviceBaseModel + `/` + modeloId ,modelo)
-        .then(res => {
-          
-            //dispatch({ type: actionTypes.UPDATE_VEHICULO_SUCESS, vehiculo: modelo });
-
-
-        }).catch((error)=>{
+        .catch((error)=>{
             console.log(error);
         });
 
@@ -71,10 +59,7 @@ export const actionCreatorsModelo = {
         console.log("deleteModelo");
         axios
         .delete(serviceBaseModel + `/` + modeloId)
-        .then(res => {
-
-          //dispatch({ type: actionTypes.DELETE_VEHICULO_SUCESS,modeloId });
-        }).catch((error)=>{
+        .catch((error)=>{
             console.log(error);
         });
 
