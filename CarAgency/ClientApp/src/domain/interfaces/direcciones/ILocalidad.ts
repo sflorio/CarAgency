@@ -1,4 +1,4 @@
 export default interface ILocalidad {
-    IdLocalidad: number,
+    LocalidadId: number,
     Descripcion: string
 }

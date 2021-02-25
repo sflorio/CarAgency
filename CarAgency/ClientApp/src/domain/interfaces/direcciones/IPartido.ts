@@ -1,4 +1,4 @@
 export default interface IPartido {
-    IdPartido: number,
+    PartidoId: number,
     Descripcion: string
 }

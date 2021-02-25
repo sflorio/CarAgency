@@ -22,16 +22,16 @@ export default function DireccionForm({direccion, onChange  } : { direccion: IDi
                 Dirección:
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} >
-                <AutocompleteCountry></AutocompleteCountry>
+                <AutocompleteCountry pais={state.Pais} onChange={ChangeHandler} ></AutocompleteCountry>
             </Grid>
             <Grid item xs={12} sm={6}  md={6} lg={6}>
-                <AutocompleteProvince></AutocompleteProvince>
+                <AutocompleteProvince provincia={state.Provincia} pais={state.Pais} onChange={ChangeHandler}></AutocompleteProvince>
             </Grid>                
             <Grid item xs={12} sm={6} lg={6} >
-                <AutocompleteDepartament></AutocompleteDepartament>
+                <AutocompleteDepartament partido={state.Partido} provincia={state.Provincia} onChange={ChangeHandler}></AutocompleteDepartament>
             </Grid>
             <Grid item xs={12} sm={6} lg={6} >
-                <AutocompleteLocation></AutocompleteLocation>
+                <AutocompleteLocation localidad={state.Localidad} partido={state.Partido} onChange={ChangeHandler}></AutocompleteLocation>
             </Grid>
             <Grid item xs={12} sm={6} lg={6} >
                 <TextFiedl name="Calle" label="Calle" value={state.Calle} onChange={ChangeHandler}></TextFiedl>

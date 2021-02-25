@@ -25,8 +25,9 @@ namespace CarAgency
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null); ;
-            
-            services.AddDbContext<CarAgencyDBContext>(options => options.UseSqlServer(this.Configuration.GetValue<string>("ConnString")));
+            services.AddDbContext<CarAgencyDBContext>(options => {
+                options.UseSqlServer(this.Configuration.GetValue<string>("ConnString"));
+                });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

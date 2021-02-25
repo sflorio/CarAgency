@@ -1,4 +1,4 @@
 export default interface IProvincia {
-    IdProvincia: number,
+    ProvinciaId: number,
     Descripcion: string
 }

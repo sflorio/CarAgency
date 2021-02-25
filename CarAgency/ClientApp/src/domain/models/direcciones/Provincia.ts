@@ -2,11 +2,11 @@ import IProvincia from "domain/interfaces/direcciones/IProvincia";
 
 export default class Provincia implements IProvincia {
     constructor(){
-        this.IdProvincia = 0;
+        this.ProvinciaId = 0;
         this.Descripcion = "";
     }
 
-    IdProvincia: number;
+    ProvinciaId: number;
     Descripcion: string;
 
 }

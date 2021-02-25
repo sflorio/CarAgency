@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAgency", "CarAgency\CarAgency.csproj", "{4A486B25-FA8C-4B3B-AF36-602528B48B2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{201C0061-9411-4A3C-A36D-88C8F5605118}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{201C0061-9411-4A3C-A36D-88C8F5605118}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

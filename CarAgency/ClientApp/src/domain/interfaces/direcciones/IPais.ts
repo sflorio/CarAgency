@@ -1,4 +1,4 @@
 export default interface IPais {
-    IdPais: number,
+    PaisId: number,
     Descripcion: string
 }
