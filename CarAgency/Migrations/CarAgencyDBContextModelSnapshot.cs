@@ -166,24 +166,6 @@ namespace CarAgency.Migrations
                     b.HasKey("ConceptoFinancieroId");
 
                     b.ToTable("ConceptosFinancieros");
-
-                    b.HasData(
-                        new
-                        {
-                            ConceptoFinancieroId = 1,
-                            Active = false,
-                            CreateDateTime = new DateTime(2021, 2, 25, 1, 18, 35, 568, DateTimeKind.Local).AddTicks(4544),
-                            CreateUser = "migration",
-                            Descripcion = "Debito"
-                        },
-                        new
-                        {
-                            ConceptoFinancieroId = 2,
-                            Active = false,
-                            CreateDateTime = new DateTime(2021, 2, 25, 1, 18, 35, 569, DateTimeKind.Local).AddTicks(6969),
-                            CreateUser = "migration",
-                            Descripcion = "Credito"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Finanzas.Cuenta", b =>
@@ -259,6 +241,24 @@ namespace CarAgency.Migrations
                     b.HasKey("TipoOperacionId");
 
                     b.ToTable("TiposOperaciones");
+
+                    b.HasData(
+                        new
+                        {
+                            TipoOperacionId = 1,
+                            Active = true,
+                            CreateDateTime = new DateTime(2021, 2, 25, 23, 33, 57, 506, DateTimeKind.Local).AddTicks(295),
+                            CreateUser = "migration",
+                            Descripcion = "Debito"
+                        },
+                        new
+                        {
+                            TipoOperacionId = 2,
+                            Active = true,
+                            CreateDateTime = new DateTime(2021, 2, 25, 23, 33, 57, 506, DateTimeKind.Local).AddTicks(341),
+                            CreateUser = "migration",
+                            Descripcion = "Credito"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Finanzas.Transaccion", b =>
@@ -395,6 +395,40 @@ namespace CarAgency.Migrations
                     b.HasKey("EstadoCivilId");
 
                     b.ToTable("EstadosCiviles");
+
+                    b.HasData(
+                        new
+                        {
+                            EstadoCivilId = 1,
+                            Active = true,
+                            CreateDateTime = new DateTime(2021, 2, 25, 23, 33, 57, 504, DateTimeKind.Local).AddTicks(6770),
+                            CreateUser = "migration",
+                            Descripcion = "Soltero"
+                        },
+                        new
+                        {
+                            EstadoCivilId = 2,
+                            Active = true,
+                            CreateDateTime = new DateTime(2021, 2, 25, 23, 33, 57, 505, DateTimeKind.Local).AddTicks(8355),
+                            CreateUser = "migration",
+                            Descripcion = "Casado"
+                        },
+                        new
+                        {
+                            EstadoCivilId = 3,
+                            Active = true,
+                            CreateDateTime = new DateTime(2021, 2, 25, 23, 33, 57, 505, DateTimeKind.Local).AddTicks(8391),
+                            CreateUser = "migration",
+                            Descripcion = "Viudo"
+                        },
+                        new
+                        {
+                            EstadoCivilId = 4,
+                            Active = true,
+                            CreateDateTime = new DateTime(2021, 2, 25, 23, 33, 57, 505, DateTimeKind.Local).AddTicks(8394),
+                            CreateUser = "migration",
+                            Descripcion = "Divorciado"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Personas.Persona", b =>
@@ -484,6 +518,13 @@ namespace CarAgency.Migrations
                     b.HasKey("TipoDocumentoId");
 
                     b.ToTable("TipoDocumentos");
+
+                    b.HasData(
+                        new
+                        {
+                            TipoDocumentoId = 1,
+                            Descripcion = "DNI"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Personas.Usuario", b =>
@@ -697,6 +738,18 @@ namespace CarAgency.Migrations
                     b.HasKey("TipoVehiculoId");
 
                     b.ToTable("TipoVehiculos");
+
+                    b.HasData(
+                        new
+                        {
+                            TipoVehiculoId = 1,
+                            Descripcion = "Sedan 4 puertas"
+                        },
+                        new
+                        {
+                            TipoVehiculoId = 2,
+                            Descripcion = "Sedan 5 puertas"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Vehiculos.Vehiculo", b =>
@@ -810,11 +863,9 @@ namespace CarAgency.Migrations
 
             modelBuilder.Entity("Domain.Models.Direcciones.Localidad", b =>
                 {
-                    b.HasOne("Domain.Models.Direcciones.Partido", "Partido")
+                    b.HasOne("Domain.Models.Direcciones.Partido", null)
                         .WithMany("Localidades")
                         .HasForeignKey("PartidoId");
-
-                    b.Navigation("Partido");
                 });
 
             modelBuilder.Entity("Domain.Models.Direcciones.Partido", b =>

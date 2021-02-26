@@ -10,6 +10,7 @@ namespace Domain.Models
 {
     public abstract class Auditoria
     {
+        
         [Column(TypeName = "datetime")]
         public DateTime CreateDateTime { get; set; }
         

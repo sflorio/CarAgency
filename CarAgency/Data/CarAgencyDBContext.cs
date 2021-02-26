@@ -66,26 +66,53 @@ namespace CarAgency.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             //var oSeedDirecciones = new SeedDirecciones();
 
             //var oSeedsProvincia = oSeedDirecciones.GetProvinciasSeeds();
             //modelBuilder.Entity<Provincia>().HasData(oSeedsProvincia);
             modelBuilder.Entity<Pais>().HasData(
-                    new Pais { Descripcion = "Argentina", PaisId = 1 } 
+                    new Pais { Descripcion = "Argentina", PaisId = 1 }
                 );
 
-            //modelBuilder.Entity<EstadoCivil>().HasData(
-            //    new EstadoCivil { EstadoCivilId = 1, Descripcion ="Soltero"},
-            //    new EstadoCivil { EstadoCivilId = 2, Descripcion = "Casado" },
-            //    new EstadoCivil { EstadoCivilId = 3, Descripcion = "Viudo" },
-            //    new EstadoCivil { EstadoCivilId = 4, Descripcion = "Divorciado" }
+            //modelBuilder.Entity<Localidad>().HasData(
+            //    new Localidad { LocalidadId = 1, Descripcion = "Florida" },
+            //    new Localidad { LocalidadId = 2, Descripcion = "Villa Adelina" }
             //);
 
-            modelBuilder.Entity<ConceptoFinanciero>().HasData(
-                new ConceptoFinanciero { ConceptoFinancieroId = 1, Descripcion = "Debito", CreateDateTime = DateTime.Now, CreateUser = "migration" },
-                new ConceptoFinanciero { ConceptoFinancieroId = 2, Descripcion = "Credito", CreateDateTime = DateTime.Now, CreateUser = "migration" }
+            //modelBuilder.Entity<Partido>().HasData(
+            //    new Partido { Descripcion = "Vicente Lopez", PartidoId = 1 },
+            //    new Partido { Descripcion = "San Isidro", PartidoId = 2 }
+            //    );
+
+            //modelBuilder.Entity<Provincia>().HasData(
+            //        new Provincia { Descripcion = "Buenos Aires", ProvinciaId = 1 }
+            //    );
+
+            //modelBuilder
+
+            modelBuilder.Entity<TipoDocumento>().HasData(
+                new TipoDocumento { Descripcion = "DNI" , TipoDocumentoId = 1 }
             );
 
+            modelBuilder.Entity<TipoVehiculo>().HasData(
+                new TipoVehiculo { Descripcion = "Sedan 4 puertas", TipoVehiculoId  = 1  },
+                new TipoVehiculo { Descripcion = "Sedan 5 puertas", TipoVehiculoId = 2 }
+            );
+
+            //modelBuilder.Entity<EstadoCivil>().Property(e => e.CreateDateTime).HasDefaultValue(DateTime.Today);
+
+            modelBuilder.Entity<EstadoCivil>().HasData(
+                new EstadoCivil { EstadoCivilId = 1, Descripcion = "Soltero", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
+                new EstadoCivil { EstadoCivilId = 2, Descripcion = "Casado", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
+                new EstadoCivil { EstadoCivilId = 3, Descripcion = "Viudo", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
+                new EstadoCivil { EstadoCivilId = 4, Descripcion = "Divorciado", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" }
+            );
+
+            modelBuilder.Entity<TipoOperacion>().HasData(
+                new TipoOperacion { TipoOperacionId = 1 , Descripcion = "Debito" , Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
+                new TipoOperacion { TipoOperacionId = 2, Descripcion = "Credito", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" }
+            );
         }            
 
     }

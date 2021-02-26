@@ -13,7 +13,5 @@ namespace Domain.DTO.Direcciones
         public int LocalidadId { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string Descripcion { get; set; }
-
-        public Partido Partido { get; set; }
     }
 }
