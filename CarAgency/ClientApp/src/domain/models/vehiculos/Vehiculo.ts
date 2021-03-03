@@ -4,13 +4,15 @@ import {Marca} from "domain/models/vehiculos/Marca";
 import {Modelo} from "domain/models/vehiculos/Modelo";
 import {TipoVehiculo} from "domain/models/vehiculos/TipoVehiculo";
 import { Titular } from "domain/models/personas/Titular";
+import Procedencia from "domain/models/vehiculos/Procedencia";
+
 import RevisionTecnica from "domain/models/vehiculos/revisionestecnicas/RevisionTecnica";
 
 export class Vehiculo implements IVehiculo{
     constructor(){
       this.VehiculoId = undefined;
       this.Dominio = "";
-      this.Procedencia= "";
+      this.Procedencia= new Procedencia();
       this.FechaInscripcionInical= new Date();
       this.Marca = new Marca();
       this.Modelo= new Modelo();
@@ -28,7 +30,7 @@ export class Vehiculo implements IVehiculo{
   
     VehiculoId?: number;
     Dominio: string;
-    Procedencia: string;
+    Procedencia: Procedencia;
     FechaInscripcionInical: Date;
     Marca: Marca;
     Modelo: Modelo;

@@ -6,23 +6,23 @@ import Provincia from "domain/models/direcciones/Provincia";
 
 export default class Direccion implements IDireccion {
     constructor(){
-    this.DireccionId = 0;
-    this.Pais = new Pais();
-    this.Provincia = new Provincia();
-    this.Partido = new Partido();
-    this.Localidad = new Localidad();
-    this.Calle = "";
-    this.NumeroCalle = "";
-    this.CodigoPostal = "";
-        
+        this.DireccionId = 0;
+        this.Pais = new Pais();
+        this.Provincia = new Provincia();
+        this.Partido = new Partido();
+        this.Localidad = new Localidad();
+        this.Calle = "";
+        this.NumeroCalle = 0;
+        this.CodigoPostal = "";
     }
+    
     DireccionId: number;
     Pais: Pais;
     Provincia: Provincia;
     Partido: Partido;
     Localidad: Localidad;
     Calle: string;
-    NumeroCalle: string;
+    NumeroCalle: number;
     CodigoPostal: string;
 
 }

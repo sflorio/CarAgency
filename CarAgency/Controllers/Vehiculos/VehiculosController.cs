@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using CarAgency.Data;
 using Domain.DTO.Vehiculos;
 using AutoMapper;
+using Domain.Models.Personas;
+using Domain.Models;
 namespace CarAgency.Controllers
 {
     [Route("[controller]")]
@@ -85,8 +87,34 @@ namespace CarAgency.Controllers
         {
             Domain.Models.Vehiculos.Vehiculo objeVehiculo = _mapper.Map<Domain.Models.Vehiculos.Vehiculo>(vehiculo);
 
+            var marca = await _context.Marcas.FindAsync(objeVehiculo.Marca.MarcaId);
+            var modelo = await _context.Modelos.FindAsync(objeVehiculo.Modelo.ModeloId);
+            var procedencia = await _context.Procedencias.FindAsync(objeVehiculo.Procedencia.ProcedenciaId);
+
+            objeVehiculo.Marca = marca;
+            objeVehiculo.Modelo = modelo;
+            objeVehiculo.Procedencia = procedencia;
+
+            var pais = await _context.Paises.FindAsync(objeVehiculo.Titular.Direccion.Pais.PaisId);
+            var provinicia = await _context.Provincias.FindAsync(objeVehiculo.Titular.Direccion.Provincia.ProvinciaId);
+            var departamento = await _context.Partidos.FindAsync(objeVehiculo.Titular.Direccion.Partido.PartidoId);
+            var localidad = await _context.Localidades.FindAsync(objeVehiculo.Titular.Direccion.Localidad.LocalidadId);
+
+            
+            objeVehiculo.Titular.Direccion.Pais = pais;
+            objeVehiculo.Titular.Direccion.Provincia = provinicia;
+            objeVehiculo.Titular.Direccion.Partido = departamento;
+            objeVehiculo.Titular.Direccion.Localidad = localidad;
+            
+            var usuario = "seba";
+            objeVehiculo.Titular.InitializeAddProperties(usuario);
+            objeVehiculo.InitializeAddProperties(usuario);
+
+
+            _context.Personas.Add((Persona)objeVehiculo.Titular);
             _context.Vehiculos.Add(objeVehiculo);
-             await _context.SaveChangesAsync();
+            
+            await _context.SaveChangesAsync();
             
             return CreatedAtAction("GetVehiculo", new { id = vehiculo.VehiculoId }, vehiculo);
         }

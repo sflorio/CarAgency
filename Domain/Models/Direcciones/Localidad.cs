@@ -11,6 +11,9 @@ namespace Domain.Models.Direcciones
     {
         [Key]
         public int LocalidadId { get; set; }
+
+        public Partido Partido { get; set; }
+
         [Column(TypeName = "nvarchar(100)")]
         public string Descripcion { get; set; }
 

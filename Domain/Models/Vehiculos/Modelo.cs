@@ -16,5 +16,8 @@ namespace Domain.Models.Vehiculos
         [Required]
         [Column(TypeName = "nvarchar(200)")]
         public string Descripcion { get; set; }
+
+        public TipoVehiculo TipoVehiculo { get; set; }
+
     }
 }

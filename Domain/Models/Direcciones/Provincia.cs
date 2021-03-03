@@ -14,8 +14,6 @@ namespace Domain.Models.Direcciones
 
         [Column(TypeName = "nvarchar(100)")]
         public string Descripcion { get; set; }
-        public Pais Pais { get; set; }
-
-        public List<Partido> Partidos { get; set; }
+        public int PaisId { get; set; }
     }
 }

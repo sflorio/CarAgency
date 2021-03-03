@@ -1,7 +1,9 @@
-export class TipoVehiculo{
+import ITipoVehiculo from "domain/interfaces/vehiculos/ITipoVehiculo";
+
+export class TipoVehiculo implements ITipoVehiculo{
     constructor(){
         this.TipoVehiculoId = 0;
-        this.Descripcion = "";
+        this.Descripcion = "";        
     }
 
     TipoVehiculoId: number;

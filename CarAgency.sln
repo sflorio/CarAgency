@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAgency", "CarAgency\CarA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{201C0061-9411-4A3C-A36D-88C8F5605118}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CarAgencyDb", "CarAgencyDb\CarAgencyDb.sqlproj", "{E7DDE051-6D00-48D3-AC2A-DB8C9CA8FECA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{201C0061-9411-4A3C-A36D-88C8F5605118}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{201C0061-9411-4A3C-A36D-88C8F5605118}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{201C0061-9411-4A3C-A36D-88C8F5605118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7DDE051-6D00-48D3-AC2A-DB8C9CA8FECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7DDE051-6D00-48D3-AC2A-DB8C9CA8FECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7DDE051-6D00-48D3-AC2A-DB8C9CA8FECA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E7DDE051-6D00-48D3-AC2A-DB8C9CA8FECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7DDE051-6D00-48D3-AC2A-DB8C9CA8FECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7DDE051-6D00-48D3-AC2A-DB8C9CA8FECA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

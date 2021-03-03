@@ -1,18 +1,18 @@
 import { ITransaccion } from "domain/interfaces/finanzas/ITransaccion";
 import { IMarca } from "domain/interfaces/vehiculos/IMarca";
 import { IModelo } from "domain/interfaces/vehiculos/IModelo";
-import { ITipoVehiculo } from "domain/interfaces/vehiculos/ITipoVehiculo";
+
 import { ITitular } from "domain/interfaces/personas/ITitular";
+import IProcedencia from "domain/interfaces/vehiculos/IProcedencia";
 import IRevisionTecnica from "domain/interfaces/vehiculos/revisionestecnicas/IRevisionTecnica";
 
 export interface IVehiculo {
     VehiculoId?: number,    
     Dominio: string,
-    Procedencia: string,//lase precedencia
+    Procedencia: IProcedencia,
     FechaInscripcionInical: Date,
-    Marca: IMarca, // lase marca
-    Modelo: IModelo, // lase modelo
-    TipoVehiculo: ITipoVehiculo, //lase TipoVEhiculo
+    Marca: IMarca,
+    Modelo: IModelo,
     Ano : number,
     NumeroMotor: string,
     NumeroChasis: string,
