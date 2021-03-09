@@ -11,5 +11,14 @@ export const actionCreator = {
             console.log(error);
             return [];
         });
+    },
+    getAllDepartmentsByProvince: (id: number) : Promise<Partido[]> =>{
+        return axios
+        .get(serviceBaseModel + "/Provincia/" + id )
+        .then(Response => Response.data as Partido[])
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
     }
 };

@@ -31,6 +31,15 @@ namespace CarAgency.Controllers
             return _mapper.Map<List<Domain.Models.Direcciones.Provincia>,List<Domain.DTO.Direcciones.Provincia>>(provincias);
         }
 
+
+        [HttpGet("Pais/{id}")]
+        public async Task<ActionResult<IEnumerable<Provincia>>> GetProvinciasByPais(int id)
+        {
+            var provincias = await _context.Provincias.Where((e) => e.PaisId == id).ToListAsync<Domain.Models.Direcciones.Provincia>();
+
+            return _mapper.Map<List<Domain.Models.Direcciones.Provincia>, List<Domain.DTO.Direcciones.Provincia>>(provincias);
+        }
+
         // GET: api/Provincias/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Provincia>> GetProvincia(int id)

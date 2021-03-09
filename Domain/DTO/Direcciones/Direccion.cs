@@ -19,7 +19,7 @@ namespace Domain.DTO.Direcciones
         [Column(TypeName = "nvarchar(100)")]
         public string Calle { get; set; }
 
-        public int NumeroCalle { get; set; }
+        public Int16 NumeroCalle { get; set; }
 
         [Column(TypeName = "nvarchar(10)")]
         public string CodigoPostal { get; set; }

@@ -10,12 +10,12 @@ export default function AutocompleteCountry({ partido , provincia, onChange }: {
     const labelName = "Partido";
 
      useEffect(() => {
-        DepartmentsStore.actionCreator.getAllDepartments(provincia.ProvinciaId)
+        DepartmentsStore.actionCreator.getAllDepartmentsByProvince(provincia.ProvinciaId)
          .then((response) => {
              setOptions(response);
          });
         
-     },[]);
+     },[provincia]);
 
     return (
         <div>

@@ -4,9 +4,30 @@ SET IDENTITY_INSERT [dbo].[Provincias] ON
 
 MERGE INTO [dbo].[Provincias] AS [Target]
 USING (VALUES
-  (1,N'Buenos Aires',1)
- ,(3,N'Capital Federal',1)
- ,(4,N'Montevideo',2)
+( 1, 'Misiones', 1),
+( 2, 'San Luis', 1),
+( 3, 'San Juan', 1),
+( 4, 'Entre Ríos', 1),
+( 5, 'Santa Cruz', 1),
+( 6, 'Río Negro', 1),
+( 7, 'Chubut', 1),
+( 8, 'Córdoba', 1),
+( 9, 'Mendoza', 1),
+( 10, 'La Rioja', 1),
+( 11, 'Catamarca', 1),
+( 12, 'La Pampa', 1),
+( 13, 'Santiago del Estero', 1),
+( 14, 'Corrientes', 1),
+( 15, 'Santa Fe', 1),
+( 16, 'Tucumán', 1),
+( 17, 'Neuquén', 1),
+( 18, 'Salta', 1),
+( 19, 'Chaco', 1),
+( 20, 'Formosa', 1),
+( 21, 'Jujuy', 1),
+( 22, 'Ciudad Autónoma de Buenos Aires', 1),
+( 23, 'Buenos Aires', 1),
+( 24, 'Tierra del Fuego, Antártida e Islas del Atlántico Sur',  1)
 ) AS [Source] ([ProvinciaId],[Descripcion],[PaisId])
 ON ([Target].[ProvinciaId] = [Source].[ProvinciaId])
 WHEN MATCHED AND (

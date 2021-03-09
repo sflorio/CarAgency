@@ -4,7 +4,8 @@ SET NOCOUNT ON
 SET IDENTITY_INSERT [dbo].[Localidades] ON
 
 MERGE INTO [dbo].[Localidades] AS [Target]
-USING (SELECT [LocalidadId],[Descripcion],[PartidoId] FROM [dbo].[Localidades] WHERE 1 = 0 -- Empty dataset (source table contained no rows at time of MERGE generation) 
+USING (
+	:r ..\Data\LocalidadesData.sql
 ) AS [Source] ([LocalidadId],[Descripcion],[PartidoId])
 ON ([Target].[LocalidadId] = [Source].[LocalidadId])
 WHEN MATCHED AND (

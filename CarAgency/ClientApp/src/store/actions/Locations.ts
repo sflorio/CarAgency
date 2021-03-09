@@ -11,5 +11,14 @@ export const actionCreator = {
             console.log(error);
             return [];
         });
+    },
+    getAllLocationsByDepartments: (id: number) : Promise<Localidad[]> =>{
+        return axios
+        .get(serviceBaseModel + "/Partido/" + id )
+        .then(Response => Response.data as Localidad[])
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
     }
 };

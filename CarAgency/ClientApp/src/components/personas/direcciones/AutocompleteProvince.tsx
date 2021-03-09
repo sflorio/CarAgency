@@ -10,12 +10,12 @@ export default function AutocompleteLocation({provincia , pais, onChange }: {pro
     const labelName = "Provicia";
 
      useEffect(() => {
-        ProvincesStore.actionCreator.getAllProvinces(pais.PaisId)
+        ProvincesStore.actionCreator.getAllProvincesByCountry(pais.PaisId)
          .then((response) => {
              setOptions(response);
          });
         
-     },[]);
+     },[pais]);
 
 
      

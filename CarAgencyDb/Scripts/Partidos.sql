@@ -3,7 +3,9 @@
 SET IDENTITY_INSERT [dbo].[Partidos] ON
 
 MERGE INTO [dbo].[Partidos] AS [Target]
-USING (SELECT [PartidoId],[Descripcion],[ProvinciaId] FROM [dbo].[Partidos] WHERE 1 = 0 -- Empty dataset (source table contained no rows at time of MERGE generation) 
+USING (
+	:r ..\Data\PartidosData.sql
+
 ) AS [Source] ([PartidoId],[Descripcion],[ProvinciaId])
 ON ([Target].[PartidoId] = [Source].[PartidoId])
 WHEN MATCHED AND (

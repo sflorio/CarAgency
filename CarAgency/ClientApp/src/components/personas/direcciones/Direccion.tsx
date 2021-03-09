@@ -17,7 +17,10 @@ export default function DireccionForm({direccion, onChange  } : { direccion: IDi
     const [state, setState] = useState(direccion);
 
     const ChangeHandler = (e: any) => {
-        var objstate = {...state, [e.target.name]: e.target.value};
+        var value = e.target.value;
+        //value = (e.target.type === 'number') && +value ;
+        value = (e.target.type === 'number' ?  +value : value );
+        var objstate = {...state, [e.target.name]: value};
         setState(objstate);
         onChange({
             target : {
@@ -63,8 +66,6 @@ export default function DireccionForm({direccion, onChange  } : { direccion: IDi
         });
     }
 
-
-
     return (
         <Grid container>
             <Grid item xs={12} sm={12} md={12} lg={12} >
@@ -86,7 +87,7 @@ export default function DireccionForm({direccion, onChange  } : { direccion: IDi
                 <TextFiedl name="Calle" label="Calle" value={state.Calle} onChange={ChangeHandler}></TextFiedl>
             </Grid>
             <Grid item xs={12} sm={6} lg={6} >
-                <TextFiedl name="NumeroCalle" label="Numero Calle" value={state.NumeroCalle} onChange={ChangeHandler}></TextFiedl>
+                <TextFiedl name="NumeroCalle" type="number" label="Numero Calle" value={state.NumeroCalle} onChange={ChangeHandler}></TextFiedl>
             </Grid>
             <Grid item xs={12} sm={6} lg={6} >
                 <TextFiedl name="CodigoPostal" label="Código Postal" value={state.CodigoPostal} onChange={ChangeHandler}></TextFiedl>
@@ -97,5 +98,4 @@ export default function DireccionForm({direccion, onChange  } : { direccion: IDi
             </Grid>
         </Grid>
     )
-
 } 

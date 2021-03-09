@@ -108,7 +108,7 @@ public componentDidMount() {
     if(this.validate()){
       this.props.addVehiculo(this.state.vehiculo);
       console.log(this.state.vehiculo);
-    } {
+    } else {
       console.log("Objeto Vehiculo no paso la validacion " + this.state.vehiculo);
     }
     
@@ -133,8 +133,7 @@ public componentDidMount() {
                         <TabPanel value={this.state.value} index={0}>
                             <VehiculoForm onChange={this.handleOnFormChange} vehiculo={this.state.vehiculo}></VehiculoForm>
                             <TitularForm onChange={this.handleOnFormTitularChange} titular={this.state.vehiculo.Titular}></TitularForm>               
-                        </TabPanel>
-                        
+                        </TabPanel>                        
                         <TabPanel value={this.state.value} index={1}>
                             Ficha Tecnica
                         </TabPanel>
@@ -151,8 +150,6 @@ public componentDidMount() {
         )
     }
 }
-
-
 
 export default connect(
     (state: ApplicationState) => state.vehiculos, // Selects which state properties are merged into the component's props

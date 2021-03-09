@@ -47,15 +47,6 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
         });
     }
 
-    // onInputChangeTipoVehiculo = (value?: TipoVehiculo | null) =>{
-    //     this.inputChange({
-    //         target : {
-    //             name : "TipoVehiculo",
-    //             value: value
-    //         }
-    //     });
-    // }
-
     onInputChangeProcedencia = (value?: Procedencia | null) =>{
         this.inputChange({
             target : {
@@ -74,20 +65,20 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
                 <Grid item xs={12} sm={6} md={6} lg={6} >
                     <TextFiedl name="Dominio" label="Dominio" onChange={this.inputChange} value={this.state.Dominio} ></TextFiedl> 
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.state.Ano}></TextFiedl>
+                </Grid>
                 <Grid item xs={12} sm={6}  md={6} lg={6}>
                     <AutocompleteProcedencias procedencia={this.state.Procedencia} onChange={this.onInputChangeProcedencia} ></AutocompleteProcedencias>
+                </Grid>
+                <Grid item xs={12} sm={6}  md={6} lg={6}>
+                    <br></br>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AutocompleteMarcas  marca={this.state.Marca} onChange={this.onInputChangeMarca} ></AutocompleteMarcas>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <AutocompleteModelos modelo={this.state.Modelo} marca={this.state.Marca} onChange={this.onInputChangeModelo} ></AutocompleteModelos>
-                </Grid>
-                {/* <Grid item xs={12} sm={6}>
-                    <AutocompleteTipoVehiculos tipoVehiculo={this.state.TipoVehiculo} onChange={this.onInputChangeTipoVehiculo}></AutocompleteTipoVehiculos>
-                </Grid> */}
-                <Grid item xs={12} sm={6}>
-                    <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.state.Ano}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextFiedl name="NumeroMotor" label="Numero Motor" onChange={this.inputChange} value={this.state.NumeroMotor}></TextFiedl>

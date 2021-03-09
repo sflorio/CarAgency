@@ -69,6 +69,8 @@
     <None Include="Data\ModeloData3.sql" />
     <None Include="Data\ModeloData4.sql" />
     <None Include="Data\ModeloData5.sql" />
+    <None Include="Data\LocalidadesData.sql" />
+    <None Include="Data\PartidosData.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Modelos.sql" />

@@ -18,24 +18,10 @@ WHEN MATCHED AND (
 WHEN NOT MATCHED BY TARGET THEN
  INSERT([ModeloId],[Descripcion],[MarcaId],[TipoVehiculoId])
  VALUES([Source].[ModeloId],[Source].[Descripcion],[Source].[MarcaId],[Source].[TipoVehiculoId])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
-
-DECLARE @mergeError int
- , @mergeCount int
-SELECT @mergeError = @@ERROR, @mergeCount = @@ROWCOUNT
-IF @mergeError != 0
- BEGIN
- PRINT 'ERROR OCCURRED IN MERGE FOR [dbo].[Modelos]. Rows affected: ' + CAST(@mergeCount AS VARCHAR(100)); -- SQL should always return zero rows affected
- END
-ELSE
- BEGIN
- PRINT '[dbo].[Modelos] rows affected by MERGE: ' + CAST(@mergeCount AS VARCHAR(100));
- END
-GO
+;
 
 
-MERGE INTO [dbo].[Modelos] AS [Target]
+ MERGE INTO [dbo].[Modelos] AS [Target]
 USING (
 	:r ..\Data\ModeloData2.sql
 ) AS [Source] ([ModeloId],[Descripcion],[MarcaId],[TipoVehiculoId])
@@ -51,24 +37,9 @@ WHEN MATCHED AND (
 WHEN NOT MATCHED BY TARGET THEN
  INSERT([ModeloId],[Descripcion],[MarcaId],[TipoVehiculoId])
  VALUES([Source].[ModeloId],[Source].[Descripcion],[Source].[MarcaId],[Source].[TipoVehiculoId])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
+;
 
-DECLARE @mergeError int
- , @mergeCount int
-SELECT @mergeError = @@ERROR, @mergeCount = @@ROWCOUNT
-IF @mergeError != 0
- BEGIN
- PRINT 'ERROR OCCURRED IN MERGE FOR [dbo].[Modelos]. Rows affected: ' + CAST(@mergeCount AS VARCHAR(100)); -- SQL should always return zero rows affected
- END
-ELSE
- BEGIN
- PRINT '[dbo].[Modelos] rows affected by MERGE: ' + CAST(@mergeCount AS VARCHAR(100));
- END
-GO
-
-
-MERGE INTO [dbo].[Modelos] AS [Target]
+ MERGE INTO [dbo].[Modelos] AS [Target]
 USING (
 	:r ..\Data\ModeloData3.sql
 ) AS [Source] ([ModeloId],[Descripcion],[MarcaId],[TipoVehiculoId])
@@ -84,21 +55,7 @@ WHEN MATCHED AND (
 WHEN NOT MATCHED BY TARGET THEN
  INSERT([ModeloId],[Descripcion],[MarcaId],[TipoVehiculoId])
  VALUES([Source].[ModeloId],[Source].[Descripcion],[Source].[MarcaId],[Source].[TipoVehiculoId])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
-
-DECLARE @mergeError int
- , @mergeCount int
-SELECT @mergeError = @@ERROR, @mergeCount = @@ROWCOUNT
-IF @mergeError != 0
- BEGIN
- PRINT 'ERROR OCCURRED IN MERGE FOR [dbo].[Modelos]. Rows affected: ' + CAST(@mergeCount AS VARCHAR(100)); -- SQL should always return zero rows affected
- END
-ELSE
- BEGIN
- PRINT '[dbo].[Modelos] rows affected by MERGE: ' + CAST(@mergeCount AS VARCHAR(100));
- END
- go
+;
 
 
  MERGE INTO [dbo].[Modelos] AS [Target]
@@ -117,21 +74,7 @@ WHEN MATCHED AND (
 WHEN NOT MATCHED BY TARGET THEN
  INSERT([ModeloId],[Descripcion],[MarcaId],[TipoVehiculoId])
  VALUES([Source].[ModeloId],[Source].[Descripcion],[Source].[MarcaId],[Source].[TipoVehiculoId])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
-
-DECLARE @mergeError int
- , @mergeCount int
-SELECT @mergeError = @@ERROR, @mergeCount = @@ROWCOUNT
-IF @mergeError != 0
- BEGIN
- PRINT 'ERROR OCCURRED IN MERGE FOR [dbo].[Modelos]. Rows affected: ' + CAST(@mergeCount AS VARCHAR(100)); -- SQL should always return zero rows affected
- END
-ELSE
- BEGIN
- PRINT '[dbo].[Modelos] rows affected by MERGE: ' + CAST(@mergeCount AS VARCHAR(100));
- END
- go
+;
 
 
  MERGE INTO [dbo].[Modelos] AS [Target]
@@ -150,23 +93,6 @@ WHEN MATCHED AND (
 WHEN NOT MATCHED BY TARGET THEN
  INSERT([ModeloId],[Descripcion],[MarcaId],[TipoVehiculoId])
  VALUES([Source].[ModeloId],[Source].[Descripcion],[Source].[MarcaId],[Source].[TipoVehiculoId])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
-
-DECLARE @mergeError int
- , @mergeCount int
-SELECT @mergeError = @@ERROR, @mergeCount = @@ROWCOUNT
-IF @mergeError != 0
- BEGIN
- PRINT 'ERROR OCCURRED IN MERGE FOR [dbo].[Modelos]. Rows affected: ' + CAST(@mergeCount AS VARCHAR(100)); -- SQL should always return zero rows affected
- END
-ELSE
- BEGIN
- PRINT '[dbo].[Modelos] rows affected by MERGE: ' + CAST(@mergeCount AS VARCHAR(100));
- END
-GO
-
+;
 
 SET IDENTITY_INSERT [dbo].[Modelos] OFF
-SET NOCOUNT OFF
-GO
