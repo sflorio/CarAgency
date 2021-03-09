@@ -13,11 +13,13 @@ namespace Domain.DTO.Direcciones
         public int DireccionId { get; set; }
         public Pais Pais { get; set; }
         public Provincia Provincia { get; set; }
+        public Partido Partido { get; set; }
+        public Localidad Localidad { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         public string Calle { get; set; }
 
-        public int NumeroCalle { get; set; }
+        public Int16 NumeroCalle { get; set; }
 
         [Column(TypeName = "nvarchar(10)")]
         public string CodigoPostal { get; set; }

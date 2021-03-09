@@ -10,16 +10,9 @@ export default function TitularForm({titular, onChange  } : { titular: ITitular,
 
 
     const ChangeHandler = (e: any) => {
-
-        new Promise((resolve) => {
-
-            setState({...state, [e.target.name]: e.target.value});
-
-            resolve();
-            
-        }).then(() => {
-            onChange(state);
-        });
+        var objstate = {...state, [e.target.name]: e.target.value};
+        setState(objstate);
+        onChange(objstate);
     }
 
     return (

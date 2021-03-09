@@ -11,5 +11,14 @@ export const actionCreator = {
             console.log(error);
             return [];
         });
+    },
+    getAllProvincesByCountry: (id: number) : Promise<Provincia[]> =>{
+        return axios
+        .get(serviceBaseModel + "/Pais/" + id)
+        .then(Response => Response.data as Provincia[])
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
     }
 };

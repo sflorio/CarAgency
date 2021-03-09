@@ -24,7 +24,13 @@ namespace CarAgency
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
+
+            
+
+
             services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null); ;
+            
+
             services.AddDbContext<CarAgencyDBContext>(options => {
                 options.UseSqlServer(this.Configuration.GetValue<string>("ConnString"));
                 });

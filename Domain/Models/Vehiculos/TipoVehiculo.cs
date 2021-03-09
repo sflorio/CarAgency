@@ -12,7 +12,7 @@ namespace Domain.Models.Vehiculos
         [Key]
         public int TipoVehiculoId { get; set; }
 
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(100)")]
         public string Descripcion { get; set; }
 
     }

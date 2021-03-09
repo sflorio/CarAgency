@@ -19,7 +19,6 @@ namespace Domain.Models.Vehiculos
         public DateTime FechaInscripcionInical { get; set; }
         public Marca Marca { get; set; }
         public Modelo Modelo { get; set; }
-        public TipoVehiculo? TipoVehiculo { get; set; }
 
         [Column(TypeName = "tinyint")]
         public Int16 Ano { get; set; }
@@ -30,10 +29,10 @@ namespace Domain.Models.Vehiculos
         [Column(TypeName = "nvarchar(20)")]
         public string NumeroChasis { get; set; }
 
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(50)")]
         public string MarcaMotor { get; set; }
 
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(50)")]
         public string MarcaChasis { get; set; }
 
         public DateTime FechaAdquisicion { get; set; }

@@ -17,9 +17,9 @@ namespace Domain.DTO.Vehiculos
         public string Dominio { get; set; }
         public Procedencia? Procedencia { get; set; }
         public DateTime FechaInscripcionInical { get; set; }
-        public Marca? Marca { get; set; }
-        public Modelo? Modelo { get; set; }
-        public TipoVehiculo? TipoVehiculo { get; set; }
+        public Marca Marca { get; set; }
+        public Modelo Modelo { get; set; }
+
         [Required]
         public Int16? Ano { get; set; }
         public string NumeroMotor { get; set; }
@@ -29,6 +29,6 @@ namespace Domain.DTO.Vehiculos
         public DateTime? FechaAdquisicion { get; set; }
         public RevisionTecnica? RevisionTecnica { get; set; } 
         public List<Transaccion>? Transacciones { get; set; }
-        public Persona? Titular { get; set; } 
+        public Titular? Titular { get; set; } 
     }
 }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, Route } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ApplicationState } from 'store';
 import * as VehiculosStore from 'store/actions/vehiculos';
 import MaterialTable, { Column } from 'material-table';
+
 
 //other custom components
 import IngresoVehiculo from './IngresoVehiculo';
@@ -14,7 +15,8 @@ import IngresoVehiculo from './IngresoVehiculo';
 type VehiculosProps =
   VehiculosStore.VehiculoState // ... state we've requested from the Redux store
   & typeof VehiculosStore.actionCreators // ... plus action creators we've requested
-  & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
+  & RouteComponentProps<{ startDateIndex: string }>
+  & { redirect: null }; // ... plus incoming routing parameters
 
 class ListaVehiculos extends React.Component<VehiculosProps> {
   // This method is called when the component is first added to the document
@@ -25,7 +27,8 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
   // This method is called when the route parameters change
   public componentDidUpdate() {
     this.ensureDataFetched();
-  }
+    }
+  pathToAddEditVehiculo = "/vehiculo/ingreso-vehiculo";
 
   public handleOnAddButtonClick(){
 
@@ -56,17 +59,30 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
   private renderTableMaterial(){
     return (
       <MaterialTable
+      options={{
+        exportButton: true
+      }}
       title="Lista de Vehiculos"
       columns={[        
         { title: 'Dominio', field: 'Dominio' },
         { title: 'Procedencia', field: 'Procedencia' },
-        { title: 'FechaInscripcionInical', field: 'FechaInscripcionInical' },
+        { title: 'Inscripción Inical', field: 'FechaInscripcionInical' },
         { title: 'Marca', field: 'Marca' },
         { title: 'Modelo', field: 'Modelo' },
-        { title: 'TipoVehiculo', field: 'TipoVehiculo' },
-        { title: 'Ano', field: 'Ano' }
+        { title: 'Tipo Vehiculo', field: 'TipoVehiculo' },
+        { title: 'Año', field: 'Ano' }
       ]}
-      data={this.props.vehiculos}  
+      data={this.props.vehiculos}
+      
+      // actions={[
+      //   {
+      //     icon: 'save',
+      //     tooltip: 'Save User',
+      //     onClick: (event, rowData) => <Link to="ingreso-vehiculo">Abrir form vehiculo</Link>
+
+      //   }
+      // ]}
+
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {

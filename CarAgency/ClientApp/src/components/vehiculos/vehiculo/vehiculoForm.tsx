@@ -3,12 +3,12 @@ import { Grid } from '@material-ui/core';
 import TextFiedl from '@material-ui/core/TextField';
 import AutocompleteMarcas from 'components/vehiculos/marca/AutocompleteMarcas';
 import AutocompleteModelos from 'components/vehiculos/modelo/AutocompleteModelo';
-import AutocompleteTipoVehiculos from 'components/vehiculos/vehiculo/tipoVehiculo/AutocompleteTipoVehiculo';
+import AutocompleteProcedencias from 'components/vehiculos/vehiculo/procedencia/AutocompleteProcedencia';
 
 import { Vehiculo} from 'domain/models/vehiculos/Vehiculo';
 import  {Marca}   from 'domain/models/vehiculos/Marca';
 import { Modelo } from 'domain/models/vehiculos/Modelo';
-import { TipoVehiculo } from 'domain/models/vehiculos/TipoVehiculo';
+import Procedencia from 'domain/models/vehiculos/Procedencia';
 
 interface vehiculoFormProps {
     vehiculo: Vehiculo;
@@ -23,47 +23,38 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
 
 
     inputChange = (e : any) => {
-        new Promise((resolve) => {
+        var objState = {...this.state, [e.target.name]: e.target.value};
 
-            this.setState({...this.state, [e.target.name]: e.target.value});
-
-            resolve();
-            
-        }).then(() => {
-            this.props.onChange(this.state);
-        });
+        this.setState(objState);
+        this.props.onChange(objState);
     };
 
     onInputChangeMarca = (value?: Marca | null) =>{
-        var e = {
+        this.inputChange({
             target : {
                 name : "Marca",
                 value: value
             }
-        };
-        this.inputChange(e);
+        });
     }
 
     onInputChangeModelo = (value?: Modelo | null) =>{
-        var e = {
+        this.inputChange({
             target : {
                 name : "Modelo",
                 value: value
             }
-        };
-        this.inputChange(e);
+        });
     }
 
-    onInputChangeTipoVehiculo = (value?: TipoVehiculo | null) =>{
-        var e = {
+    onInputChangeProcedencia = (value?: Procedencia | null) =>{
+        this.inputChange({
             target : {
-                name : "TipoVehiculo",
+                name : "Procedencia",
                 value: value
             }
-        };
-        this.inputChange(e);
+        });
     }
-
 
     render() {
         return (
@@ -74,20 +65,20 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
                 <Grid item xs={12} sm={6} md={6} lg={6} >
                     <TextFiedl name="Dominio" label="Dominio" onChange={this.inputChange} value={this.state.Dominio} ></TextFiedl> 
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.state.Ano}></TextFiedl>
+                </Grid>
                 <Grid item xs={12} sm={6}  md={6} lg={6}>
-                    <TextFiedl name="Procedencia" label="Procedencia" onChange={this.inputChange} value={this.state.Procedencia} ></TextFiedl>
+                    <AutocompleteProcedencias procedencia={this.state.Procedencia} onChange={this.onInputChangeProcedencia} ></AutocompleteProcedencias>
+                </Grid>
+                <Grid item xs={12} sm={6}  md={6} lg={6}>
+                    <br></br>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                     <AutocompleteMarcas  marca={this.state.Marca} onChange={this.onInputChangeMarca} ></AutocompleteMarcas>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <AutocompleteModelos modelo={this.state.Modelo} marca={this.state.Marca} onChange={this.onInputChangeModelo} ></AutocompleteModelos>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <AutocompleteTipoVehiculos tipoVehiculo={this.state.TipoVehiculo} onChange={this.onInputChangeTipoVehiculo}></AutocompleteTipoVehiculos>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.state.Ano}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextFiedl name="NumeroMotor" label="Numero Motor" onChange={this.inputChange} value={this.state.NumeroMotor}></TextFiedl>

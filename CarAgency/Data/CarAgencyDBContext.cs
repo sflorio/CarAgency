@@ -67,52 +67,34 @@ namespace CarAgency.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //var oSeedDirecciones = new SeedDirecciones();
+            modelBuilder.Entity<Vehiculo>().HasOne(e => e.Marca);
+            modelBuilder.Entity<Vehiculo>().Navigation(b => b.Marca).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            //var oSeedsProvincia = oSeedDirecciones.GetProvinciasSeeds();
-            //modelBuilder.Entity<Provincia>().HasData(oSeedsProvincia);
-            modelBuilder.Entity<Pais>().HasData(
-                    new Pais { Descripcion = "Argentina", PaisId = 1 }
-                );
 
-            //modelBuilder.Entity<Localidad>().HasData(
-            //    new Localidad { LocalidadId = 1, Descripcion = "Florida" },
-            //    new Localidad { LocalidadId = 2, Descripcion = "Villa Adelina" }
-            //);
+            modelBuilder.Entity<Vehiculo>().HasOne(e => e.Modelo);
+            modelBuilder.Entity<Vehiculo>().Navigation(b => b.Modelo).UsePropertyAccessMode(PropertyAccessMode.Property);
+            modelBuilder.Entity<Vehiculo>().HasOne(e => e.Procedencia);
+            modelBuilder.Entity<Vehiculo>().Navigation(b => b.Procedencia).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            //modelBuilder.Entity<Partido>().HasData(
-            //    new Partido { Descripcion = "Vicente Lopez", PartidoId = 1 },
-            //    new Partido { Descripcion = "San Isidro", PartidoId = 2 }
-            //    );
 
-            //modelBuilder.Entity<Provincia>().HasData(
-            //        new Provincia { Descripcion = "Buenos Aires", ProvinciaId = 1 }
-            //    );
+            modelBuilder.Entity<Vehiculo>().HasOne(e => e.Titular);
+            modelBuilder.Entity<Vehiculo>().Navigation(b => b.Titular).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            //modelBuilder
 
-            modelBuilder.Entity<TipoDocumento>().HasData(
-                new TipoDocumento { Descripcion = "DNI" , TipoDocumentoId = 1 }
-            );
+            modelBuilder.Entity<Persona>().HasOne(e => e.Direccion);
+            modelBuilder.Entity<Persona>().Navigation(b => b.Direccion).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            modelBuilder.Entity<TipoVehiculo>().HasData(
-                new TipoVehiculo { Descripcion = "Sedan 4 puertas", TipoVehiculoId  = 1  },
-                new TipoVehiculo { Descripcion = "Sedan 5 puertas", TipoVehiculoId = 2 }
-            );
+            modelBuilder.Entity<Direccion>().HasOne(e => e.Pais);
+            modelBuilder.Entity<Direccion>().Navigation(b => b.Pais).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            //modelBuilder.Entity<EstadoCivil>().Property(e => e.CreateDateTime).HasDefaultValue(DateTime.Today);
+            modelBuilder.Entity<Direccion>().HasOne(e => e.Provincia);
+            modelBuilder.Entity<Direccion>().Navigation(b => b.Provincia).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            modelBuilder.Entity<EstadoCivil>().HasData(
-                new EstadoCivil { EstadoCivilId = 1, Descripcion = "Soltero", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
-                new EstadoCivil { EstadoCivilId = 2, Descripcion = "Casado", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
-                new EstadoCivil { EstadoCivilId = 3, Descripcion = "Viudo", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
-                new EstadoCivil { EstadoCivilId = 4, Descripcion = "Divorciado", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" }
-            );
+            modelBuilder.Entity<Direccion>().HasOne(e => e.Partido);
+            modelBuilder.Entity<Direccion>().Navigation(b => b.Partido).UsePropertyAccessMode(PropertyAccessMode.Property);
 
-            modelBuilder.Entity<TipoOperacion>().HasData(
-                new TipoOperacion { TipoOperacionId = 1 , Descripcion = "Debito" , Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" },
-                new TipoOperacion { TipoOperacionId = 2, Descripcion = "Credito", Active = true, CreateDateTime = DateTime.Now, CreateUser = "migration" }
-            );
+            modelBuilder.Entity<Direccion>().HasOne(e => e.Localidad);
+            modelBuilder.Entity<Direccion>().Navigation(b => b.Localidad).UsePropertyAccessMode(PropertyAccessMode.Property);            
         }            
 
     }

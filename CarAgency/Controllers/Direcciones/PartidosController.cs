@@ -31,6 +31,14 @@ namespace CarAgency.Controllers
             return _mapper.Map<List<Domain.Models.Direcciones.Partido>,List<Domain.DTO.Direcciones.Partido>>(partidos);
         }
 
+        [HttpGet("Provincia/{ProvinciaId}")]
+        public async Task<ActionResult<IEnumerable<Partido>>> GetPartidosByProvincia(int ProvinciaId)
+        {
+            var partidos = await _context.Partidos.Where( e => e.Provincia.ProvinciaId == ProvinciaId).ToListAsync<Domain.Models.Direcciones.Partido>();
+
+            return _mapper.Map<List<Domain.Models.Direcciones.Partido>, List<Domain.DTO.Direcciones.Partido>>(partidos);
+        }
+
         // GET: api/Partidos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Partido>> GetPartido(int id)

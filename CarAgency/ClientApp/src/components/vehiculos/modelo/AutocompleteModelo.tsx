@@ -9,7 +9,6 @@ import { Modelo } from 'domain/models/vehiculos/Modelo';
 
 export default function AutocompleteModelo({modelo, marca ,onChange }: {modelo: Modelo, marca: Marca, onChange: ( value: Modelo | null) => void }) {
     const [options, setOptions] = React.useState<Modelo[]>([]);
-    const [parentObj, setMarca] = React.useState<Marca>();
     
     const labelName = "Modelo";
 

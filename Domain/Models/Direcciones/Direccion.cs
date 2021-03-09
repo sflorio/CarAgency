@@ -13,6 +13,8 @@ namespace Domain.Models.Direcciones
         public int DireccionId { get; set; }
         public Pais Pais { get; set; }
         public Provincia Provincia { get; set; }
+        public Partido Partido { get; set; }
+        public Localidad Localidad { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         public string Calle { get; set; }

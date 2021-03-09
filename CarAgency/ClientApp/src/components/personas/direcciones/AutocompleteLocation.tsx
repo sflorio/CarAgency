@@ -10,12 +10,12 @@ export default function AutocompleteLocation({localidad , partido, onChange }: {
     const labelName = "Localidad";
 
      useEffect(() => {
-        LocationsStore.actionCreator.getAllLocations(partido.PartidoId)
+        LocationsStore.actionCreator.getAllLocationsByDepartments(partido.PartidoId)
          .then((response) => {
              setOptions(response);
          });
         
-     },[]);
+     },[partido]);
 
     return (
         <div>
