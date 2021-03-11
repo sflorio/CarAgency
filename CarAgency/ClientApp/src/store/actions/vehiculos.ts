@@ -63,6 +63,14 @@ export const actionCreators = {
             dispatch({ type: actionTypes.REQUEST_VEHICULO, startDateIndex: startDateIndex });
         }
     },
+
+    listView: (page: number, quantity: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        // Only load data if it's something we don't already have (and are not already loading)
+        const appState = getState();
+        fetch("vehiculos/list-view/" + page.toString() + "/" + quantity.toString())
+            .then(response => response.json() as Promise<IVehiculo[]>)
+    },
+
     getVehiculo: (vehiculoId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
 
         axios

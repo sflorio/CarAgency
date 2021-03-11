@@ -33,7 +33,7 @@ function a11yProps(index: any) {
 type VehiculosProps =
   VehiculosStore.VehiculoState // ... state we've requested from the Redux store
   & typeof VehiculosStore.actionCreators // ... plus action creators we've requested
-  & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
+  & RouteComponentProps<{ VehiculoId: string }>; // ... plus incoming routing parameters
 
 interface IngresoVehiculoState {
     vehiculo : Vehiculo,
@@ -62,8 +62,8 @@ public componentDidMount() {
   }
 
   private ensureDataFetched() {
-    const startDateIndex = 0;
-    this.props.requestVehiculos(startDateIndex);
+    const vehiculoId = 0;
+    this.props.getVehiculo(vehiculoId);
   }
 
    handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {

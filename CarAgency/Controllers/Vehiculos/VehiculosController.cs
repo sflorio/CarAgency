@@ -33,6 +33,21 @@ namespace CarAgency.Controllers
             return _mapper.Map<List<Domain.Models.Vehiculos.Vehiculo>,List<Domain.DTO.Vehiculos.Vehiculo>>(vehiculos);
         }
 
+        [HttpGet("list-view/{page}/{quantity}")]
+        public async Task<ActionResult<IEnumerable<VehiculoViewDTO>>> GetListViewVehiculos(int page, int quantity)
+        {
+            var vehiculos = await _context.Vehiculos
+                                            .Include(e => e.Procedencia)
+                                            .Include(e => e.Marca)
+                                            .Include( e => e.Modelo)
+                                            .Include(e => e.Titular)
+                                            .Skip( ( page -1 ) * quantity)
+                                            .Take(quantity)
+                                            .ToListAsync<Domain.Models.Vehiculos.Vehiculo>();
+
+            return _mapper.Map<List<Domain.DTO.Vehiculos.VehiculoViewDTO>>(vehiculos);
+        }
+
         // GET: api/Vehiculos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Vehiculo>> GetVehiculo(int id)

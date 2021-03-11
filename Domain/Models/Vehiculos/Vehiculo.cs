@@ -20,7 +20,7 @@ namespace Domain.Models.Vehiculos
         public Marca Marca { get; set; }
         public Modelo Modelo { get; set; }
 
-        [Column(TypeName = "tinyint")]
+        [Column(TypeName = "smallint")]
         public Int16 Ano { get; set; }
 
         [Column(TypeName = "nvarchar(20)")]
