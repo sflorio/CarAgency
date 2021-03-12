@@ -21,12 +21,8 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
         this.state = this.props.vehiculo;
     }
 
-
     inputChange = (e : any) => {
-        var objState = {...this.state, [e.target.name]: e.target.value};
-
-        this.setState(objState);
-        this.props.onChange(objState);
+        this.props.onChange({...this.props.vehiculo, [e.target.name]: e.target.value});
     };
 
     onInputChangeMarca = (value?: Marca | null) =>{
@@ -63,34 +59,34 @@ export default class vehiculoForm extends Component<vehiculoFormProps,Vehiculo> 
                     Datos del vehículo:
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6} >
-                    <TextFiedl name="Dominio" label="Dominio" onChange={this.inputChange} value={this.state.Dominio} ></TextFiedl> 
+                    <TextFiedl name="Dominio" label="Dominio" onChange={this.inputChange} value={this.props.vehiculo.Dominio} ></TextFiedl> 
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.state.Ano}></TextFiedl>
+                    <TextFiedl name="Ano" label="Año" onChange={this.inputChange} value={this.props.vehiculo.Ano}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}  md={6} lg={6}>
-                    <AutocompleteProcedencias procedencia={this.state.Procedencia} onChange={this.onInputChangeProcedencia} ></AutocompleteProcedencias>
+                    <AutocompleteProcedencias procedencia={this.props.vehiculo.Procedencia} onChange={this.onInputChangeProcedencia} ></AutocompleteProcedencias>
                 </Grid>
                 <Grid item xs={12} sm={6}  md={6} lg={6}>
                     <br></br>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <AutocompleteMarcas  marca={this.state.Marca} onChange={this.onInputChangeMarca} ></AutocompleteMarcas>
+                    <AutocompleteMarcas  marca={this.props.vehiculo.Marca} onChange={this.onInputChangeMarca} ></AutocompleteMarcas>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <AutocompleteModelos modelo={this.state.Modelo} marca={this.state.Marca} onChange={this.onInputChangeModelo} ></AutocompleteModelos>
+                    <AutocompleteModelos modelo={this.props.vehiculo.Modelo} marca={this.props.vehiculo.Marca} onChange={this.onInputChangeModelo} ></AutocompleteModelos>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="NumeroMotor" label="Numero Motor" onChange={this.inputChange} value={this.state.NumeroMotor}></TextFiedl>
+                    <TextFiedl name="NumeroMotor" label="Numero Motor" onChange={this.inputChange} value={this.props.vehiculo.NumeroMotor}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="NumeroChasis" label="Numero Chasis" onChange={this.inputChange} value={this.state.NumeroChasis}></TextFiedl>
+                    <TextFiedl name="NumeroChasis" label="Numero Chasis" onChange={this.inputChange} value={this.props.vehiculo.NumeroChasis}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="MarcaMotor" label="Marca Motor" onChange={this.inputChange} value={this.state.MarcaMotor}></TextFiedl>
+                    <TextFiedl name="MarcaMotor" label="Marca Motor" onChange={this.inputChange} value={this.props.vehiculo.MarcaMotor}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextFiedl name="MarcaChasis" label="Marca Chasis" onChange={this.inputChange} value={this.state.MarcaChasis}></TextFiedl>
+                    <TextFiedl name="MarcaChasis" label="Marca Chasis" onChange={this.inputChange} value={this.props.vehiculo.MarcaChasis}></TextFiedl>
                 </Grid>
                 <Grid item xs={12} sm={12} lg={12} >
                     <br></br>

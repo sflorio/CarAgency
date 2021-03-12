@@ -5,12 +5,11 @@
     "version": "0.2.0",
     "configurations": [
             {
-            "name": "attach Chrome",
-            "request": "attach",
-            "type": "chrome",
-            "port": 5000,
-            "url": "http://localhost:5000",
-            "webRoot": "${workspaceFolder}\\src\\index.tsx"
+                "type": "chrome",
+                "request": "launch",
+                "name": "Launch Chrome against localhost",
+                "url": "https://localhost:5001",
+                "webRoot": "${workspaceFolder}/ClientApp/public"
         }
     ]
 }
