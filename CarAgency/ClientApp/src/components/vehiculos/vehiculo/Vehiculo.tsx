@@ -7,10 +7,6 @@ import * as VehiculosStore from 'store/actions/vehiculos';
 import MaterialTable, { Column } from 'material-table';
 
 
-//other custom components
-import IngresoVehiculo from './IngresoVehiculo';
-
-
 // At runtime, Redux will merge together...
 type VehiculosProps =
   VehiculosStore.VehiculoState // ... state we've requested from the Redux store
@@ -27,9 +23,12 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
   // This method is called when the route parameters change
   public componentDidUpdate() {
     this.ensureDataFetched();
-    }
-  pathToAddEditVehiculo = "/vehiculo/ingreso-vehiculo";
+  }
 
+  pathToAddEditVehiculo = "ingreso-vehiculo";
+  TEXT_LABEL = "Vehiculos";
+  FORM_DESCRIPTION = "Esta pantalla se utiliza para administrar los vehiculos cargados.";
+  
   public handleOnAddButtonClick(){
 
 
@@ -38,13 +37,13 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
   public render() {
     return (
       <React.Fragment>
-        <Route path='ingreso-vehiculo'>
+        <Route path={this.pathToAddEditVehiculo}>
           algo
-          </Route>
-        <h1 id="tabelLabel">Vehiculos</h1>
-        <p>Esta pantalla se utiliza para adminsitrar los vehiculos cargadas en el sistema.</p>
+        </Route>
+        <h1 id="tabelLabel">{this.TEXT_LABEL}</h1>
+        <p>{this.FORM_DESCRIPTION}</p>
         {this.renderTableMaterial()}
-        <Link to="ingreso-vehiculo">Abrir form vehiculo</Link>
+        <Link to={this.pathToAddEditVehiculo}>Abrir form vehiculo</Link>
       </React.Fragment>
     );
   }
@@ -54,8 +53,6 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
     this.props.requestVehiculos(startDateIndex);
   }
 
- 
-
   private renderTableMaterial(){
     return (
       <MaterialTable
@@ -63,26 +60,17 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
         exportButton: true
       }}
       title="Lista de Vehiculos"
-      columns={[        
+      columns={[
+        { title: 'Id', field: 'VehiculoId', hidden:true, export:true },        
         { title: 'Dominio', field: 'Dominio' },
         { title: 'Procedencia', field: 'Procedencia' },
-        { title: 'Inscripción Inical', field: 'FechaInscripcionInical' },
+        { title: 'Inscripción Inical', field: 'FechaInscripcionInical', type: 'datetime' },
         { title: 'Marca', field: 'Marca' },
         { title: 'Modelo', field: 'Modelo' },
         { title: 'Tipo Vehiculo', field: 'TipoVehiculo' },
         { title: 'Año', field: 'Ano' }
       ]}
       data={this.props.vehiculos}
-      
-      // actions={[
-      //   {
-      //     icon: 'save',
-      //     tooltip: 'Save User',
-      //     onClick: (event, rowData) => <Link to="ingreso-vehiculo">Abrir form vehiculo</Link>
-
-      //   }
-      // ]}
-
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
@@ -112,7 +100,7 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
             }, 600);
           }),
       }}
-    />    
+    />
     );
   }
 }

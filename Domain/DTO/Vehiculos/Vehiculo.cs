@@ -31,4 +31,26 @@ namespace Domain.DTO.Vehiculos
         public List<Transaccion>? Transacciones { get; set; }
         public Titular? Titular { get; set; } 
     }
+
+
+
+    public class VehiculoViewDTO : ClaseBase
+    {
+        [Key]
+        public int VehiculoId { get; set; }
+        public string Dominio { get; set; }
+        public string Procedencia { get; set; }
+        public DateTime FechaInscripcionInical { get; set; }
+        public string Marca { get; set; }
+        public string Modelo { get; set; }
+        public Int16? Ano { get; set; }
+        public string NumeroMotor { get; set; }
+        public string NumeroChasis { get; set; }
+        public string MarcaMotor { get; set; }
+        public string MarcaChasis { get; set; }
+        public DateTime? FechaAdquisicion { get; set; }
+        public string Titular { get; set; }
+    }
+
+
 }

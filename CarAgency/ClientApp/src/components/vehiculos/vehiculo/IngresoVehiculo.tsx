@@ -33,7 +33,7 @@ function a11yProps(index: any) {
 type VehiculosProps =
   VehiculosStore.VehiculoState // ... state we've requested from the Redux store
   & typeof VehiculosStore.actionCreators // ... plus action creators we've requested
-  & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
+  & RouteComponentProps<{ VehiculoId: string }>; // ... plus incoming routing parameters
 
 interface IngresoVehiculoState {
     vehiculo : Vehiculo,
@@ -62,37 +62,19 @@ public componentDidMount() {
   }
 
   private ensureDataFetched() {
-    const startDateIndex = 0;
-    this.props.requestVehiculos(startDateIndex);
+    const vehiculoId = 0;
+    this.props.getVehiculo(vehiculoId);
   }
 
    handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     this.setState({value: newValue});
   };
 
-  handleOnFormChange = (vehiculo: Vehiculo) =>{
-    this.setState({
-        vehiculo: vehiculo 
-    });
-  };
-
-  handleOnFormTitularChange = (Titular: Titular) =>{
-    let estadoVehiculo = this.state.vehiculo;
-    estadoVehiculo.Titular = Titular;
-    this.handleOnFormChange(estadoVehiculo);
-  };
-
-  handleOnFormGastosChange = (Transacciones: Transaccion[]) =>{
-    let estadoVehiculo = this.state.vehiculo;
-    estadoVehiculo.Transacciones = Transacciones;
-    this.handleOnFormChange(estadoVehiculo);
-  };
-
-  handleOnFormFichaTecnincaChange = (revisionTecnica: RevisionTecnica) =>{
-    let estadoVehiculo = this.state.vehiculo;
-    estadoVehiculo.RevisionTecnica = revisionTecnica;
-    this.handleOnFormChange(estadoVehiculo);
-  };
+  // handleOnFormFichaTecnincaChange = (revisionTecnica: RevisionTecnica) =>{
+  //   let estadoVehiculo = this.state.vehiculo;
+  //   estadoVehiculo.RevisionTecnica = revisionTecnica;
+  //   this.handleOnFormChange(estadoVehiculo);
+  // };
 
   validate = () => {
 
@@ -131,14 +113,25 @@ public componentDidMount() {
                             </Tabs>
                         </AppBar>
                         <TabPanel value={this.state.value} index={0}>
-                            <VehiculoForm onChange={this.handleOnFormChange} vehiculo={this.state.vehiculo}></VehiculoForm>
-                            <TitularForm onChange={this.handleOnFormTitularChange} titular={this.state.vehiculo.Titular}></TitularForm>               
+                            <VehiculoForm vehiculo={this.state.vehiculo}
+                                  onChange={(e: Vehiculo) => {
+                                    this.setState({ vehiculo : e});
+                                  }} 
+                                  ></VehiculoForm>
+                            <TitularForm titular={this.state.vehiculo.Titular}
+                                  onChange={ (e: any) => { 
+                                    this.setState({ vehiculo : {...this.state.vehiculo, Titular : e  }}); 
+                                  }}></TitularForm>               
                         </TabPanel>                        
                         <TabPanel value={this.state.value} index={1}>
                             Ficha Tecnica
                         </TabPanel>
                         <TabPanel value={this.state.value} index={2}>
-                            <Gastos onChange={this.handleOnFormGastosChange} transacciones={this.state.vehiculo.Transacciones}></Gastos>
+                            <Gastos 
+                                  onChange={(e: Transaccion[]) => {
+                                    this.setState({ vehiculo : {...this.state.vehiculo, Transacciones : e  }});
+                                  }} 
+                                  transacciones={this.state.vehiculo.Transacciones}></Gastos>
                         </TabPanel>
                     </Container>
                     <Container>

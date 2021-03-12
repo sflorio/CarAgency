@@ -91,8 +91,7 @@ export default function DireccionForm({direccion, onChange  } : { direccion: IDi
             </Grid>
             <Grid item xs={12} sm={6} lg={6} >
                 <TextFiedl name="CodigoPostal" label="Código Postal" value={state.CodigoPostal} onChange={ChangeHandler}></TextFiedl>
-            </Grid>
-            
+            </Grid>            
             <Grid item xs={12} sm={12} lg={12} >
                 <br></br>
             </Grid>

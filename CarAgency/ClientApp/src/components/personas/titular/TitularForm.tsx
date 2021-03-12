@@ -4,7 +4,7 @@ import TextFiedl from '@material-ui/core/TextField';
 import {ITitular} from "domain/interfaces/personas/ITitular";
 import DireccionForm from "components/personas/direcciones/Direccion";
 
-export default function TitularForm({titular, onChange  } : { titular: ITitular, onChange: (e:any) => void} ) {
+export default function TitularForm({titular, onChange } : { titular: ITitular, onChange: (e:any) => void} ) {
 
     const [state, setState] = useState(titular);
 
