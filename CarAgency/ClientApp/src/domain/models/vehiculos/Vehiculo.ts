@@ -16,7 +16,6 @@ export class Vehiculo implements IVehiculo{
       this.FechaInscripcionInical= new Date();
       this.Marca = new Marca();
       this.Modelo= new Modelo();
-      this.TipoVehiculo= new TipoVehiculo();
       this.Ano= 2020;
       this.NumeroMotor = "";
       this.NumeroChasis= "";
@@ -34,7 +33,6 @@ export class Vehiculo implements IVehiculo{
     FechaInscripcionInical: Date;
     Marca: Marca;
     Modelo: Modelo;
-    TipoVehiculo: TipoVehiculo;
     Ano: number;
     NumeroMotor: string;
     NumeroChasis: string;

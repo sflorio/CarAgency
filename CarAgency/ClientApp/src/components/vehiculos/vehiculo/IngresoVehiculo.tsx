@@ -17,11 +17,10 @@ import { Container, Button } from '@material-ui/core';
 import TabPanel from "components/common/forms/TabPanel";
 
 import {Vehiculo} from "domain/models/vehiculos/Vehiculo";
-import {Titular} from "domain/models/personas/Titular";
 import {Transaccion} from 'domain/models/finanzas/Transaccion';
 import RevisionTecnica from 'domain/models/vehiculos/revisionestecnicas/RevisionTecnica';
 
-
+import { actionCreators} from "store/actions/vehiculos";
 
 function a11yProps(index: any) {
     return {
@@ -30,10 +29,8 @@ function a11yProps(index: any) {
     };
   }
   
-type VehiculosProps =
-  VehiculosStore.VehiculoState // ... state we've requested from the Redux store
-  & typeof VehiculosStore.actionCreators // ... plus action creators we've requested
-  & RouteComponentProps<{ VehiculoId: string }>; // ... plus incoming routing parameters
+type VehiculosProps =  
+  & RouteComponentProps<{ VehiculoId: string; }>; // ... plus incoming routing parameters
 
 interface IngresoVehiculoState {
     vehiculo : Vehiculo,
@@ -41,7 +38,7 @@ interface IngresoVehiculoState {
 
 }
 
-class IngresoVehiculo extends React.Component<VehiculosProps, IngresoVehiculoState> {
+export default class IngresoVehiculo extends React.Component<VehiculosProps, IngresoVehiculoState> {
   constructor(props: VehiculosProps) {
     super(props);
 
@@ -58,23 +55,23 @@ public componentDidMount() {
 
   // This method is called when the route parameters change
   public componentDidUpdate() {
-    this.ensureDataFetched();
+    //this.ensureDataFetched();
   }
 
   private ensureDataFetched() {
-    const vehiculoId = 0;
-    this.props.getVehiculo(vehiculoId);
+    if(this.props.match.params.VehiculoId === undefined )
+      return;
+
+    var VehiculoId = Number.parseInt(this.props.match.params.VehiculoId)
+    actionCreators.getVehiculo(VehiculoId)
+              .then(res => res as Vehiculo)
+              .then(_vehiculo => this.setState({vehiculo: _vehiculo}) )
+              .catch(e => console.log(e));
   }
 
    handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     this.setState({value: newValue});
   };
-
-  // handleOnFormFichaTecnincaChange = (revisionTecnica: RevisionTecnica) =>{
-  //   let estadoVehiculo = this.state.vehiculo;
-  //   estadoVehiculo.RevisionTecnica = revisionTecnica;
-  //   this.handleOnFormChange(estadoVehiculo);
-  // };
 
   validate = () => {
 
@@ -88,7 +85,7 @@ public componentDidMount() {
     // "NumeroMotor es: " + this.state.vehiculo.NumeroMotor + "\n" 
     // );
     if(this.validate()){
-      this.props.addVehiculo(this.state.vehiculo);
+      actionCreators.addVehiculo(this.state.vehiculo);
       console.log(this.state.vehiculo);
     } else {
       console.log("Objeto Vehiculo no paso la validacion " + this.state.vehiculo);
@@ -144,7 +141,4 @@ public componentDidMount() {
     }
 }
 
-export default connect(
-    (state: ApplicationState) => state.vehiculos, // Selects which state properties are merged into the component's props
-    VehiculosStore.actionCreators // Selects which action creators are merged into the component's props
-  )(IngresoVehiculo as any);
+
