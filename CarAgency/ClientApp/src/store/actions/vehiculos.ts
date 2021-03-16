@@ -3,11 +3,13 @@ import { AppThunkAction } from "store";
 import * as actionTypes from "store/actionTypes/vehiculos";
 import axios from 'axios';
 import {IVehiculo} from "domain/interfaces/vehiculos/IVehiculo";
+import IVehiculoListView from "domain/interfaces/vehiculos/IVehiculoListView";
 
 
 export interface VehiculoState{
     isLoading: boolean;
     startDateIndex?: number;
+    VehiculoId?: number;
     vehiculos: IVehiculo[];
 }
 
@@ -48,7 +50,6 @@ interface DeleteVehiculosSucessAction {
 type KnownAction = RequestVehiculosAction | ReceiveVehiculosAction | GetVehiculosSucessAction | AddVehiculosSucessAction  | UpdateVehiculosSucessAction    | DeleteVehiculosSucessAction ;
 
 
-
 export const actionCreators = {
     requestVehiculos: (startDateIndex: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
         // Only load data if it's something we don't already have (and are not already loading)
@@ -64,25 +65,19 @@ export const actionCreators = {
         }
     },
 
-    listView: (page: number, quantity: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        // Only load data if it's something we don't already have (and are not already loading)
-        const appState = getState();
-        fetch("vehiculos/list-view/" + page.toString() + "/" + quantity.toString())
-            .then(response => response.json() as Promise<IVehiculo[]>)
+    listView: (page: number, quantity: number): Promise<IVehiculoListView[]> => {
+        return fetch("vehiculos/list-view/" + page.toString() + "/" + quantity.toString())
+            .then(response => response.json() as Promise<IVehiculoListView[]>)
     },
 
-    getVehiculo: (vehiculoId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    getVehiculo: (vehiculoId: number): Promise<IVehiculo> => {
 
-        axios
+        return axios
         .get(`Vehiculos/` + vehiculoId)
-        .then( Response => Response )
-        .then(res => {
-          dispatch({ type: actionTypes.GET_VEHICULO_SUCESS, vehiculoId });
-        }).catch((error)=>{
-            console.log(error);
-        });
+        .then(res => res.data as IVehiculo);
 
     },
+
     addVehiculo: (vehiculo: IVehiculo): AppThunkAction<KnownAction> => (dispatch, getState) => {
 
         console.log("addVehiculo");
@@ -107,16 +102,10 @@ export const actionCreators = {
         });
 
     },
-    deleteVehiculo: (vehiculoId: number): AppThunkAction<KnownAction> => (dispatch, getState ) =>{
+    deleteVehiculo: (vehiculoId: number): Promise<IVehiculo> => {
         console.log("deleteVehiculo");
-        axios
-        .delete(`Vehiculos/` +vehiculoId)
-        .then(res => {
-          dispatch({ type: actionTypes.DELETE_VEHICULO_SUCESS,vehiculoId });
-        }).catch((error)=>{
-            console.log(error);
-        });
-
+        return axios.delete(`Vehiculos/` +vehiculoId).then( res => res.data);
+       
     }
 };
 

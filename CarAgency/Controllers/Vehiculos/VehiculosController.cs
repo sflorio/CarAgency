@@ -43,6 +43,8 @@ namespace CarAgency.Controllers
                                             .Include(e => e.Titular)
                                             .Skip( ( page -1 ) * quantity)
                                             .Take(quantity)
+                                            .OrderByDescending(e => e.VehiculoId)
+                                            .Where(e=> e.Active == true )
                                             .ToListAsync<Domain.Models.Vehiculos.Vehiculo>();
 
             return _mapper.Map<List<Domain.DTO.Vehiculos.VehiculoViewDTO>>(vehiculos);

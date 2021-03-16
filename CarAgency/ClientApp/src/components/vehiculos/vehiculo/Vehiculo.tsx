@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, Route } from 'react-router';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { ApplicationState } from 'store';
 import * as VehiculosStore from 'store/actions/vehiculos';
 import MaterialTable, { Column } from 'material-table';
+import {actionCreators} from "store/actions/vehiculos"
+import IVehiculoListView from "domain/interfaces/vehiculos/IVehiculoListView";
 
+export default class ListaVehiculos extends React.Component<any, { vehiculos: IVehiculoListView[]}> {
+  constructor(props: any){
+    super(props);
+    this.state = {
+      vehiculos: []
+    }
+  }
 
-// At runtime, Redux will merge together...
-type VehiculosProps =
-  VehiculosStore.VehiculoState // ... state we've requested from the Redux store
-  & typeof VehiculosStore.actionCreators // ... plus action creators we've requested
-  & RouteComponentProps<{ startDateIndex: string }>
-  & { redirect: null }; // ... plus incoming routing parameters
-
-class ListaVehiculos extends React.Component<VehiculosProps> {
   // This method is called when the component is first added to the document
   public componentDidMount() {
     this.ensureDataFetched();
@@ -22,10 +23,10 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
 
   // This method is called when the route parameters change
   public componentDidUpdate() {
-    this.ensureDataFetched();
+    //this.ensureDataFetched();
   }
 
-  pathToAddEditVehiculo = "ingreso-vehiculo";
+  pathToAddEditVehiculo = "/vehiculo/ingreso-vehiculo";
   TEXT_LABEL = "Vehiculos";
   FORM_DESCRIPTION = "Esta pantalla se utiliza para administrar los vehiculos cargados.";
   
@@ -34,23 +35,26 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
 
   }
 
+
+  nextPath(path: any) {
+    this.props.history.push(path);
+  }
+
+
   public render() {
     return (
       <React.Fragment>
-        <Route path={this.pathToAddEditVehiculo}>
-          algo
-        </Route>
+       
         <h1 id="tabelLabel">{this.TEXT_LABEL}</h1>
         <p>{this.FORM_DESCRIPTION}</p>
-        {this.renderTableMaterial()}
-        <Link to={this.pathToAddEditVehiculo}>Abrir form vehiculo</Link>
+        {this.renderTableMaterial()}        
       </React.Fragment>
     );
   }
 
   private ensureDataFetched() {
-    const startDateIndex = 0;
-    this.props.requestVehiculos(startDateIndex);
+
+    actionCreators.listView(1,20).then(response => this.setState({ vehiculos : response}) );
   }
 
   private renderTableMaterial(){
@@ -68,34 +72,38 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
         { title: 'Marca', field: 'Marca' },
         { title: 'Modelo', field: 'Modelo' },
         { title: 'Tipo Vehiculo', field: 'TipoVehiculo' },
+        { title: 'Titular', field: 'Titular' },
         { title: 'Año', field: 'Ano' }
       ]}
-      data={this.props.vehiculos}
+      data={this.state.vehiculos}
+      actions={[
+        {
+          icon: 'add',
+          tooltip: 'Add User',
+          isFreeAction: true,
+          onClick: (event) => this.nextPath(this.pathToAddEditVehiculo) 
+        },
+        {
+          icon: 'save',
+          tooltip: 'Save User',
+          onClick: (event, rowData) =>this.nextPath(this.pathToAddEditVehiculo + "/" + rowData.VehiculoId  )  
+        } 
+      ]}
       editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              this.props.addVehiculo(newData);
-              resolve();
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise((resolve) => {
-            setTimeout(() => {
-              if (oldData) {
-                this.props.updateVehiculo(( oldData.VehiculoId == null ? 0: oldData.VehiculoId), newData);
-                this.props.requestVehiculos(0);
-                resolve();
-              }
-              resolve();
-            }, 600);
-          }),
+           
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
             setTimeout(() => {
               
-              this.props.deleteVehiculo(( oldData.VehiculoId == null ? 0: oldData.VehiculoId));
-              this.props.requestVehiculos(0);
+              actionCreators.deleteVehiculo(oldData.VehiculoId).then(res => {
+                var list = this.state.vehiculos;
+                list = list.filter(e => e.VehiculoId != res.VehiculoId );
+                this.setState({ vehiculos : list} );
+              } ).catch(e => {
+                console.log(e);
+              });
+              
+
               resolve();
             }, 600);
           }),
@@ -104,8 +112,3 @@ class ListaVehiculos extends React.Component<VehiculosProps> {
     );
   }
 }
-
-export default connect(
-  (state: ApplicationState) => state.vehiculos, // Selects which state properties are merged into the component's props
-  VehiculosStore.actionCreators // Selects which action creators are merged into the component's props
-)(ListaVehiculos as any);

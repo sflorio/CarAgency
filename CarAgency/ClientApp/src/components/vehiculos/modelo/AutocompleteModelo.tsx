@@ -15,7 +15,7 @@ export default function AutocompleteModelo({modelo, marca ,onChange }: {modelo: 
      useEffect(() => {
         var id = 0;
         
-        if( !( typeof marca === 'undefined')  ){
+        if( !(  marca == null)  ){
             id = ( marca.MarcaId == null ? 0 : marca.MarcaId );
         }
 
